@@ -9,7 +9,7 @@ class _OrdersStepperScreenState extends State<OrdersStepperScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      body: Stack(),
     );
   }
 }
