@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="79" height="80" viewBox="0 0 79 80">
+  <g id="Group_45075" data-name="Group 45075" transform="translate(-175 -793)">
+    <rect id="Rectangle_4746" data-name="Rectangle 4746" width="69" height="69" rx="6" transform="translate(180 798)" fill="#613fb9"/>
+    <g id="Group_6772" data-name="Group 6772">
+      <g id="Rectangle_4747" data-name="Rectangle 4747" transform="translate(254 793) rotate(90)" fill="none" stroke="#613fb9" stroke-linecap="square" stroke-width="1" stroke-dasharray="60 1000">
+        <rect width="50" height="40" rx="9" stroke="none"/>
+        <rect x="0.5" y="0.5" width="49" height="39" rx="8.5" fill="none"/>
+      </g>
+      <g id="Rectangle_4748" data-name="Rectangle 4748" transform="translate(175 793)" fill="none" stroke="#613fb9" stroke-linecap="square" stroke-width="1" stroke-dasharray="60 1000">
+        <rect width="50" height="40" rx="9" stroke="none"/>
+        <rect x="0.5" y="0.5" width="49" height="39" rx="8.5" fill="none"/>
+      </g>
+    </g>
+    <g id="Group_6773" data-name="Group 6773" transform="translate(254 873) rotate(180)">
+      <g id="Rectangle_4747-2" data-name="Rectangle 4747" transform="translate(79) rotate(90)" fill="none" stroke="#613fb9" stroke-linecap="square" stroke-width="1" stroke-dasharray="60 1000">
+        <rect width="50" height="40" rx="9" stroke="none"/>
+        <rect x="0.5" y="0.5" width="49" height="39" rx="8.5" fill="none"/>
+      </g>
+      <g id="Rectangle_4748-2" data-name="Rectangle 4748" fill="none" stroke="#613fb9" stroke-linecap="square" stroke-width="1" stroke-dasharray="60 1000">
+        <rect width="50" height="40" rx="9" stroke="none"/>
+        <rect x="0.5" y="0.5" width="49" height="39" rx="8.5" fill="none"/>
+      </g>
+    </g>
+  </g>
+</svg>
