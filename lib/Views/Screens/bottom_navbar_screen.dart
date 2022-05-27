@@ -18,7 +18,7 @@ class ProvidedStylesExample extends StatefulWidget {
 
 class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
   late PersistentTabController _controller;
-  late bool _hideNavBar;
+  late bool _hideNavBar = false;
 
   int selectedItemId = 0;
 
@@ -158,7 +158,6 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
           ),
           screens: _buildScreens(context),
           items: _navBarsItems(),
-
           confineInSafeArea: true,
           backgroundColor: Colors.white,
           handleAndroidBackButtonPress: true,

@@ -36,7 +36,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           body: Stack(
             children: [
               Container(
-                height: 18.h,
+                height: 20.h,
                 color: kMainColor.withOpacity(.05),
                 child: Column(
                   children: [
@@ -102,7 +102,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 18.h),
+                padding: EdgeInsets.only(top: 20.h),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

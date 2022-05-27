@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="63" height="63" viewBox="0 0 63 63">
+  <defs>
+    <filter id="Ellipse_8" x="5" y="5" width="53" height="53" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#613fb9" flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Ellipse_11" x="0" y="0" width="63" height="63" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-color="#613fb9" flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="shops_location" data-name="shops location" transform="translate(12.784 -223.76)">
+    <g transform="matrix(1, 0, 0, 1, -12.78, 223.76)" filter="url(#Ellipse_8)">
+      <circle id="Ellipse_8-2" data-name="Ellipse 8" cx="17.5" cy="17.5" r="17.5" transform="translate(14 11)" fill="rgba(193,193,193,0.21)"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, -12.78, 223.76)" filter="url(#Ellipse_11)">
+      <circle id="Ellipse_11-2" data-name="Ellipse 11" cx="22.5" cy="22.5" r="22.5" transform="translate(9 6)" fill="rgba(97,63,185,0.21)"/>
+    </g>
+    <path id="Path_24980" data-name="Path 24980" d="M10.5,0A10.5,10.5,0,1,1,0,10.5,10.5,10.5,0,0,1,10.5,0Z" transform="translate(8.216 241.76)" fill="#613fb9"/>
+    <path id="Path_24980_-_Outline" data-name="Path 24980 - Outline" d="M10.5,3A7.5,7.5,0,1,0,18,10.5,7.508,7.508,0,0,0,10.5,3m0-3A10.5,10.5,0,1,1,0,10.5,10.5,10.5,0,0,1,10.5,0Z" transform="translate(8.216 241.76)" fill="#fff"/>
+  </g>
+</svg>

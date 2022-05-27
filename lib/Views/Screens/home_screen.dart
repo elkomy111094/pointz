@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
           body: Stack(
             children: [
               Container(
-                height: 18.h,
+                height: 20.h,
                 color: kMainColor.withOpacity(.05),
                 child: Column(
                   children: [
