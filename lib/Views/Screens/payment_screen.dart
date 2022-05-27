@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:pointz/Views/Screens/oreder_tracking.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants/colors.dart';
@@ -428,7 +429,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             buttonColor: kMainColor,
                             textColor: Colors.white,
                             textSize: 12.sp,
-                            onPressed: () {},
+                            onPressed: () {
+                              pushToStack(context, OrderTracking());
+                            },
                             text: "تنفيذ الطلب"),
                       ],
                     ),
