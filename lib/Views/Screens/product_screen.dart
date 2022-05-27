@@ -22,7 +22,7 @@ class _ProductScreenState extends State<ProductScreen> {
           body: Stack(
             children: [
               Container(
-                height: 50.h,
+                height: 40.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.red,
@@ -37,7 +37,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: 50.h,
+                      height: 40.h,
                       child: Column(
                         children: [
                           Padding(
@@ -246,11 +246,11 @@ class _ProductScreenState extends State<ProductScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 5.h,
                     ),
                     Center(
                       child: Container(
-                        width: 80.w,
+                        width: 70.w,
                         decoration: BoxDecoration(
                           color: kMainColor,
                           borderRadius: BorderRadius.circular(2.h),

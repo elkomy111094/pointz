@@ -149,9 +149,10 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
           floatingActionButton: FloatingActionButton(
             elevation: 10,
             backgroundColor: Colors.white,
+            mini: true,
             onPressed: () {},
             child: Padding(
-              padding: EdgeInsets.all(2.h),
+              padding: EdgeInsets.all(1.h),
               child:
                   Center(child: SvgPicture.asset("assets/icons/favorites.svg")),
             ),

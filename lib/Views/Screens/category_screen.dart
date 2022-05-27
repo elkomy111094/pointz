@@ -193,7 +193,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               height: 1.h,
                             ),
                             Container(
-                              height: 35.h,
+                              height: 37.h,
                               child: ListView.separated(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 3.w),

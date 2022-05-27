@@ -5,12 +5,12 @@ import 'package:pointz/Views/Screens/product_screen.dart';
 import 'package:pointz/helper/components.dart';
 import 'package:sizer/sizer.dart';
 
-class CardItem extends StatelessWidget {
+class OfferItemWidget extends StatelessWidget {
   BuildContext currentContext;
 
   Widget? tabNavigateToScreen;
 
-  CardItem({required this.currentContext, this.tabNavigateToScreen});
+  OfferItemWidget({required this.currentContext, this.tabNavigateToScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -59,31 +59,6 @@ class CardItem extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Padding(
-                            padding: EdgeInsets.all(1.h),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "4.7",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 10.sp,
-                                        color: Colors.orangeAccent),
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.orangeAccent,
-                                    size: 2.h,
-                                  ),
-                                ]),
-                          ),
-                        ),
                       ],
                     ),
                   )
@@ -108,15 +83,15 @@ class CardItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SvgPicture.asset(
-                          "assets/icons/distance.svg",
-                          width: 2.h,
-                          height: 2.h,
+                          "assets/icons/navbar_icons/offers.svg",
+                          width: 3.h,
+                          height: 3.h,
                         ),
                         SizedBox(
                           width: 2.w,
                         ),
                         Text(
-                          "4.4KM",
+                          "SR 70",
                           style: TextStyle(
                               color: Colors.deepPurpleAccent,
                               fontWeight: FontWeight.bold,
