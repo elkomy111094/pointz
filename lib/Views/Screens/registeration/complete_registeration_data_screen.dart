@@ -74,7 +74,8 @@ class _CompleteRegisterationDataState extends State<CompleteRegisterationData> {
                                                 "من فضلك أكمل تسجيل بياناتك للمتابعه",
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontFamily: "Hacen",
+                                                fontFamily: "Taga",
+                                                fontWeight: FontWeight.bold,
                                                 fontSize: 12.sp,
                                                 wordSpacing: 1.2)),
                                       ),
@@ -98,10 +99,11 @@ class _CompleteRegisterationDataState extends State<CompleteRegisterationData> {
                                                       text: TextSpan(
                                                           text: "الاسم الاول",
                                                           style: TextStyle(
-                                                            letterSpacing: 1.5,
                                                             color: kMainColor,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             fontSize: 10.sp,
-                                                            fontFamily: "Hacen",
+                                                            fontFamily: "Taga",
                                                           )),
                                                     ),
                                                   ],
@@ -137,10 +139,11 @@ class _CompleteRegisterationDataState extends State<CompleteRegisterationData> {
                                                       text: TextSpan(
                                                           text: "الاسم الاخير",
                                                           style: TextStyle(
-                                                            letterSpacing: 1.5,
                                                             color: kMainColor,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             fontSize: 10.sp,
-                                                            fontFamily: "Hacen",
+                                                            fontFamily: "Taga",
                                                           )),
                                                     ),
                                                   ],
@@ -183,10 +186,11 @@ class _CompleteRegisterationDataState extends State<CompleteRegisterationData> {
                                                           text:
                                                               "البريد الالكتروني",
                                                           style: TextStyle(
-                                                            letterSpacing: 1.5,
                                                             color: kMainColor,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             fontSize: 10.sp,
-                                                            fontFamily: "Hacen",
+                                                            fontFamily: "Taga",
                                                           )),
                                                     ),
                                                   ],
@@ -228,10 +232,11 @@ class _CompleteRegisterationDataState extends State<CompleteRegisterationData> {
                                                       text: TextSpan(
                                                           text: "تاريخ الميلاد",
                                                           style: TextStyle(
-                                                            letterSpacing: 1.5,
                                                             color: kMainColor,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             fontSize: 10.sp,
-                                                            fontFamily: "Hacen",
+                                                            fontFamily: "Taga",
                                                           )),
                                                     ),
                                                   ],
@@ -267,7 +272,9 @@ class _CompleteRegisterationDataState extends State<CompleteRegisterationData> {
                                               text: TextSpan(
                                                   text: "النوع",
                                                   style: TextStyle(
-                                                      fontFamily: "Hacen",
+                                                      fontFamily: "Taga",
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontSize: 12.sp,
                                                       color: Colors.black))),
                                           Container(
@@ -285,7 +292,7 @@ class _CompleteRegisterationDataState extends State<CompleteRegisterationData> {
                                                     "ذكر",
                                                     style: TextStyle(
                                                         color: Colors.black,
-                                                        fontFamily: "Hacen",
+                                                        fontFamily: "Taga",
                                                         fontSize: 12.sp),
                                                   ),
                                                   onChanged: (val) {
@@ -309,7 +316,7 @@ class _CompleteRegisterationDataState extends State<CompleteRegisterationData> {
                                                     "أنثي",
                                                     style: TextStyle(
                                                         color: Colors.black,
-                                                        fontFamily: "Hacen",
+                                                        fontFamily: "Taga",
                                                         fontSize: 10.sp),
                                                   ),
                                                   groupValue: groupValue,

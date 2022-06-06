@@ -10,7 +10,12 @@ class CardItem extends StatelessWidget {
 
   Widget? tabNavigateToScreen;
 
-  CardItem({required this.currentContext, this.tabNavigateToScreen});
+  bool isFavorite;
+
+  CardItem(
+      {required this.currentContext,
+      this.tabNavigateToScreen,
+      this.isFavorite = false});
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +57,18 @@ class CardItem extends StatelessWidget {
                           child: CircleAvatar(
                             radius: 2.5.h,
                             backgroundColor: Colors.white,
-                            child: Icon(
-                              Icons.favorite_border_outlined,
-                              color: Colors.red,
-                            ),
+                            child: isFavorite
+                                ? Padding(
+                                    padding: EdgeInsets.all(1.h),
+                                    child: SvgPicture.asset(
+                                        "assets/icons/favorites.svg"),
+                                  )
+                                : Center(
+                                    child: Icon(
+                                      Icons.favorite_border_outlined,
+                                      color: Colors.red,
+                                    ),
+                                  ),
                           ),
                         ),
                         const Spacer(),
@@ -101,7 +114,7 @@ class CardItem extends StatelessWidget {
                     ),
                     Text(
                       "آزور مطعم إسباني",
-                      style: TextStyle(fontSize: 10.sp, fontFamily: "Hacen"),
+                      style: TextStyle(fontSize: 10.sp, fontFamily: "Taga"),
                     ),
                     Spacer(),
                     Row(
@@ -133,7 +146,7 @@ class CardItem extends StatelessWidget {
                   "أديداس تعتبر من أكبر الشركات عالمياً في تصنيع الأدوات الرياضية وتحديداً الأحذية ",
                   style: TextStyle(
                       fontSize: 10.sp,
-                      fontFamily: "Hacen",
+                      fontFamily: "Taga",
                       color: Colors.grey.shade500),
                 ),
               )

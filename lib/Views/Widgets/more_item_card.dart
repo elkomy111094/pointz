@@ -35,10 +35,13 @@ class MoreItemCard extends StatelessWidget {
                       color: kMainColor.withOpacity(.2),
                       shape: BoxShape.circle,
                     ),
-                    child: Center(
-                      child: SvgPicture.asset(
-                        iconUrl,
-                        color: Colors.black,
+                    child: Padding(
+                      padding: EdgeInsets.all(1.h),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          iconUrl,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),
@@ -49,7 +52,7 @@ class MoreItemCard extends StatelessWidget {
                     title,
                     style: TextStyle(
                         color: Colors.black,
-                        fontFamily: "Hacen",
+                        fontFamily: "Taga",
                         fontSize: 12.sp),
                   ),
                 ],
@@ -62,7 +65,11 @@ class MoreItemCard extends StatelessWidget {
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(color: kMainColor, width: 1)),
-                  child: Icon(Icons.arrow_forward_ios, color: kMainColor),
+                  child: Icon(
+                    Icons.arrow_forward_ios,
+                    color: kMainColor,
+                    size: 10.sp,
+                  ),
                 ),
               ),
             ],

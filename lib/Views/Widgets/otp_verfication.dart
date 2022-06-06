@@ -70,7 +70,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                       appContext: context,
                       pastedTextStyle: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontFamily: "Hacen",
+                        fontFamily: "Taga",
                       ),
                       length: 4,
                       obscureText: true,
@@ -141,7 +141,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                       text: TextSpan(
                           text: "59:00",
                           style: TextStyle(
-                              color: Colors.black, fontFamily: "Hacen"))),
+                              color: Colors.black, fontFamily: "Taga"))),
                   SizedBox(
                     width: 3.w,
                   ),
@@ -152,7 +152,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                         style: TextStyle(
                             color: Colors.grey,
                             fontSize: 12.sp,
-                            fontFamily: "Hacen"),
+                            fontFamily: "Taga"),
                       )),
                 ],
               ),

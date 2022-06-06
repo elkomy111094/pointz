@@ -76,7 +76,7 @@ class OfferItemWidget extends StatelessWidget {
                     ),
                     Text(
                       "آزور مطعم إسباني",
-                      style: TextStyle(fontSize: 10.sp, fontFamily: "Hacen"),
+                      style: TextStyle(fontSize: 10.sp, fontFamily: "Taga"),
                     ),
                     Spacer(),
                     Row(
@@ -108,7 +108,7 @@ class OfferItemWidget extends StatelessWidget {
                   "أديداس تعتبر من أكبر الشركات عالمياً في تصنيع الأدوات الرياضية وتحديداً الأحذية ",
                   style: TextStyle(
                       fontSize: 10.sp,
-                      fontFamily: "Hacen",
+                      fontFamily: "Taga",
                       color: Colors.grey.shade500),
                 ),
               )

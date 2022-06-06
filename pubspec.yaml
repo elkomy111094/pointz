@@ -108,6 +108,10 @@ flutter:
       fonts:
         - asset: assets/fonts/Hacen_Saudi_Arabia.ttf
 
+    - family: Taga
+      fonts:
+        - asset: assets/fonts/ArbFONTS-Tajawal-Regular.ttf
+
 
   # fonts:
   #   - family: Schyler

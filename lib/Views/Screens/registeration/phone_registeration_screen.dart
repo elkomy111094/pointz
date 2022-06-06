@@ -72,7 +72,7 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
                                         text: "تسجيل الدخول",
                                         style: TextStyle(
                                           color: Colors.black,
-                                          fontFamily: "Hacen",
+                                          fontFamily: "Taga",
                                           fontSize: 15.sp,
                                         )),
                                   ),
@@ -94,10 +94,10 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
                                       text: TextSpan(
                                           text: "رقم الهاتف",
                                           style: TextStyle(
-                                            letterSpacing: 1.5,
                                             color: kMainColor,
-                                            fontSize: 10.sp,
-                                            fontFamily: "Hacen",
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: "Taga",
                                           )),
                                     ),
                                   ],
@@ -145,7 +145,7 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
                                                 color: Colors.black38,
                                                 decoration:
                                                     TextDecoration.underline,
-                                                fontFamily: "Hacen",
+                                                fontFamily: "Taga",
                                               )),
                                         ),
                                       ],
@@ -177,40 +177,46 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
                         height: 5.h,
                       ),
                       Center(
-                        child: Container(
-                          height: 7.h,
-                          width: 75.w,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(1.h),
-                              border: Border.all(color: kMainColor, width: 1)),
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                RichText(
-                                  text: TextSpan(
-                                      text: "لديك حساب بالفعل ؟",
-                                      style: TextStyle(
-                                        color: Colors.black38,
-                                        fontSize: 12.sp,
-                                        fontFamily: "Hacen",
-                                      )),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    pushToStack(context, Login());
-                                  },
-                                  child: RichText(
+                        child: InkWell(
+                          onTap: () {
+                            pushToStack(context, Login());
+                          },
+                          child: Container(
+                            height: 7.h,
+                            width: 75.w,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(1.h),
+                                border:
+                                    Border.all(color: kMainColor, width: 1)),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  RichText(
                                     text: TextSpan(
-                                        text: "تسجيل الدخول",
+                                        text: "لديك حساب بالفعل ؟",
                                         style: TextStyle(
-                                            color: Colors.black,
-                                            fontFamily: "Hacen",
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.bold)),
+                                          color: Colors.black38,
+                                          fontSize: 12.sp,
+                                          fontFamily: "Taga",
+                                        )),
                                   ),
-                                )
-                              ],
+                                  TextButton(
+                                    onPressed: () {
+                                      pushToStack(context, Login());
+                                    },
+                                    child: RichText(
+                                      text: TextSpan(
+                                          text: "تسجيل الدخول",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontFamily: "Taga",
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),

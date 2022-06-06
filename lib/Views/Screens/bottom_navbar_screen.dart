@@ -56,8 +56,9 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         title: "الرئيسيه",
         activeColorPrimary: Colors.blue,
         textStyle: TextStyle(
-            fontFamily: "Hacen",
+            fontFamily: "Taga",
             fontSize: 10.sp,
+            fontWeight: FontWeight.bold,
             color: selectedItemId == 0 ? kMainColor : Colors.grey),
       ),
       PersistentBottomNavBarItem(
@@ -75,18 +76,18 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         title: "الطلبات",
         activeColorPrimary: Colors.blue,
         textStyle: TextStyle(
-            fontFamily: "Hacen",
+            fontFamily: "Taga",
             fontSize: 10.sp,
+            fontWeight: FontWeight.bold,
             color: selectedItemId == 1 ? kMainColor : Colors.grey),
       ),
       PersistentBottomNavBarItem(
         activeColorSecondary: kMainColor,
-        contentPadding: 10,
         icon: Container(
           child: Center(
             child: SvgPicture.asset(
               "assets/icons/navbar_icons/points.svg",
-              color: selectedItemId == 2 ? Colors.white : Colors.grey,
+              color: selectedItemId == 2 ? Colors.white : Colors.white,
               width: 4.h,
               height: 4.h,
             ),
@@ -95,8 +96,10 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         title: "نقاطي",
         activeColorPrimary: kMainColor,
         textStyle: TextStyle(
-            fontFamily: "Hacen",
+            fontFamily: "Taga",
             fontSize: 10.sp,
+            height: .04,
+            fontWeight: FontWeight.bold,
             color: selectedItemId == 2 ? kMainColor : Colors.grey),
       ),
       PersistentBottomNavBarItem(
@@ -112,8 +115,9 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         title: "العروض",
         activeColorPrimary: Colors.blue,
         textStyle: TextStyle(
-            fontFamily: "Hacen",
+            fontFamily: "Taga",
             fontSize: 10.sp,
+            fontWeight: FontWeight.bold,
             color: selectedItemId == 3 ? kMainColor : Colors.grey),
       ),
       PersistentBottomNavBarItem(
@@ -131,8 +135,9 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         title: "المزيد",
         activeColorPrimary: Colors.blue,
         textStyle: TextStyle(
-            fontFamily: "Hacen",
+            fontFamily: "Taga",
             fontSize: 10.sp,
+            fontWeight: FontWeight.bold,
             color: selectedItemId == 4 ? kMainColor : Colors.grey),
       ),
     ];
@@ -146,17 +151,6 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         body: PersistentTabView(
           context,
           controller: _controller,
-          floatingActionButton: FloatingActionButton(
-            elevation: 10,
-            backgroundColor: Colors.white,
-            mini: true,
-            onPressed: () {},
-            child: Padding(
-              padding: EdgeInsets.all(1.h),
-              child:
-                  Center(child: SvgPicture.asset("assets/icons/favorites.svg")),
-            ),
-          ),
           screens: _buildScreens(context),
           items: _navBarsItems(),
           confineInSafeArea: true,
@@ -164,7 +158,8 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
           handleAndroidBackButtonPress: true,
           resizeToAvoidBottomInset: true,
           stateManagement: true,
-          navBarHeight: 10.h,
+          padding: NavBarPadding.all(1.h),
+          navBarHeight: 9.h,
           onItemSelected: (id) {
             print(id);
             setState(() {
@@ -182,11 +177,11 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
               colorBehindNavBar: Colors.indigo,
               borderRadius: BorderRadius.circular(20.0)),
           popAllScreensOnTapOfSelectedTab: true,
-          itemAnimationProperties: ItemAnimationProperties(
+          itemAnimationProperties: const ItemAnimationProperties(
             duration: Duration(milliseconds: 400),
             curve: Curves.ease,
           ),
-          screenTransitionAnimation: ScreenTransitionAnimation(
+          screenTransitionAnimation: const ScreenTransitionAnimation(
             animateTabTransition: true,
             curve: Curves.ease,
             duration: Duration(milliseconds: 300),

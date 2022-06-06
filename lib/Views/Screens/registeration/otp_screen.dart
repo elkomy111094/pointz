@@ -40,20 +40,20 @@ class OTPScreen extends StatelessWidget {
                                     text: "كود التحقق" + " \n\n ",
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontFamily: "Hacen",
+                                        fontFamily: "Taga",
                                         fontSize: 12.sp)),
                                 TextSpan(
                                     text: "تم أرسال كود التفعيل الي رقم" +
                                         " \n\n ",
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontFamily: "Hacen",
+                                        fontFamily: "Taga",
                                         fontSize: 12.sp)),
                                 TextSpan(
                                     text: phoneNumber,
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontFamily: "Hacen",
+                                        fontFamily: "Taga",
                                         fontSize: 12.sp)),
                               ])),
                         ),

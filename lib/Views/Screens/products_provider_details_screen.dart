@@ -110,14 +110,14 @@ class _ProductsProviderDetailsScreenState
                                     text: "1000" + "\n",
                                     style: TextStyle(
                                         fontSize: 20.sp,
-                                        fontFamily: "Hacen",
+                                        fontFamily: "Taga",
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 1.5)),
                                 TextSpan(
                                     text: "نقطه",
                                     style: TextStyle(
                                         fontSize: 15.sp,
-                                        fontFamily: "Hacen",
+                                        fontFamily: "Taga",
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 1.5)),
                               ]),
@@ -184,7 +184,7 @@ class _ProductsProviderDetailsScreenState
                                                     text: "ماكدونالدز",
                                                     style: TextStyle(
                                                       color: kMainColor,
-                                                      fontFamily: "Hacen",
+                                                      fontFamily: "Taga",
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 10.sp,
@@ -292,7 +292,7 @@ class _ProductsProviderDetailsScreenState
                                                   style: TextStyle(
                                                       color: Colors.grey,
                                                       fontSize: 8.sp,
-                                                      fontFamily: "Hacen")),
+                                                      fontFamily: "Taga")),
                                               TextSpan(
                                                   text: "AM ",
                                                   style: TextStyle(
@@ -304,13 +304,13 @@ class _ProductsProviderDetailsScreenState
                                                   style: TextStyle(
                                                       color: Colors.black,
                                                       fontSize: 8.sp,
-                                                      fontFamily: "Hacen")),
+                                                      fontFamily: "Taga")),
                                               TextSpan(
                                                   text: "  الي ",
                                                   style: TextStyle(
                                                       color: Colors.grey,
                                                       fontSize: 8.sp,
-                                                      fontFamily: "Hacen")),
+                                                      fontFamily: "Taga")),
                                               TextSpan(
                                                   text: "PM ",
                                                   style: TextStyle(
@@ -322,7 +322,7 @@ class _ProductsProviderDetailsScreenState
                                                   style: TextStyle(
                                                       color: Colors.black,
                                                       fontSize: 8.sp,
-                                                      fontFamily: "Hacen")),
+                                                      fontFamily: "Taga")),
                                             ]))
                                           ],
                                         ),
@@ -346,14 +346,14 @@ class _ProductsProviderDetailsScreenState
                                             text: "عن المطعم \n",
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontFamily: "Hacen",
+                                                fontFamily: "Taga",
                                                 fontSize: 12.sp)),
                                         TextSpan(
                                             text:
                                                 "ماك تعتبر من أكبر الشركات عالمياً في تصنيع المواد الغذائيه ماك تعتبر من أكبر الشركات عالمياً ",
                                             style: TextStyle(
                                                 color: Colors.grey,
-                                                fontFamily: "Hacen",
+                                                fontFamily: "Taga",
                                                 fontSize: 10.sp)),
                                       ])),
                                 ),
@@ -372,7 +372,7 @@ class _ProductsProviderDetailsScreenState
                                             text: "للتواصل",
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontFamily: "Hacen",
+                                                fontFamily: "Taga",
                                                 fontSize: 12.sp)),
                                       ),
                                     ),
@@ -446,7 +446,7 @@ class _ProductsProviderDetailsScreenState
                                                     text: "الخريطه",
                                                     style: TextStyle(
                                                         color: Colors.black,
-                                                        fontFamily: "Hacen",
+                                                        fontFamily: "Taga",
                                                         fontSize: 10.sp)),
                                               ),
                                             ],
@@ -476,7 +476,7 @@ class _ProductsProviderDetailsScreenState
                                                     text: "اتصال",
                                                     style: TextStyle(
                                                         color: Colors.black,
-                                                        fontFamily: "Hacen",
+                                                        fontFamily: "Taga",
                                                         fontSize: 10.sp)),
                                               ),
                                             ],
@@ -503,14 +503,14 @@ class _ProductsProviderDetailsScreenState
                             isScrollable: false,
                             indicatorColor: kMainColor,
                             labelStyle: TextStyle(
-                                fontFamily: "Hacen",
+                                fontFamily: "Taga",
                                 color: Colors.black,
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.bold),
                             unselectedLabelColor: Colors.black,
                             labelColor: kMainColor,
                             unselectedLabelStyle:
-                                TextStyle(fontSize: 10.sp, fontFamily: "Hacen"),
+                                TextStyle(fontSize: 10.sp, fontFamily: "Taga"),
                             onTap: (val) {},
                             tabs: const [
                               Tab(
@@ -591,7 +591,7 @@ class _ProductsProviderDetailsScreenState
                                                                         .black,
                                                             fontSize: 12.sp,
                                                             fontFamily:
-                                                                "Hacen")),
+                                                                "Taga")),
                                                   ),
                                                 ),
                                               ),
@@ -673,7 +673,7 @@ class _ProductsProviderDetailsScreenState
                                                                         color: Colors
                                                                             .black,
                                                                         fontFamily:
-                                                                            "Hacen",
+                                                                            "Taga",
                                                                         fontSize:
                                                                             12.sp))),
                                                             RichText(
@@ -684,7 +684,7 @@ class _ProductsProviderDetailsScreenState
                                                                         color: Colors
                                                                             .grey,
                                                                         fontFamily:
-                                                                            "Hacen",
+                                                                            "Taga",
                                                                         fontSize:
                                                                             10.sp))),
                                                             Row(
@@ -703,7 +703,7 @@ class _ProductsProviderDetailsScreenState
                                                                             color: Colors
                                                                                 .grey,
                                                                             fontFamily:
-                                                                                "Hacen",
+                                                                                "Taga",
                                                                             fontSize:
                                                                                 10.sp))),
                                                                 RichText(
@@ -714,7 +714,7 @@ class _ProductsProviderDetailsScreenState
                                                                             color: Colors
                                                                                 .black,
                                                                             fontFamily:
-                                                                                "Hacen",
+                                                                                "Taga",
                                                                             fontSize:
                                                                                 10.sp))),
                                                               ],
@@ -807,7 +807,7 @@ class _ProductsProviderDetailsScreenState
                                                     backgroundColor:
                                                         Colors.transparent,
                                                     fontSize: 12.sp,
-                                                    fontFamily: "Hacen",
+                                                    fontFamily: "Taga",
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
@@ -830,7 +830,7 @@ class _ProductsProviderDetailsScreenState
                                                             " حي 7251 مدائن الفهد جده 22347 الديه 2483",
                                                         style: TextStyle(
                                                             color: Colors.grey,
-                                                            fontFamily: "Hacen",
+                                                            fontFamily: "Taga",
                                                             fontSize: 10.sp)))
                                               ],
                                             ),

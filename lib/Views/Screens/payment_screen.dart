@@ -62,7 +62,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: kMainColor,
-                                      fontFamily: "Hacen",
+                                      fontFamily: "Taga",
                                       fontSize: 15.sp),
                                 ),
                               ),
@@ -112,7 +112,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                         letterSpacing: 1.5,
                                                         color: Colors.black,
                                                         fontSize: 10.sp,
-                                                        fontFamily: "Hacen",
+                                                        fontFamily: "Taga",
                                                       )),
                                                 ),
                                               ],
@@ -155,7 +155,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                         letterSpacing: 1.5,
                                                         color: Colors.black,
                                                         fontSize: 10.sp,
-                                                        fontFamily: "Hacen",
+                                                        fontFamily: "Taga",
                                                       )),
                                                 ),
                                               ],
@@ -192,15 +192,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                     TextSpan(
                                                         text: "رقم ال",
                                                         style: TextStyle(
-                                                          letterSpacing: 1.5,
                                                           color: Colors.black,
                                                           fontSize: 10.sp,
-                                                          fontFamily: "Hacen",
+                                                          fontFamily: "Taga",
                                                         )),
                                                     TextSpan(
                                                         text: " CCV ",
                                                         style: TextStyle(
-                                                          letterSpacing: 1.5,
                                                           color: Colors.black,
                                                           fontSize: 10.sp,
                                                         ))
@@ -271,7 +269,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       "حفظ بيانات البطاقه",
                                       style: TextStyle(
                                           color: kMainColor,
-                                          fontFamily: "Hacen"),
+                                          fontFamily: "Taga"),
                                     ))
                                   ],
                                 ),
@@ -295,7 +293,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       textAlign: TextAlign.right,
                                       style: TextStyle(
                                           color: kMainColor,
-                                          fontFamily: "Hacen",
+                                          fontFamily: "Taga",
                                           fontSize: 10.sp),
                                     ),
                                   ),
@@ -316,7 +314,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         textAlign: TextAlign.right,
                                         style: TextStyle(
                                             color: Colors.black,
-                                            fontFamily: "Hacen",
+                                            fontFamily: "Taga",
                                             fontSize: 10.sp),
                                       ),
                                     ),
@@ -331,7 +329,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           text: " 55 ",
                                           style: TextStyle(
                                               color: kMainColor,
-                                              fontFamily: "Hacen",
+                                              fontFamily: "Taga",
                                               fontSize: 10.sp)),
                                     ]))
                                   ],
@@ -351,7 +349,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         textAlign: TextAlign.right,
                                         style: TextStyle(
                                             color: Colors.black,
-                                            fontFamily: "Hacen",
+                                            fontFamily: "Taga",
                                             fontSize: 10.sp),
                                       ),
                                     ),
@@ -366,7 +364,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           text: " 55 ",
                                           style: TextStyle(
                                               color: kMainColor,
-                                              fontFamily: "Hacen",
+                                              fontFamily: "Taga",
                                               fontSize: 10.sp)),
                                     ]))
                                   ],
@@ -393,7 +391,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontFamily: "Hacen",
+                                                fontFamily: "Taga",
                                                 fontSize: 10.sp),
                                           ),
                                         ),
@@ -408,7 +406,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                               text: " 55 ",
                                               style: TextStyle(
                                                   color: kMainColor,
-                                                  fontFamily: "Hacen",
+                                                  fontFamily: "Taga",
                                                   fontSize: 10.sp)),
                                         ]))
                                       ],

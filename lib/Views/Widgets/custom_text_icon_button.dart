@@ -53,9 +53,7 @@ class CustomTextIconButton extends StatelessWidget {
                 child: Text(
                   text,
                   style: TextStyle(
-                      fontFamily: "Hacen",
-                      fontSize: textSize,
-                      color: textColor),
+                      fontFamily: "Taga", fontSize: textSize, color: textColor),
                 ),
               ),
               icon,

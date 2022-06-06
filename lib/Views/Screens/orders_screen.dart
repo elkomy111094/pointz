@@ -45,7 +45,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                 text: "طلبي الحالي",
                                 style: TextStyle(
                                   color: kMainColor,
-                                  fontFamily: "Hacen",
+                                  fontFamily: "Taga",
                                   fontSize: 12.sp,
                                 )),
                           ),
@@ -65,7 +65,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 12,
-                                    fontFamily: "Hacen"),
+                                    fontFamily: "Taga"),
                               ),
                             ),
                           ),
@@ -118,7 +118,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                                 text: "ماكدونلدز",
                                                 style: TextStyle(
                                                     color: kMainColor,
-                                                    fontFamily: "Hacen",
+                                                    fontFamily: "Taga",
                                                     fontSize: 12.sp)),
                                           ),
                                           SizedBox(
@@ -190,14 +190,14 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                       style: TextStyle(
                                           height: .2.h,
                                           color: Colors.black,
-                                          fontFamily: "Hacen",
+                                          fontFamily: "Taga",
                                           fontSize: 11.sp)),
                                   TextSpan(
                                       text:
                                           "قطع دجاج تقدم مع بطاطس ، 1 كولوسلو ، 3 خبز",
                                       style: TextStyle(
                                           color: Colors.grey,
-                                          fontFamily: "Hacen",
+                                          fontFamily: "Taga",
                                           fontSize: 10.sp)),
                                 ])),
                                 SizedBox(
@@ -227,7 +227,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                 text: "طلباتي السابقه",
                                 style: TextStyle(
                                   color: kMainColor,
-                                  fontFamily: "Hacen",
+                                  fontFamily: "Taga",
                                   fontSize: 12.sp,
                                 )),
                           ),
@@ -247,7 +247,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 12,
-                                    fontFamily: "Hacen"),
+                                    fontFamily: "Taga"),
                               ),
                             ),
                           ),
@@ -257,7 +257,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                         height: 1.h,
                       ),
                       Container(
-                        height: 30.h,
+                        height: 40.h,
                         color: Colors.white,
                         child: Padding(
                           padding: EdgeInsets.all(1.h),
@@ -279,8 +279,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Container(
-                                              width: 7.h,
-                                              height: 7.h,
+                                              width: 6.h,
+                                              height: 6.h,
                                               decoration: BoxDecoration(
                                                 color: kBackGroundColor,
                                                 image: DecorationImage(
@@ -313,7 +313,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                                                 color:
                                                                     kMainColor,
                                                                 fontFamily:
-                                                                    "Hacen",
+                                                                    "Taga",
                                                                 fontSize:
                                                                     12.sp)),
                                                       ),
@@ -427,7 +427,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                                               "قطع دجاج تقدم مع بطاطس ، 1 كولوسلو ، 3 خبزقطع دجاج تقدم مع بطاطس ، 1 كولوسلو ، 3 خبزقطع دجاج تقدم مع بطاطس ، 1 كولوسلو ، 3 خبزقطع دجاج تقدم مع بطاطس ، 1 كولوسلو ، 3 خبز",
                                                           style: TextStyle(
                                                               fontFamily:
-                                                                  "Hacen",
+                                                                  "Taga",
                                                               color: Colors
                                                                   .black))),
                                                 ),
@@ -457,7 +457,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                                     "11/10/1994",
                                                     style: TextStyle(
                                                         color: Colors.grey,
-                                                        fontFamily: "Hacen",
+                                                        fontFamily: "Taga",
                                                         fontSize: 10.sp),
                                                   ),
                                                 ],
@@ -476,7 +476,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                                     "تم استلام الطلب بنجاح",
                                                     style: TextStyle(
                                                         color: Colors.grey,
-                                                        fontFamily: "Hacen",
+                                                        fontFamily: "Taga",
                                                         fontSize: 10.sp),
                                                   ),
                                                 ],

@@ -49,7 +49,7 @@ class CustomTextButton extends StatelessWidget {
               text,
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontFamily: "Hacen", fontSize: textSize, color: textColor),
+                  fontFamily: "Taga", fontSize: textSize, color: textColor),
             ),
           ),
           onPressed: onPressed,

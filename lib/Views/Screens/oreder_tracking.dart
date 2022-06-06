@@ -33,9 +33,7 @@ class _OrderTrackingState extends State<OrderTracking> {
                 label: Text(
                   "تم إستلام طلبي",
                   style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: "Hacen",
-                      fontSize: 10.sp),
+                      color: Colors.white, fontFamily: "Taga", fontSize: 10.sp),
                 ),
               )
             : null,
@@ -79,7 +77,7 @@ class _OrderTrackingState extends State<OrderTracking> {
                   "الغاء الطلب",
                   style: TextStyle(
                     color: Colors.white,
-                    fontFamily: "Hacen",
+                    fontFamily: "Taga",
                     fontSize: 12.sp,
                   ),
                 ),
@@ -173,7 +171,7 @@ class _OrderTrackingState extends State<OrderTracking> {
                                                       "\n",
                                                   style: TextStyle(
                                                     color: kMainColor,
-                                                    fontFamily: "Hacen",
+                                                    fontFamily: "Taga",
                                                     fontSize: 10.sp,
                                                   )),
                                               TextSpan(
@@ -182,7 +180,7 @@ class _OrderTrackingState extends State<OrderTracking> {
                                                       .toString(),
                                                   style: TextStyle(
                                                     color: Colors.grey,
-                                                    fontFamily: "Hacen",
+                                                    fontFamily: "Taga",
                                                     fontSize: 10.sp,
                                                   )),
                                             ]),
@@ -217,14 +215,14 @@ class _OrderTrackingState extends State<OrderTracking> {
                                           color: currentStep >= 0
                                               ? kMainColor
                                               : Colors.grey,
-                                          fontFamily: "Hacen",
+                                          fontFamily: "Taga",
                                           fontSize: 10.sp,
                                         )),
                                     content: Text(
                                         steppesDetails[0]["desc"].toString(),
                                         style: TextStyle(
                                           color: Colors.grey,
-                                          fontFamily: "Hacen",
+                                          fontFamily: "Taga",
                                           fontSize: 10.sp,
                                         ))),
                                 Step(
@@ -234,14 +232,14 @@ class _OrderTrackingState extends State<OrderTracking> {
                                           color: currentStep >= 1
                                               ? kMainColor
                                               : Colors.grey,
-                                          fontFamily: "Hacen",
+                                          fontFamily: "Taga",
                                           fontSize: 10.sp,
                                         )),
                                     content: Text(
                                         steppesDetails[1]["desc"].toString(),
                                         style: TextStyle(
                                           color: Colors.grey,
-                                          fontFamily: "Hacen",
+                                          fontFamily: "Taga",
                                           fontSize: 10.sp,
                                         ))),
                                 Step(
@@ -251,14 +249,14 @@ class _OrderTrackingState extends State<OrderTracking> {
                                           color: currentStep == 2
                                               ? kMainColor
                                               : Colors.grey,
-                                          fontFamily: "Hacen",
+                                          fontFamily: "Taga",
                                           fontSize: 10.sp,
                                         )),
                                     content: Text(
                                         steppesDetails[2]["desc"].toString(),
                                         style: TextStyle(
                                           color: Colors.grey,
-                                          fontFamily: "Hacen",
+                                          fontFamily: "Taga",
                                           fontSize: 10.sp,
                                         ))),
                               ]),

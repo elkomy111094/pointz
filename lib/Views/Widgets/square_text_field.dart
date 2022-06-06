@@ -59,7 +59,7 @@ class SquareTextField extends StatelessWidget {
             obscuringCharacter: "•",
             obscureText: obsecureance,
             style: TextStyle(
-                color: Colors.black, fontFamily: "Hacen", fontSize: 12.sp),
+                color: Colors.black, fontFamily: "Taga", fontSize: 12.sp),
             decoration: InputDecoration(
               fillColor: fillColor,
               filled: true,
@@ -75,7 +75,7 @@ class SquareTextField extends StatelessWidget {
               suffixIcon: suffixWidget,
               prefixIcon: preFixWidget,
               hintStyle: TextStyle(
-                  color: Colors.black26, fontFamily: "Hacen", fontSize: 10.sp),
+                  color: Colors.black26, fontFamily: "Taga", fontSize: 10.sp),
             ),
           ),
         ),

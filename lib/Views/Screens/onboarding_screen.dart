@@ -108,8 +108,9 @@ class _OnBoardingState extends State<OnBoarding> {
                                         ["desc"],
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontFamily: "Hacen",
-                                        fontSize: 12.sp)),
+                                        fontFamily: "Taga",
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 13.sp)),
                               ),
                             ),
                           ],
@@ -133,7 +134,7 @@ class _OnBoardingState extends State<OnBoarding> {
               child: Text(
                 "تخطي",
                 style: TextStyle(
-                    color: Colors.black, fontFamily: "Hacen", fontSize: 12.sp),
+                    color: Colors.black, fontFamily: "Taga", fontSize: 13.sp),
               ),
             ),
           ),
@@ -227,7 +228,7 @@ class _OnBoardingState extends State<OnBoarding> {
                                     text: TextSpan(
                                         style: TextStyle(
                                             color: Colors.white,
-                                            fontFamily: "Hacen",
+                                            fontFamily: "Taga",
                                             fontSize: 10.sp),
                                         text: "أبداء"),
                                   ),

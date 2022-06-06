@@ -29,9 +29,7 @@ class SimpleHeader extends StatelessWidget {
                     headerTitle,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: kMainColor,
-                        fontFamily: "Hacen",
-                        fontSize: 15.sp),
+                        color: kMainColor, fontFamily: "Taga", fontSize: 15.sp),
                   ),
                 ),
               ),

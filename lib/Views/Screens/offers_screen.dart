@@ -38,7 +38,7 @@ class _OffersScreenState extends State<OffersScreen> {
                         textAlign: TextAlign.right,
                         style: TextStyle(
                             color: kMainColor,
-                            fontFamily: "Hacen",
+                            fontFamily: "Taga",
                             fontSize: 10.sp),
                       ),
                     ],
@@ -78,7 +78,7 @@ class _OffersScreenState extends State<OffersScreen> {
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                   color: kMainColor,
-                                  fontFamily: "Hacen",
+                                  fontFamily: "Taga",
                                   fontSize: 10.sp),
                             ),
                           ),

@@ -59,7 +59,7 @@ class _ShippingCartScreenState extends State<ShippingCartScreen> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: kMainColor,
-                                    fontFamily: "Hacen",
+                                    fontFamily: "Taga",
                                     fontSize: 15.sp),
                               ),
                             ),
@@ -142,7 +142,7 @@ class _ShippingCartScreenState extends State<ShippingCartScreen> {
                                                                   color: Colors
                                                                       .black,
                                                                   fontFamily:
-                                                                      "Hacen",
+                                                                      "Taga",
                                                                   fontSize:
                                                                       12.sp))),
                                                       RichText(
@@ -153,7 +153,7 @@ class _ShippingCartScreenState extends State<ShippingCartScreen> {
                                                                   color: Colors
                                                                       .grey,
                                                                   fontFamily:
-                                                                      "Hacen",
+                                                                      "Taga",
                                                                   fontSize:
                                                                       10.sp))),
                                                       Row(
@@ -205,7 +205,7 @@ class _ShippingCartScreenState extends State<ShippingCartScreen> {
                                                                       fontSize:
                                                                           15.sp,
                                                                       fontFamily:
-                                                                          "Hacen"))),
+                                                                          "Taga"))),
                                                           SizedBox(
                                                             width: 5.w,
                                                           ),
@@ -304,7 +304,7 @@ class _ShippingCartScreenState extends State<ShippingCartScreen> {
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
                                         color: kMainColor,
-                                        fontFamily: "Hacen",
+                                        fontFamily: "Taga",
                                         fontSize: 10.sp),
                                   ),
                                 ),
@@ -337,7 +337,7 @@ class _ShippingCartScreenState extends State<ShippingCartScreen> {
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
                                         color: kMainColor,
-                                        fontFamily: "Hacen",
+                                        fontFamily: "Taga",
                                         fontSize: 12.sp),
                                   ),
                                 ),
@@ -357,7 +357,7 @@ class _ShippingCartScreenState extends State<ShippingCartScreen> {
                             textAlign: TextAlign.right,
                             style: TextStyle(
                                 color: kMainColor,
-                                fontFamily: "Hacen",
+                                fontFamily: "Taga",
                                 fontSize: 10.sp),
                           ),
                         ),
@@ -377,7 +377,7 @@ class _ShippingCartScreenState extends State<ShippingCartScreen> {
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                   color: Colors.black,
-                                  fontFamily: "Hacen",
+                                  fontFamily: "Taga",
                                   fontSize: 10.sp),
                             ),
                           ),
@@ -391,7 +391,7 @@ class _ShippingCartScreenState extends State<ShippingCartScreen> {
                                 text: " 55 ",
                                 style: TextStyle(
                                     color: kMainColor,
-                                    fontFamily: "Hacen",
+                                    fontFamily: "Taga",
                                     fontSize: 10.sp)),
                           ]))
                         ],
@@ -410,7 +410,7 @@ class _ShippingCartScreenState extends State<ShippingCartScreen> {
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                   color: Colors.black,
-                                  fontFamily: "Hacen",
+                                  fontFamily: "Taga",
                                   fontSize: 10.sp),
                             ),
                           ),
@@ -424,7 +424,7 @@ class _ShippingCartScreenState extends State<ShippingCartScreen> {
                                 text: " 55 ",
                                 style: TextStyle(
                                     color: kMainColor,
-                                    fontFamily: "Hacen",
+                                    fontFamily: "Taga",
                                     fontSize: 10.sp)),
                           ]))
                         ],
@@ -449,7 +449,7 @@ class _ShippingCartScreenState extends State<ShippingCartScreen> {
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontFamily: "Hacen",
+                                      fontFamily: "Taga",
                                       fontSize: 10.sp),
                                 ),
                               ),
@@ -463,7 +463,7 @@ class _ShippingCartScreenState extends State<ShippingCartScreen> {
                                     text: " 55 ",
                                     style: TextStyle(
                                         color: kMainColor,
-                                        fontFamily: "Hacen",
+                                        fontFamily: "Taga",
                                         fontSize: 10.sp)),
                               ]))
                             ],

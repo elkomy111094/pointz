@@ -71,7 +71,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: kMainColor,
-                                      fontFamily: "Hacen",
+                                      fontFamily: "Taga",
                                       fontSize: 15.sp),
                                 ),
                               ),
@@ -149,7 +149,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                             ? Colors.white
                                                             : Colors.black,
                                                     fontSize: 12.sp,
-                                                    fontFamily: "Hacen")),
+                                                    fontFamily: "Taga")),
                                           ),
                                         ),
                                       ),
@@ -182,7 +182,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
                                         color: kMainColor,
-                                        fontFamily: "Hacen",
+                                        fontFamily: "Taga",
                                         fontSize: 10.sp),
                                   ),
                                 ),
@@ -229,7 +229,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
                                         color: kMainColor,
-                                        fontFamily: "Hacen",
+                                        fontFamily: "Taga",
                                         fontSize: 10.sp),
                                   ),
                                 ),

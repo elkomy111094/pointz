@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pointz/Views/Screens/gifts_screen.dart';
+import 'package:pointz/Views/Screens/notificationScreen.dart';
+import 'package:pointz/Views/Screens/profile_screen.dart';
 import 'package:pointz/Views/Screens/shipping_cart_screen.dart';
 import 'package:pointz/Views/Widgets/square_text_field.dart';
 import 'package:pointz/helper/components.dart';
@@ -39,12 +42,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           EdgeInsets.symmetric(vertical: 2.h, horizontal: 2.w),
                       child: Row(
                         children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.deepPurple,
-                            child: Padding(
-                              padding: EdgeInsets.all(1.h),
-                              child: SvgPicture.asset(
-                                  "assets/icons/user_image.svg"),
+                          InkWell(
+                            onTap: () {
+                              pushToStack(
+                                  widget.navBarScreenContext, ProfileScreen());
+                            },
+                            child: CircleAvatar(
+                              backgroundColor: Colors.deepPurple,
+                              child: Padding(
+                                padding: EdgeInsets.all(1.h),
+                                child: SvgPicture.asset(
+                                    "assets/icons/user_image.svg"),
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -57,13 +66,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   text: "،،، اهلا بك ",
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontFamily: "Hacen",
+                                      fontFamily: "Taga",
                                       fontSize: 10.sp)),
                               TextSpan(
                                   text: " محمد احمد ",
                                   style: TextStyle(
                                       color: kMainColor,
-                                      fontFamily: "Hacen",
+                                      fontFamily: "Taga",
                                       fontSize: 15.sp)),
                             ])),
                           ),
@@ -87,7 +96,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 3.w,
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              pushToStack(
+                                  widget.navBarScreenContext, GiftsScreen());
+                            },
                             child: CircleAvatar(
                               backgroundColor: Colors.white,
                               child: Padding(
@@ -101,7 +113,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 3.w,
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              pushToStack(widget.navBarScreenContext,
+                                  NotificationScreen());
+                            },
                             child: CircleAvatar(
                               backgroundColor: Colors.white,
                               child: Padding(
@@ -164,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Padding(
                         padding: EdgeInsets.all(2.h),
                         child: Container(
-                          height: 25.h,
+                          height: 18.h,
                           width: double.infinity,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100)),
@@ -173,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: double.infinity,
 
                             /// Height of the [ImageSlideshow].
-                            height: 25.h,
+                            height: 18.h,
 
                             /// The page to show when first creating the [ImageSlideshow].
                             initialPage: 0,
@@ -190,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 2.w),
                                 child: Container(
-                                  height: 20.h,
+                                  height: 15.h,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(2.h),
                                     image: DecorationImage(
@@ -265,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                   color: Colors.black,
-                                  fontFamily: "Hacen",
+                                  fontFamily: "Taga",
                                   fontSize: 10.sp),
                             ),
                           ],
@@ -305,7 +320,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                       color: kMainColor,
-                                      fontFamily: "Hacen",
+                                      fontFamily: "Taga",
                                       fontSize: 10.sp),
                                 ),
                                 Spacer(),
@@ -323,7 +338,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           textAlign: TextAlign.right,
                                           style: TextStyle(
                                               color: Colors.grey,
-                                              fontFamily: "Hacen",
+                                              fontFamily: "Taga",
                                               fontSize: 10.sp),
                                         ),
                                         SizedBox(
@@ -377,7 +392,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                       color: kMainColor,
-                                      fontFamily: "Hacen",
+                                      fontFamily: "Taga",
                                       fontSize: 10.sp),
                                 ),
                                 Spacer(),
@@ -395,7 +410,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           textAlign: TextAlign.right,
                                           style: TextStyle(
                                               color: Colors.grey,
-                                              fontFamily: "Hacen",
+                                              fontFamily: "Taga",
                                               fontSize: 10.sp),
                                         ),
                                         SizedBox(
@@ -423,6 +438,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   scrollDirection: Axis.horizontal,
                                   itemBuilder: (context, index) {
                                     return CardItem(
+                                      isFavorite: true,
                                       currentContext:
                                           widget.navBarScreenContext!,
                                     );
@@ -449,7 +465,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                       color: kMainColor,
-                                      fontFamily: "Hacen",
+                                      fontFamily: "Taga",
                                       fontSize: 10.sp),
                                 ),
                                 Spacer(),
@@ -467,7 +483,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           textAlign: TextAlign.right,
                                           style: TextStyle(
                                               color: Colors.grey,
-                                              fontFamily: "Hacen",
+                                              fontFamily: "Taga",
                                               fontSize: 10.sp),
                                         ),
                                         SizedBox(
@@ -521,7 +537,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                       color: kMainColor,
-                                      fontFamily: "Hacen",
+                                      fontFamily: "Taga",
                                       fontSize: 10.sp),
                                 ),
                                 Spacer(),
@@ -539,7 +555,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           textAlign: TextAlign.right,
                                           style: TextStyle(
                                               color: Colors.grey,
-                                              fontFamily: "Hacen",
+                                              fontFamily: "Taga",
                                               fontSize: 10.sp),
                                         ),
                                         SizedBox(

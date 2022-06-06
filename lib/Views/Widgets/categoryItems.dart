@@ -28,7 +28,7 @@ class CategoryItems extends StatelessWidget {
             Text(
               "مطاعم",
               style: TextStyle(
-                  color: Colors.black, fontSize: 10.sp, fontFamily: "Hacen"),
+                  color: Colors.black, fontSize: 10.sp, fontFamily: "Taga"),
             )
           ],
         ),

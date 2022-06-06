@@ -21,87 +21,92 @@ class _ProductScreenState extends State<ProductScreen> {
         child: Scaffold(
           body: Stack(
             children: [
-              Container(
-                height: 40.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage("assets/images/burger.jpg"),
-                  ),
-                ),
-              ),
               SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      height: 40.h,
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 2.h, horizontal: 5.w),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: 5.h,
-                                  height: 5.h,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.favorite_outline,
-                                      color: Colors.red,
+                    Stack(
+                      children: [
+                        Container(
+                          height: 40.h,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage("assets/images/burger.jpg"),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 40.h,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 2.h, horizontal: 5.w),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      width: 5.h,
+                                      height: 5.h,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(
+                                          Icons.favorite_outline,
+                                          color: Colors.red,
+                                        ),
+                                      ),
                                     ),
+                                    Container(
+                                      width: 5.h,
+                                      height: 5.h,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: IconButton(
+                                        onPressed: () {
+                                          pop(context);
+                                        },
+                                        icon: Icon(
+                                          Icons.arrow_forward_rounded,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              Expanded(
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(7.h),
+                                        topLeft: Radius.circular(7.h)),
+                                    border: Border.all(
+                                        color: Colors.white, width: 2.h),
+                                    image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: AssetImage(
+                                            "assets/images/burger2.jpg")),
                                   ),
                                 ),
-                                Container(
-                                  width: 5.h,
-                                  height: 5.h,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: IconButton(
-                                    onPressed: () {
-                                      pop(context);
-                                    },
-                                    icon: Icon(
-                                      Icons.arrow_forward_rounded,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Expanded(
-                            child: Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(7.h),
-                                    topLeft: Radius.circular(7.h)),
-                                border:
-                                    Border.all(color: Colors.white, width: 2.h),
-                                image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: AssetImage(
-                                        "assets/images/burger2.jpg")),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     Padding(
                       padding:
@@ -115,7 +120,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   text: "دوبل ماك رويال",
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontFamily: "Hacen",
+                                      fontFamily: "Taga",
                                       fontSize: 12.sp))),
                           SizedBox(
                             height: 1.h,
@@ -126,7 +131,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                       "قطع دجاج تقدم مع بطاطس بطاطس بطاطس بطاطس بطاطس بطاطس بطاطس بطاطس بطاطس بطاطس بطاطس",
                                   style: TextStyle(
                                       color: Colors.grey,
-                                      fontFamily: "Hacen",
+                                      fontFamily: "Taga",
                                       fontSize: 10.sp))),
                         ],
                       ),
@@ -170,7 +175,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 15.sp,
-                                            fontFamily: "Hacen"))),
+                                            fontFamily: "Taga"))),
                                 SizedBox(
                                   width: 5.w,
                                 ),
@@ -216,14 +221,14 @@ class _ProductScreenState extends State<ProductScreen> {
                               text: "دون ملاحظاتك  ",
                               style: TextStyle(
                                 color: Colors.black,
-                                fontFamily: "Hacen",
+                                fontFamily: "Taga",
                                 fontSize: 10.sp,
                               )),
                           TextSpan(
                               text: "(إختياري)",
                               style: TextStyle(
                                 color: Colors.grey,
-                                fontFamily: "Hacen",
+                                fontFamily: "Taga",
                                 fontSize: 10.sp,
                               ))
                         ]),
@@ -264,7 +269,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   text: TextSpan(
                                       text: "دفع الان",
                                       style: TextStyle(
-                                          fontFamily: "Hacen",
+                                          fontFamily: "Taga",
                                           fontSize: 12.sp))),
                               Row(
                                 children: [
@@ -272,7 +277,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                       text: TextSpan(
                                           text: "المجموع",
                                           style: TextStyle(
-                                              fontFamily: "Hacen",
+                                              fontFamily: "Taga",
                                               fontSize: 12.sp))),
                                   SizedBox(
                                     width: 3.w,

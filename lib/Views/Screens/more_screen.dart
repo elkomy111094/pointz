@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:pointz/Views/Screens/favorites_screen.dart';
+import 'package:pointz/Views/Screens/wallet_screen.dart';
 import 'package:pointz/Views/Widgets/more_item_card.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../helper/components.dart';
 import '../Widgets/simple_Header.dart';
 
 class MoreScreen extends StatefulWidget {
@@ -31,14 +34,19 @@ class _MoreScreenState extends State<MoreScreen> {
                 ),
                 //header
                 MoreItemCard(
-                    title: "وسائل الدفع",
+                    title: "المحفظه",
                     iconUrl: "assets/icons/paymentIcon.svg",
-                    onTabButton: () {}),
+                    onTabButton: () {
+                      pushToStack(widget.navBarScreenContext, WalletScreen());
+                    }),
 
                 MoreItemCard(
                     title: "المفضله",
                     iconUrl: "assets/icons/empty-heart.svg",
-                    onTabButton: () {}),
+                    onTabButton: () {
+                      pushToStack(
+                          widget.navBarScreenContext, FavoritesScreen());
+                    }),
 
                 MoreItemCard(
                     title: "تغيير اللغه",
