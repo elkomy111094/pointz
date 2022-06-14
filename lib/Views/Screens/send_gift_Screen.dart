@@ -19,307 +19,311 @@ class SendGiftScreen extends StatefulWidget {
 class _SendGiftScreenState extends State<SendGiftScreen> {
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          child: Stack(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 50.h),
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 3.w),
+    return SafeArea(
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Scaffold(
+          body: Container(
+            width: double.infinity,
+            height: double.infinity,
+            child: Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 42.h),
+                  child: SingleChildScrollView(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 3.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Container(
-                            height: 12.h,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: 2.w,
-                                          ),
-                                          RichText(
-                                            text: TextSpan(
-                                                text: "قيمه الهديه",
-                                                style: TextStyle(
-                                                  letterSpacing: 1.5,
-                                                  color: kMainColor,
-                                                  fontSize: 10.sp,
-                                                  fontFamily: "Taga",
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: .5.h,
-                                      ),
-                                      SizedBox(
-                                        height: 8.h,
-                                        child: SquareTextField(
-                                          suffixWidget: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 1.7.h),
-                                            child: Text(
-                                              "SR",
-                                              style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: 15..sp,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                          hintText: "",
-                                          onChanged: (phone) {},
-                                          onSave: (phone) {},
-                                          keyBoardType: TextInputType.number,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: 2.w,
-                                          ),
-                                          RichText(
-                                            text: TextSpan(
-                                                text: "الرساله",
-                                                style: TextStyle(
-                                                  letterSpacing: 1.5,
-                                                  color: kMainColor,
-                                                  fontSize: 10.sp,
-                                                  fontFamily: "Taga",
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: .5.h,
-                                      ),
-                                      SizedBox(
-                                        child: SquareTextField(
-                                          hintText: "",
-                                          onChanged: (phone) {},
-                                          maxLines: 2,
-                                          onSave: (phone) {},
-                                          keyBoardType: TextInputType.text,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 12.h,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: 2.w,
-                                          ),
-                                          RichText(
-                                            text: TextSpan(
-                                                text: "رقم هاتف المستلم",
-                                                style: TextStyle(
-                                                  letterSpacing: 1.5,
-                                                  color: kMainColor,
-                                                  fontSize: 10.sp,
-                                                  fontFamily: "Taga",
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: .5.h,
-                                      ),
-                                      SizedBox(
-                                        height: 8.h,
-                                        child: SquareTextField(
-                                          hintText: "",
-                                          onChanged: (phone) {},
-                                          onSave: (phone) {},
-                                          keyBoardType: TextInputType.phone,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 12.h,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: 2.w,
-                                          ),
-                                          RichText(
-                                            text: TextSpan(
-                                                text: "اسم المستلم",
-                                                style: TextStyle(
-                                                  letterSpacing: 1.5,
-                                                  color: kMainColor,
-                                                  fontSize: 10.sp,
-                                                  fontFamily: "Taga",
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: .5.h,
-                                      ),
-                                      SizedBox(
-                                        height: 8.h,
-                                        child: SquareTextField(
-                                          hintText: "",
-                                          onChanged: (phone) {},
-                                          onSave: (phone) {},
-                                          keyBoardType: TextInputType.name,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 12.h,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: 2.w,
-                                          ),
-                                          RichText(
-                                            text: TextSpan(
-                                                text: "إختر المتجر",
-                                                style: TextStyle(
-                                                  letterSpacing: 1.5,
-                                                  color: kMainColor,
-                                                  fontSize: 10.sp,
-                                                  fontFamily: "Taga",
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: .5.h,
-                                      ),
-                                      SizedBox(
-                                        height: 8.h,
-                                        child: SquareTextField(
-                                          hintText: "",
-                                          suffixWidget: IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                                Icons.arrow_drop_down_sharp),
-                                          ),
-                                          onChanged: (phone) {},
-                                          onSave: (phone) {},
-                                          keyBoardType:
-                                              TextInputType.emailAddress,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          CustomTextButton(
-                              buttonColor: kMainColor,
-                              textColor: Colors.white,
-                              buttonHorizontalPaddingval: 20.w,
-                              roundedBorder: 1.h,
-                              textSize: 12.sp,
-                              onPressed: () {
-                                pushToStack(context, GiftPaymentScreen());
-                              },
-                              text: "متابعه"),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SimpleHeader(
-                    headerTitle: 'إرسال بطاقه إهداء',
-                  ),
-                  Center(
-                    child: GiftItemCard(),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 2.5.h, horizontal: 4.w),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: GestureDetector(
-                    onTap: () {
-                      pop(context);
-                    },
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white,
                       child: Padding(
-                        padding: EdgeInsets.all(1.h),
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: kMainColor,
+                        padding: EdgeInsets.symmetric(horizontal: 3.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            Container(
+                              height: 12.h,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 2.w,
+                                            ),
+                                            RichText(
+                                              text: TextSpan(
+                                                  text: "قيمه الهديه",
+                                                  style: TextStyle(
+                                                    letterSpacing: 0,
+                                                    color: Colors.black,
+                                                    fontSize: 10.sp,
+                                                    fontFamily: "Taga",
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: .5.h,
+                                        ),
+                                        SizedBox(
+                                          height: 8.h,
+                                          child: SquareTextField(
+                                            suffixWidget: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 1.7.h),
+                                              child: Text(
+                                                "SR",
+                                                style: TextStyle(
+                                                    color: Colors.grey,
+                                                    fontSize: 15..sp,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                            hintText: "",
+                                            onChanged: (phone) {},
+                                            onSave: (phone) {},
+                                            keyBoardType: TextInputType.number,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 2.w,
+                                            ),
+                                            RichText(
+                                              text: TextSpan(
+                                                  text: "الرساله",
+                                                  style: TextStyle(
+                                                    letterSpacing: 0,
+                                                    color: Colors.black,
+                                                    fontSize: 10.sp,
+                                                    fontFamily: "Taga",
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: .5.h,
+                                        ),
+                                        SizedBox(
+                                          child: SquareTextField(
+                                            hintText: "",
+                                            onChanged: (phone) {},
+                                            maxLines: 2,
+                                            onSave: (phone) {},
+                                            keyBoardType: TextInputType.text,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 12.h,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 2.w,
+                                            ),
+                                            RichText(
+                                              text: TextSpan(
+                                                  text: "رقم هاتف المستلم",
+                                                  style: TextStyle(
+                                                    letterSpacing: 0,
+                                                    color: Colors.black,
+                                                    fontSize: 10.sp,
+                                                    fontFamily: "Taga",
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: .5.h,
+                                        ),
+                                        SizedBox(
+                                          height: 8.h,
+                                          child: SquareTextField(
+                                            hintText: "",
+                                            onChanged: (phone) {},
+                                            onSave: (phone) {},
+                                            keyBoardType: TextInputType.phone,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 12.h,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 2.w,
+                                            ),
+                                            RichText(
+                                              text: TextSpan(
+                                                  text: "اسم المستلم",
+                                                  style: TextStyle(
+                                                    letterSpacing: 0,
+                                                    color: Colors.black,
+                                                    fontSize: 10.sp,
+                                                    fontFamily: "Taga",
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: .5.h,
+                                        ),
+                                        SizedBox(
+                                          height: 8.h,
+                                          child: SquareTextField(
+                                            hintText: "",
+                                            onChanged: (phone) {},
+                                            onSave: (phone) {},
+                                            keyBoardType: TextInputType.name,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 12.h,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 2.w,
+                                            ),
+                                            RichText(
+                                              text: TextSpan(
+                                                  text: "إختر المتجر",
+                                                  style: TextStyle(
+                                                    letterSpacing: 0,
+                                                    color: Colors.black,
+                                                    fontSize: 10.sp,
+                                                    fontFamily: "Taga",
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: .5.h,
+                                        ),
+                                        SizedBox(
+                                          height: 8.h,
+                                          child: SquareTextField(
+                                            hintText: "",
+                                            suffixWidget: IconButton(
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                  Icons.arrow_drop_down_sharp),
+                                            ),
+                                            onChanged: (phone) {},
+                                            onSave: (phone) {},
+                                            keyBoardType:
+                                                TextInputType.emailAddress,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            CustomTextButton(
+                                buttonColor: kMainColor,
+                                textColor: Colors.white,
+                                buttonHorizontalPaddingval: 20.w,
+                                roundedBorder: 1.h,
+                                textSize: 12.sp,
+                                onPressed: () {
+                                  pushToStack(context, GiftPaymentScreen());
+                                },
+                                text: "متابعه"),
+                          ],
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SimpleHeader(
+                      headerTitle: 'إرسال بطاقه إهداء',
+                    ),
+                    Center(
+                      child: GiftItemCard(),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 2.5.h, horizontal: 4.w),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        pop(context);
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Padding(
+                          padding: EdgeInsets.all(1.h),
+                          child: Icon(
+                            Icons.arrow_back,
+                            color: kMainColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

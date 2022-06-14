@@ -53,7 +53,7 @@ class _ProductsProviderDetailsScreenState
                 children: [
                   Padding(
                     padding:
-                        EdgeInsets.symmetric(vertical: 2.h, horizontal: 5.w),
+                        EdgeInsets.symmetric(vertical: 1.h, horizontal: 5.w),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -134,9 +134,10 @@ class _ProductsProviderDetailsScreenState
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
-                        height: 35.h,
+                        height: 30.h,
                         width: 95.w,
                         child: Card(
+                          elevation: 5,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(2.h),
                           ),
@@ -151,8 +152,8 @@ class _ProductsProviderDetailsScreenState
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      height: 7.h,
-                                      width: 7.h,
+                                      height: 6.h,
+                                      width: 6.h,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         image: DecorationImage(
@@ -364,6 +365,8 @@ class _ProductsProviderDetailsScreenState
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 3.w),
                                 child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Expanded(
                                       flex: 2,
@@ -379,6 +382,8 @@ class _ProductsProviderDetailsScreenState
                                     Expanded(
                                         flex: 3,
                                         child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
                                             buildSocialMediaIconButton(
                                                 color: Colors.green,
@@ -417,7 +422,7 @@ class _ProductsProviderDetailsScreenState
                               ),
                               Center(
                                 child: Container(
-                                  height: 7.h,
+                                  height: 5.h,
                                   width: 89.w,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(1.h),
@@ -435,7 +440,7 @@ class _ProductsProviderDetailsScreenState
                                                 MainAxisAlignment.center,
                                             children: [
                                               buildSocialMediaIconButton(
-                                                  color: Colors.pink,
+                                                  color: kMainColor,
                                                   icon: FontAwesomeIcons
                                                       .mapMarkerAlt),
                                               SizedBox(
@@ -628,13 +633,15 @@ class _ProductsProviderDetailsScreenState
                                               child: Padding(
                                                 padding: EdgeInsets.all(1.h),
                                                 child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.start,
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Container(
-                                                      height: 12.h,
+                                                      height: 10.h,
                                                       width: 10.h,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
@@ -656,7 +663,7 @@ class _ProductsProviderDetailsScreenState
                                                           EdgeInsets.symmetric(
                                                               horizontal: 2.w),
                                                       child: Container(
-                                                        height: 12.h,
+                                                        height: 10.h,
                                                         child: Column(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
@@ -861,8 +868,8 @@ class _ProductsProviderDetailsScreenState
       required IconData icon,
       void Function()? onPressed}) {
     return Container(
-      height: 5.h,
-      width: 5.h,
+      height: 4.h,
+      width: 4.h,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(color: color, width: 1),
@@ -873,6 +880,7 @@ class _ProductsProviderDetailsScreenState
           child: Icon(
             icon,
             color: color,
+            size: 12.sp,
           ),
         ),
       ),

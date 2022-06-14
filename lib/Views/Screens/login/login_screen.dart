@@ -70,6 +70,7 @@ class _LoginState extends State<Login> {
                                           text: "تسجيل الدخول",
                                           style: TextStyle(
                                             color: Colors.black,
+                                            fontWeight: FontWeight.bold,
                                             fontFamily: "Taga",
                                             fontSize: 15.sp,
                                           )),
@@ -92,7 +93,7 @@ class _LoginState extends State<Login> {
                                         text: TextSpan(
                                             text: "رقم الهاتف",
                                             style: TextStyle(
-                                              color: kMainColor,
+                                              color: Colors.black,
                                               fontSize: 12.sp,
                                               fontFamily: "Taga",
                                             )),
@@ -133,7 +134,8 @@ class _LoginState extends State<Login> {
                                           text: "أو",
                                           style: TextStyle(
                                             letterSpacing: 1.5,
-                                            color: kMainColor,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
                                             fontSize: 10.sp,
                                             fontFamily: "Taga",
                                           )),

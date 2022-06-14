@@ -145,49 +145,54 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        body: PersistentTabView(
-          context,
-          controller: _controller,
-          screens: _buildScreens(context),
-          items: _navBarsItems(),
-          confineInSafeArea: true,
-          backgroundColor: Colors.white,
-          handleAndroidBackButtonPress: true,
-          resizeToAvoidBottomInset: true,
-          stateManagement: true,
-          padding: NavBarPadding.all(1.h),
-          navBarHeight: 9.h,
-          onItemSelected: (id) {
-            print(id);
-            setState(() {
-              selectedItemId = id;
-            });
-          },
-          hideNavigationBarWhenKeyboardShows: true,
-          margin: EdgeInsets.all(0.0),
-          popActionScreens: PopActionScreensType.all,
-          selectedTabScreenContext: (context) {
-            BuildContext testContext = context!;
-          },
-          hideNavigationBar: _hideNavBar,
-          decoration: NavBarDecoration(
-              colorBehindNavBar: Colors.indigo,
-              borderRadius: BorderRadius.circular(20.0)),
-          popAllScreensOnTapOfSelectedTab: true,
-          itemAnimationProperties: const ItemAnimationProperties(
-            duration: Duration(milliseconds: 400),
-            curve: Curves.ease,
+    return SafeArea(
+      top: true,
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: SafeArea(
+          child: Scaffold(
+            body: PersistentTabView(
+              context,
+              controller: _controller,
+              screens: _buildScreens(context),
+              items: _navBarsItems(),
+              confineInSafeArea: true,
+              backgroundColor: Colors.white,
+              handleAndroidBackButtonPress: true,
+              resizeToAvoidBottomInset: true,
+              stateManagement: true,
+              padding: NavBarPadding.all(1.h),
+              navBarHeight: 9.h,
+              onItemSelected: (id) {
+                print(id);
+                setState(() {
+                  selectedItemId = id;
+                });
+              },
+              hideNavigationBarWhenKeyboardShows: true,
+              margin: EdgeInsets.all(0.0),
+              popActionScreens: PopActionScreensType.all,
+              selectedTabScreenContext: (context) {
+                BuildContext testContext = context!;
+              },
+              hideNavigationBar: _hideNavBar,
+              decoration: NavBarDecoration(
+                  colorBehindNavBar: Colors.indigo,
+                  borderRadius: BorderRadius.circular(20.0)),
+              popAllScreensOnTapOfSelectedTab: true,
+              itemAnimationProperties: const ItemAnimationProperties(
+                duration: Duration(milliseconds: 400),
+                curve: Curves.ease,
+              ),
+              screenTransitionAnimation: const ScreenTransitionAnimation(
+                animateTabTransition: true,
+                curve: Curves.ease,
+                duration: Duration(milliseconds: 300),
+              ),
+              navBarStyle: NavBarStyle
+                  .style15, // Choose the nav bar style with this property
+            ),
           ),
-          screenTransitionAnimation: const ScreenTransitionAnimation(
-            animateTabTransition: true,
-            curve: Curves.ease,
-            duration: Duration(milliseconds: 300),
-          ),
-          navBarStyle: NavBarStyle
-              .style15, // Choose the nav bar style with this property
         ),
       ),
     );

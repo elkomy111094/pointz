@@ -9,7 +9,7 @@ class GiftItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 35.h,
+      width: 80.w,
       child: Card(
         elevation: 5,
         color: kBackGroundColor,
@@ -24,7 +24,7 @@ class GiftItemCard extends StatelessWidget {
               children: [
                 Container(
                   width: 35.h,
-                  height: 25.h,
+                  height: 18.h,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(2.h),
@@ -89,25 +89,35 @@ class GiftItemCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        width: 6.h,
-                        height: 6.h,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: kMainColor, width: 2),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: Container(
+                      Row(
+                        children: [
+                          Container(
+                            width: 6.h,
+                            height: 6.h,
                             decoration: BoxDecoration(
-                              color: kBackGroundColor,
                               shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: AssetImage("assets/images/mac.jpg")),
+                              border: Border.all(color: kMainColor, width: 2),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(2),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: kBackGroundColor,
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image:
+                                          AssetImage("assets/images/mac.jpg")),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                          Text("ماكدونالدز",
+                              style: TextStyle(
+                                  color: kMainColor,
+                                  fontFamily: "Taga",
+                                  fontSize: 12.sp))
+                        ],
                       ),
                       Text("1994 / 10 / 11",
                           style: TextStyle(

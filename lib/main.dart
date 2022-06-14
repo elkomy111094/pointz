@@ -6,21 +6,21 @@ import 'package:sizer/sizer.dart';
 import 'Views/Screens/splash_screen.dart';
 
 void main() {
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-
   runApp(Pointz() /*DevicePreview(builder: (_) => Pointz())*/);
-  SystemChrome.setEnabledSystemUIOverlays([]);
 }
 
 class Pointz extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
     return Sizer(
       builder: (BuildContext context, Orientation orientation, _) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: SplashScreen(),
+          home: SafeArea(child: SplashScreen()),
+          /*builder: (context, Widget) => SafeArea(child: SplashScreen()),*/
         );
       },
     );

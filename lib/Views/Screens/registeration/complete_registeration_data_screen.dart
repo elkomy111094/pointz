@@ -81,7 +81,16 @@ class _CompleteRegisterationDataState extends State<CompleteRegisterationData> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 4.h,
+                                      height: 2.h,
+                                    ),
+                                    Center(
+                                      child: Container(
+                                          height: .5,
+                                          width: 20.w,
+                                          color: Colors.grey),
+                                    ),
+                                    SizedBox(
+                                      height: 2.h,
                                     ),
                                     Container(
                                       height: 12.h,
@@ -99,7 +108,7 @@ class _CompleteRegisterationDataState extends State<CompleteRegisterationData> {
                                                       text: TextSpan(
                                                           text: "الاسم الاول",
                                                           style: TextStyle(
-                                                            color: kMainColor,
+                                                            color: Colors.black,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: 10.sp,
@@ -139,7 +148,7 @@ class _CompleteRegisterationDataState extends State<CompleteRegisterationData> {
                                                       text: TextSpan(
                                                           text: "الاسم الاخير",
                                                           style: TextStyle(
-                                                            color: kMainColor,
+                                                            color: Colors.black,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: 10.sp,
@@ -186,7 +195,7 @@ class _CompleteRegisterationDataState extends State<CompleteRegisterationData> {
                                                           text:
                                                               "البريد الالكتروني",
                                                           style: TextStyle(
-                                                            color: kMainColor,
+                                                            color: Colors.black,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: 10.sp,
@@ -232,7 +241,7 @@ class _CompleteRegisterationDataState extends State<CompleteRegisterationData> {
                                                       text: TextSpan(
                                                           text: "تاريخ الميلاد",
                                                           style: TextStyle(
-                                                            color: kMainColor,
+                                                            color: Colors.black,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: 10.sp,

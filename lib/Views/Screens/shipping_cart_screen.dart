@@ -105,7 +105,7 @@ class _ShippingCartScreenState extends State<ShippingCartScreen> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Container(
-                                                height: 12.h,
+                                                height: 10.h,
                                                 width: 10.h,
                                                 decoration: BoxDecoration(
                                                   color: Colors.white,
@@ -125,7 +125,7 @@ class _ShippingCartScreenState extends State<ShippingCartScreen> {
                                                 padding: EdgeInsets.symmetric(
                                                     horizontal: 2.w),
                                                 child: Container(
-                                                  height: 12.h,
+                                                  height: 10.h,
                                                   child: Column(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment

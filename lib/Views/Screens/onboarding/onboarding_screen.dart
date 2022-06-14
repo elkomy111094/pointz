@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pointz/helper/components.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../constants/colors.dart';
-import 'login_screen.dart';
+import '../../../constants/colors.dart';
+import '../login/login_screen.dart';
 
 class OnBoarding extends StatefulWidget {
   //write stf to Create fully stateful widget
@@ -21,7 +21,7 @@ class _OnBoardingState extends State<OnBoarding> {
     {
       "imgUrl": "assets/icons/onboarding1.svg",
       "desc":
-          "مش لازم تستنى طول السنة لما الخصومات تبدأ زي كل الناس، نقاطي جابتلك الخصومات لحد عندك، لأن عندنا أكتر من 400+ شريك واكتر من ٣٠٠٠+ فرع"
+          "مش لازم تستنى طول السنة لما الخصومات تبدأ زي كل الناس ، نقاطي جابتلك الخصومات لحد عندك ، لأن عندنا أكتر من 400+ شريك واكتر من ٣٠٠٠+ فرع"
     },
     {
       "imgUrl": "assets/icons/onboarding2.svg",
@@ -39,12 +39,13 @@ class _OnBoardingState extends State<OnBoarding> {
           "زور المحل أو الكافيه اللي عليه التخفيض ، صور ال QR كود اللي عند الكاشير ، استلم نقاطك ، احصل علي مكافآتك"
     },
   ];
+  @override
+  initState() {}
 
   @override
   Widget build(BuildContext context) {
+    /*SystemChrome.setEnabledSystemUIOverlays([]);*/
     // the same function of stateless widget
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
 
     return SafeArea(
       child: Scaffold(
@@ -107,6 +108,7 @@ class _OnBoardingState extends State<OnBoarding> {
                                     text: onBoardingMovedItemsList[currentIndex]
                                         ["desc"],
                                     style: TextStyle(
+                                        wordSpacing: 1,
                                         color: Colors.black,
                                         fontFamily: "Taga",
                                         fontWeight: FontWeight.w500,
@@ -134,7 +136,10 @@ class _OnBoardingState extends State<OnBoarding> {
               child: Text(
                 "تخطي",
                 style: TextStyle(
-                    color: Colors.black, fontFamily: "Taga", fontSize: 13.sp),
+                  color: Colors.black,
+                  fontFamily: "Taga",
+                  fontSize: 13.sp, /*fontWeight: FontWeight.bold*/
+                ),
               ),
             ),
           ),

@@ -109,8 +109,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                   text: TextSpan(
                                                       text: "رقم البطاقه",
                                                       style: TextStyle(
-                                                        letterSpacing: 1.5,
                                                         color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                         fontSize: 10.sp,
                                                         fontFamily: "Taga",
                                                       )),
@@ -152,8 +153,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                   text: TextSpan(
                                                       text: "تاريخ الانتهاء",
                                                       style: TextStyle(
-                                                        letterSpacing: 1.5,
                                                         color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                         fontSize: 10.sp,
                                                         fontFamily: "Taga",
                                                       )),
@@ -193,6 +195,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                         text: "رقم ال",
                                                         style: TextStyle(
                                                           color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                           fontSize: 10.sp,
                                                           fontFamily: "Taga",
                                                         )),
@@ -200,6 +204,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                         text: " CCV ",
                                                         style: TextStyle(
                                                           color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                           fontSize: 10.sp,
                                                         ))
                                                   ]),

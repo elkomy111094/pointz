@@ -39,65 +39,67 @@ class _LocationRegisterationScreenState
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          GoogleMap(
-            onTap: (val) {
-              getlocation().then((value) {
-                setState(() {
-                  print("reloooooooooooooooooooooooooad");
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            GoogleMap(
+              onTap: (val) {
+                getlocation().then((value) {
+                  setState(() {
+                    print("reloooooooooooooooooooooooooad");
+                  });
                 });
-              });
-            },
-            onMapCreated: (mapController) {
-              setState(() async {
-                markers.add(
-                  Marker(
-                    markerId: MarkerId("1"),
-                    position: LatLng(lat, long),
-                    infoWindow: InfoWindow(
-                      title: "موقعك الحالي",
+              },
+              onMapCreated: (mapController) {
+                setState(() async {
+                  markers.add(
+                    Marker(
+                      markerId: MarkerId("1"),
+                      position: LatLng(lat, long),
+                      infoWindow: InfoWindow(
+                        title: "موقعك الحالي",
+                      ),
                     ),
-                  ),
-                );
-              });
-            },
-            markers: markers,
-            mapType: MapType.normal,
-            myLocationButtonEnabled: true,
-            initialCameraPosition: CameraPosition(
-              target: LatLng(lat, long),
-              zoom: 19,
+                  );
+                });
+              },
+              markers: markers,
+              mapType: MapType.normal,
+              myLocationButtonEnabled: true,
+              initialCameraPosition: CameraPosition(
+                target: LatLng(lat, long),
+                zoom: 19,
+              ),
             ),
-          ),
-          Positioned(
-            left: 5.w,
-            right: 5.w,
-            bottom: 2.h,
-            child: CustomTextIconButton(
-                icon: CircleAvatar(
-                  backgroundColor: Colors.transparent,
-                  radius: 2.h,
-                  child: Center(
-                    child: SvgPicture.asset(
-                      "assets/icons/mylocation.svg",
-                      color: Colors.white,
+            Positioned(
+              left: 5.w,
+              right: 5.w,
+              bottom: 2.h,
+              child: CustomTextIconButton(
+                  icon: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    radius: 2.h,
+                    child: Center(
+                      child: SvgPicture.asset(
+                        "assets/icons/mylocation.svg",
+                        color: Colors.white,
+                      ),
                     ),
                   ),
-                ),
-                buttonColor: kMainColor.withOpacity(.75),
-                textColor: Colors.white,
-                textSize: 12.sp,
-                onPressed: () {
-                  pushToStack(context, ProvidedStylesExample());
-                },
-                buttonVerticalPaddingVal: 0,
-                buttonHorizontalPaddingval: 15.w,
-                roundedBorder: 10,
-                text: "سجل"),
-          ),
-        ],
+                  buttonColor: kMainColor.withOpacity(.75),
+                  textColor: Colors.white,
+                  textSize: 12.sp,
+                  onPressed: () {
+                    pushToStack(context, ProvidedStylesExample());
+                  },
+                  buttonVerticalPaddingVal: 0,
+                  buttonHorizontalPaddingval: 15.w,
+                  roundedBorder: 10,
+                  text: "سجل"),
+            ),
+          ],
+        ),
       ),
     );
   }

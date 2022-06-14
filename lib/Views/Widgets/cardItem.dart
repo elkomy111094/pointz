@@ -37,7 +37,7 @@ class CardItem extends StatelessWidget {
               Stack(
                 children: [
                   Container(
-                    height: 20.h,
+                    height: 17.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
@@ -114,7 +114,10 @@ class CardItem extends StatelessWidget {
                     ),
                     Text(
                       "آزور مطعم إسباني",
-                      style: TextStyle(fontSize: 10.sp, fontFamily: "Taga"),
+                      style: TextStyle(
+                          fontSize: 10.sp,
+                          fontFamily: "Taga",
+                          fontWeight: FontWeight.bold),
                     ),
                     Spacer(),
                     Row(

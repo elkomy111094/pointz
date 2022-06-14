@@ -149,12 +149,12 @@ class _ProductScreenState extends State<ProductScreen> {
                             Row(
                               children: [
                                 Container(
-                                  height: 5.h,
-                                  width: 5.h,
+                                  height: 4.h,
+                                  width: 4.h,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     border:
-                                        Border.all(color: kMainColor, width: 5),
+                                        Border.all(color: kMainColor, width: 2),
                                   ),
                                   child: GestureDetector(
                                     onTap: () {},
@@ -180,12 +180,12 @@ class _ProductScreenState extends State<ProductScreen> {
                                   width: 5.w,
                                 ),
                                 Container(
-                                  height: 5.h,
-                                  width: 5.h,
+                                  height: 4.h,
+                                  width: 4.h,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     border:
-                                        Border.all(color: kMainColor, width: 5),
+                                        Border.all(color: kMainColor, width: 2),
                                   ),
                                   child: GestureDetector(
                                     onTap: () {},
@@ -312,6 +312,9 @@ class _ProductScreenState extends State<ProductScreen> {
                           ),
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      height: 7.h,
                     ),
                   ],
                 ),

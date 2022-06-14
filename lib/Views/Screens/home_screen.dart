@@ -307,6 +307,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                             itemCount: 20),
                       ),
+                      Divider(),
 
                       Padding(
                         padding: EdgeInsets.symmetric(
@@ -319,9 +320,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   "متاجر ملابس",
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
-                                      color: kMainColor,
-                                      fontFamily: "Taga",
-                                      fontSize: 10.sp),
+                                    color: kMainColor,
+                                    fontFamily: "Taga",
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                                 Spacer(),
                                 InkWell(
@@ -359,7 +362,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 1.h,
                             ),
                             Container(
-                              height: 37.h,
+                              height: 32.h,
                               child: ListView.separated(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 3.w),
@@ -391,9 +394,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   "الكترونيات",
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
-                                      color: kMainColor,
-                                      fontFamily: "Taga",
-                                      fontSize: 10.sp),
+                                    color: kMainColor,
+                                    fontFamily: "Taga",
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                                 Spacer(),
                                 InkWell(
@@ -431,7 +436,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 1.h,
                             ),
                             Container(
-                              height: 37.h,
+                              height: 32.h,
                               child: ListView.separated(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 3.w),
@@ -464,9 +469,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   "مقاهي",
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
-                                      color: kMainColor,
-                                      fontFamily: "Taga",
-                                      fontSize: 10.sp),
+                                    color: kMainColor,
+                                    fontFamily: "Taga",
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                                 Spacer(),
                                 InkWell(
@@ -504,7 +511,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 1.h,
                             ),
                             Container(
-                              height: 37.h,
+                              height: 32.h,
                               child: ListView.separated(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 3.w),
@@ -536,9 +543,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   "أدوات تجميل",
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
-                                      color: kMainColor,
-                                      fontFamily: "Taga",
-                                      fontSize: 10.sp),
+                                    color: kMainColor,
+                                    fontFamily: "Taga",
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                                 Spacer(),
                                 InkWell(
@@ -576,7 +585,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 1.h,
                             ),
                             Container(
-                              height: 37.h,
+                              height: 32.h,
                               child: ListView.separated(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 3.w),
