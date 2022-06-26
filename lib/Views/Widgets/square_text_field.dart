@@ -22,8 +22,14 @@ class SquareTextField extends StatelessWidget {
 
   Color? fillColor;
 
+  int? maxLength;
+
+  String? prefixText;
+
   SquareTextField(
       {required this.hintText,
+      this.maxLength,
+      this.prefixText,
       this.preFixWidget,
       this.fillColor = Colors.white60,
       this.maxLines = 1,
@@ -39,15 +45,13 @@ class SquareTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-
     return SizedBox(
       width: double.infinity,
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 1.h),
         child: Center(
           child: TextFormField(
+            textAlign: TextAlign.start,
             onChanged: onChanged,
             onSaved: onSave,
             validator: validator,
@@ -56,15 +60,25 @@ class SquareTextField extends StatelessWidget {
             keyboardAppearance: keyBoardAppearance,
             controller: controller,
             maxLines: maxLines,
+            maxLength: maxLength,
             obscuringCharacter: "•",
             obscureText: obsecureance,
             style: TextStyle(
-                color: Colors.black, fontFamily: "Taga", fontSize: 12.sp),
+                color: Colors.black,
+                /*fontFamily: "Taga",*/
+                letterSpacing: 2,
+                fontSize: 13.sp),
             decoration: InputDecoration(
+              errorStyle: TextStyle(fontSize: 10.sp, fontFamily: "Taga"),
               fillColor: fillColor,
               filled: true,
               contentPadding:
                   EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 3.w),
+              prefixText: prefixText,
+              prefixStyle: TextStyle(
+                  color: Colors.black,
+                  /*fontFamily: "Taga",*/
+                  fontSize: 13.sp),
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                 color: kBackGroundColor,
@@ -74,8 +88,7 @@ class SquareTextField extends StatelessWidget {
               hintText: hintText,
               suffixIcon: suffixWidget,
               prefixIcon: preFixWidget,
-              hintStyle: TextStyle(
-                  color: Colors.black26, fontFamily: "Taga", fontSize: 10.sp),
+              hintStyle: TextStyle(color: Colors.black26, fontSize: 15.sp),
             ),
           ),
         ),

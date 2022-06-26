@@ -151,6 +151,7 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         textDirection: TextDirection.rtl,
         child: SafeArea(
           child: Scaffold(
+            backgroundColor: Colors.white,
             body: PersistentTabView(
               context,
               controller: _controller,
@@ -160,6 +161,7 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
               backgroundColor: Colors.white,
               handleAndroidBackButtonPress: true,
               resizeToAvoidBottomInset: true,
+              bottomScreenMargin: 0,
               stateManagement: true,
               padding: NavBarPadding.all(1.h),
               navBarHeight: 9.h,

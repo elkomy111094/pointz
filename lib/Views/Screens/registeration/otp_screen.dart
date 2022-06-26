@@ -1,36 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pointz/constants/colors.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../helper/components.dart';
+import '../../../views_models/registeration/registeration_cubit.dart';
 import '../../Widgets/otp_verfication.dart';
+import 'location_registeration_screen.dart';
 
 class OTPScreen extends StatelessWidget {
   final String phoneNumber;
 
   OTPScreen({required this.phoneNumber});
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: [
-            Container(
-              height: 30.h,
-              width: 100.w,
-              child: Center(
-                child: SvgPicture.asset("assets/icons/pincode.svg"),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 25.h),
-              child: SingleChildScrollView(
-                child: Column(
+      child: BlocConsumer<RegisterationCubit, RegisterationState>(
+        listener: (ctx, state) {
+          RegisterationCubit inst = RegisterationCubit.get(context);
+
+          if (state is PhoneOTPResent) {
+            pop(ctx);
+            /*pushToStackAndReplacement(
+                context
+                ;  0
+                +-utss
+                +,
+                OTPScreen(
+                    phoneNumber: */ /*"+966"*/ /* "+201" +
+                        inst.phoneNumberController.text));*/
+          }
+          if (state is PhoneOTPVerified) {
+            Navigator.pop(ctx);
+            pushToStack(ctx, LocationRegisterationScreen());
+          }
+          if (state is Loading) {
+            showProgressIndicator(ctx);
+          }
+          if (state is OTPErrorOccurred) {
+            String errorMsg = (state).errorMsg;
+            showToast(ctx, errorMsg);
+          }
+        },
+        builder: (context, state) {
+          RegisterationCubit inst = RegisterationCubit.get(context);
+
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: Stack(
+              children: [
+                ListView(
+                  scrollDirection: Axis.vertical,
                   children: [
+                    Container(
+                      height: 25.h,
+                      width: 100.w,
+                      child: Center(
+                        child: SvgPicture.asset("assets/icons/pincode.svg"),
+                      ),
+                    ),
                     Padding(
-                      padding: EdgeInsets.only(top: 5.h, left: 5.w, right: 5.w),
+                      padding: EdgeInsets.only(left: 5.w, right: 5.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -70,14 +101,18 @@ class OTPScreen extends StatelessWidget {
                     Container(
                       height: 40.h,
                       width: 90.w,
-                      child: PinCodeVerificationScreen(phoneNumber),
+                      child:
+                          PinCodeVerificationScreen(phoneNumber: phoneNumber),
+                    ),
+                    SizedBox(
+                      height: 18.h,
                     ),
                   ],
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pointz/Views/Screens/onboarding/onboarding_screen.dart';
+import 'package:pointz/helper/components.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants/colors.dart';
@@ -14,9 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(Duration(seconds: 5), () {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return OnBoarding();
-      }));
+      pushToStack(context, OnBoarding());
     });
   }
 

@@ -277,63 +277,106 @@ class _CompleteRegisterationDataState extends State<CompleteRegisterationData> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
                                         children: [
-                                          RichText(
-                                              text: TextSpan(
-                                                  text: "النوع",
-                                                  style: TextStyle(
-                                                      fontFamily: "Taga",
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 12.sp,
-                                                      color: Colors.black))),
-                                          Container(
-                                            width: 30.w,
-                                            child: Theme(
-                                              data: Theme.of(context).copyWith(
-                                                  unselectedWidgetColor:
-                                                      kMainColor,
-                                                  disabledColor: Colors.blue),
-                                              child: RadioListTile(
-                                                  value: "call",
-                                                  groupValue: groupValue,
-                                                  activeColor: kMainColor,
-                                                  title: Text(
-                                                    "ذكر",
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 1.h),
+                                            child: RichText(
+                                                text: TextSpan(
+                                                    text: "النوع",
                                                     style: TextStyle(
-                                                        color: Colors.black,
                                                         fontFamily: "Taga",
-                                                        fontSize: 12.sp),
-                                                  ),
-                                                  onChanged: (val) {
-                                                    setState(() {
-                                                      groupValue = "call";
-                                                    });
-                                                  }),
-                                            ),
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12.sp,
+                                                        color: Colors.black))),
                                           ),
-                                          Container(
-                                            width: 30.w,
-                                            child: Theme(
-                                              data: Theme.of(context).copyWith(
-                                                  unselectedWidgetColor:
-                                                      kMainColor,
-                                                  disabledColor: Colors.blue),
-                                              child: RadioListTile(
-                                                  value: "email",
-                                                  activeColor: kMainColor,
-                                                  title: Text(
-                                                    "أنثي",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontFamily: "Taga",
-                                                        fontSize: 10.sp),
-                                                  ),
-                                                  groupValue: groupValue,
-                                                  onChanged: (val) {
-                                                    setState(() {
-                                                      groupValue = "email";
-                                                    });
-                                                  }),
+                                          SizedBox(
+                                            width: 5.w,
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  border: Border.all(
+                                                    color: Colors.grey
+                                                        .withOpacity(.5),
+                                                  )),
+                                              child: Center(
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      width: 30.w,
+                                                      child: Theme(
+                                                        data: Theme.of(context)
+                                                            .copyWith(
+                                                                unselectedWidgetColor:
+                                                                    kMainColor,
+                                                                disabledColor:
+                                                                    Colors
+                                                                        .blue),
+                                                        child: RadioListTile(
+                                                            value: "call",
+                                                            groupValue:
+                                                                groupValue,
+                                                            activeColor:
+                                                                kMainColor,
+                                                            title: Text(
+                                                              "ذكر",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontFamily:
+                                                                      "Taga",
+                                                                  fontSize:
+                                                                      12.sp),
+                                                            ),
+                                                            onChanged: (val) {
+                                                              setState(() {
+                                                                groupValue =
+                                                                    "call";
+                                                              });
+                                                            }),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: 30.w,
+                                                      child: Theme(
+                                                        data: Theme.of(context)
+                                                            .copyWith(
+                                                                unselectedWidgetColor:
+                                                                    kMainColor,
+                                                                disabledColor:
+                                                                    Colors
+                                                                        .blue),
+                                                        child: RadioListTile(
+                                                            value: "email",
+                                                            activeColor:
+                                                                kMainColor,
+                                                            title: Text(
+                                                              "انثي",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontFamily:
+                                                                      "Taga",
+                                                                  fontSize:
+                                                                      10.sp),
+                                                            ),
+                                                            groupValue:
+                                                                groupValue,
+                                                            onChanged: (val) {
+                                                              setState(() {
+                                                                groupValue =
+                                                                    "email";
+                                                              });
+                                                            }),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ],

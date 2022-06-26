@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pointz/Views/Widgets/custom_text_icon_button.dart';
 import 'package:pointz/constants/colors.dart';
 import 'package:pointz/helper/components.dart';
+import 'package:pointz/views_models/registeration/registeration_cubit.dart';
 import 'package:sizer/sizer.dart';
 
 import '../bottom_navbar_screen.dart';
@@ -36,6 +38,14 @@ class _LocationRegisterationScreenState
         lat = currentLoc.latitude;
       });
     }
+  }
+
+  @override
+  void initState() {
+    RegisterationCubit inst = RegisterationCubit.get(context);
+    log("------------------------------------------------------------------------------------");
+    log(inst.userFirebaseId);
+    getlocation();
   }
 
   Widget build(BuildContext context) {
@@ -102,10 +112,5 @@ class _LocationRegisterationScreenState
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    getlocation();
   }
 }
