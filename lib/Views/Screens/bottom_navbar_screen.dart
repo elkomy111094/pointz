@@ -11,12 +11,12 @@ import 'package:pointz/constants/colors.dart';
 import 'package:sizer/sizer.dart';
 // ----------------------------------------- Provided Style ----------------------------------------- //
 
-class ProvidedStylesExample extends StatefulWidget {
+class NavBarScreen extends StatefulWidget {
   @override
-  _ProvidedStylesExampleState createState() => _ProvidedStylesExampleState();
+  _NavBarScreenState createState() => _NavBarScreenState();
 }
 
-class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
+class _NavBarScreenState extends State<NavBarScreen> {
   late PersistentTabController _controller;
   late bool _hideNavBar = false;
 

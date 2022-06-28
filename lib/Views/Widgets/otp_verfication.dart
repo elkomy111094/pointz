@@ -30,10 +30,44 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   String currentText = "";
   final formKey = GlobalKey<FormState>();
   late String otpCode;
+  int secondsRemaining = 60;
+  bool enableResend = false;
+  late Timer timer;
+
+  snackBar(String? message) {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message!),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  Future<void> _resendOTP(BuildContext context) async {
+    RegisterationCubit inst = RegisterationCubit.get(context);
+    await inst.resendOTP(widget.phoneNumber);
+  }
 
   @override
   void initState() {
     super.initState();
+    timer = Timer.periodic(Duration(seconds: 1), (_) {
+      if (secondsRemaining != 0) {
+        setState(() {
+          secondsRemaining--;
+        });
+      } else {
+        setState(() {
+          enableResend = true;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer.cancel();
   }
 
   Future _login(BuildContext context) async {
@@ -118,7 +152,46 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                 fontWeight: FontWeight.w400),
           ),
         ),
-        OTPResender(phoneNumber: widget.phoneNumber),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            RichText(
+                text: TextSpan(
+                    text: secondsRemaining.toString() + ":00",
+                    style: TextStyle(color: Colors.black, fontFamily: "Taga"))),
+            SizedBox(
+              width: 3.w,
+            ),
+            enableResend
+                ? TextButton(
+                    onPressed: () async {
+                      await _resendOTP(context);
+                      setState(() {
+                        secondsRemaining = 60;
+                        enableResend = false;
+                      });
+                      snackBar("OTP resend!!");
+                    },
+                    child: Text(
+                      "اعاده ارسال الكود ؟",
+                      style: TextStyle(
+                          color: kMainColor,
+                          fontSize: 12.sp,
+                          fontFamily: "Taga"),
+                    ),
+                  )
+                : TextButton(
+                    onPressed: null,
+                    child: Text(
+                      "اعاده ارسال الكود ؟",
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12.sp,
+                          fontFamily: "Taga"),
+                    ),
+                  ),
+          ],
+        ),
         SizedBox(
           height: 3.h,
         ),
@@ -133,101 +206,13 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
               buttonHorizontalPaddingval: 20.w,
               textSize: 12.sp,
               onPressed: () async {
-                /* showProgressIndicator(context);*/
-                await _login(context);
+                if (inst.from == "login") {}
+                if (inst.from == "register") {
+                  await _login(context);
+                }
               },
               text: "تحقق"),
         ),
-      ],
-    );
-  }
-}
-
-class OTPResender extends StatefulWidget {
-  final String phoneNumber;
-
-  OTPResender({required this.phoneNumber});
-
-  @override
-  State<OTPResender> createState() => _OTPResenderState();
-}
-
-class _OTPResenderState extends State<OTPResender> {
-  int secondsRemaining = 60;
-  bool enableResend = false;
-  late Timer timer;
-
-  snackBar(String? message) {
-    return ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message!),
-        duration: Duration(seconds: 2),
-      ),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    timer = Timer.periodic(Duration(seconds: 1), (_) {
-      if (secondsRemaining != 0) {
-        setState(() {
-          secondsRemaining--;
-        });
-      } else {
-        setState(() {
-          enableResend = true;
-        });
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    timer.cancel();
-  }
-
-  Future<void> _resendOTP(BuildContext context) async {
-    RegisterationCubit inst = RegisterationCubit.get(context);
-    await inst.resendOTP(widget.phoneNumber);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        RichText(
-            text: TextSpan(
-                text: secondsRemaining.toString() + ":00",
-                style: TextStyle(color: Colors.black, fontFamily: "Taga"))),
-        SizedBox(
-          width: 3.w,
-        ),
-        enableResend
-            ? TextButton(
-                onPressed: () async {
-                  await _resendOTP(context);
-                  setState(() {
-                    secondsRemaining = 60;
-                    enableResend = false;
-                  });
-                  snackBar("OTP resend!!");
-                },
-                child: Text(
-                  "اعاده ارسال الكود ؟",
-                  style: TextStyle(
-                      color: kMainColor, fontSize: 12.sp, fontFamily: "Taga"),
-                ),
-              )
-            : TextButton(
-                onPressed: null,
-                child: Text(
-                  "اعاده ارسال الكود ؟",
-                  style: TextStyle(
-                      color: Colors.grey, fontSize: 12.sp, fontFamily: "Taga"),
-                ),
-              ),
       ],
     );
   }

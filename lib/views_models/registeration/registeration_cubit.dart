@@ -6,21 +6,48 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:pointz/helper/components.dart';
+import 'package:pointz/models/userDetailsResponse.dart';
+
+import '../../core/services/user_registeration_services.dart';
 
 part 'registeration_state.dart';
 
 class RegisterationCubit extends Cubit<RegisterationState> {
   RegisterationCubit() : super(RegisterationInitial());
+  String from = "login";
   late String verificationId;
-  late String userFirebaseId;
+  String? userFirebaseId;
   bool termsAndConditionsAgreement = false;
   int? myResendToken;
+  String userBirthDate = "";
+  DateTime? _userDateOfBirth;
+  String userGender = "male";
+  User? user;
+  late String refereshedFirebaseToken;
+  UserDeatailsResponse? userResponse;
+
   TextEditingController _phoneNumberController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   final _phoneRegisterationFormKey = GlobalKey<FormState>();
+  final _completeRegisterationFormKey = GlobalKey<FormState>();
 
   static RegisterationCubit get(context) => BlocProvider.of(context);
   TextEditingController get phoneNumberController => _phoneNumberController;
   GlobalKey get phoneRegisterationFormKey => _phoneRegisterationFormKey;
+  GlobalKey get completeRegisterationFormKey => _completeRegisterationFormKey;
+  DateTime? get designerDateOfBirth => _userDateOfBirth;
+
+  setUserGender(String userGenderStatus) {
+    userGender = userGenderStatus;
+    emit(UserGenderSelected());
+  }
+
+  setUserDateOfBirth(var val) {
+    _userDateOfBirth = val;
+    emit(UserBirthOfDateIsSelected(_userDateOfBirth));
+  }
 
   //Todo:----------------------Phone Number Registeration And Otp Resend Methods------------------------------------
   //Todo:-----------------------------------------------------------------------------------------------------------
@@ -106,6 +133,9 @@ class RegisterationCubit extends Cubit<RegisterationState> {
         errorMessage =
             "عفوا : لقد أجريت العديد من المحاولات ، يرجي المحاوله لاحقا";
         break;
+      case "NETWORK-REQUEST-FAILED":
+        errorMessage = "تأكد من إتصالك بالأنترنت";
+        break;
       case "OPERATION-NOT-ALLOWED":
         errorMessage = "Signing in with Email and Password is not enabled.";
         break;
@@ -128,6 +158,7 @@ class RegisterationCubit extends Cubit<RegisterationState> {
   }
 
   Future<void> submitOTP(String otpCode) async {
+    emit(Loading());
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: this.verificationId, smsCode: otpCode);
     await signIn(credential);
@@ -138,9 +169,7 @@ class RegisterationCubit extends Cubit<RegisterationState> {
       await FirebaseAuth.instance
           .signInWithCredential(credential)
           .then((value) {
-        log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        log(value.user?.uid ?? "");
-        userFirebaseId = value.user!.uid.toString();
+        user = value.user!;
       });
       emit(PhoneOTPVerified());
     } on FirebaseAuthException catch (error) {
@@ -157,6 +186,9 @@ class RegisterationCubit extends Cubit<RegisterationState> {
           errorMessage =
               "لقد إنتهت صلاحيه الكود الذي تم إرساله اليك ، من فضلك إضغط إعاده إرسال الكود";
           break;
+        case "network-request-failed":
+          errorMessage = "تأكد من إتصالك بالأنترنت";
+          break;
         default:
           errorMessage = "خطأ غير معروف";
       }
@@ -165,6 +197,39 @@ class RegisterationCubit extends Cubit<RegisterationState> {
     }
   }
 
+  /*Future<void> signInWithPhoneNumber(String phoneNumber) async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithPhoneNumber(phoneNumber)
+          .then((value) {
+        value.verificationId;
+      });
+      emit(PhoneOTPVerified());
+    } on FirebaseAuthException catch (error) {
+      String errorMessage = "";
+
+      log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+      log("${error.code}");
+
+      switch (error.code.toString()) {
+        case "invalid-verification-code":
+          errorMessage = "كود تحقق غير صحيح";
+          break;
+        case "session-expired":
+          errorMessage =
+              "لقد إنتهت صلاحيه الكود الذي تم إرساله اليك ، من فضلك إضغط إعاده إرسال الكود";
+          break;
+        case "network-request-failed":
+          errorMessage = "تأكد من إتصالك بالأنترنت";
+          break;
+        default:
+          errorMessage = "خطأ غير معروف";
+      }
+
+      emit(OTPErrorOccurred(errorMsg: errorMessage));
+    }
+  }*/
+
   Future<void> logOut() async {
     await FirebaseAuth.instance.signOut();
   }
@@ -172,5 +237,94 @@ class RegisterationCubit extends Cubit<RegisterationState> {
   User getLoggedInUser() {
     User firebaseUser = FirebaseAuth.instance.currentUser!;
     return firebaseUser;
+  }
+
+  //Todo:----------------------------------Complete Registeration---------------------------------------------------
+//Todo:-----------------------------------------------------------------------------------------------------------
+//Todo:-----------------------------------------------------------------------------------------------------------
+//Todo:-----------------------------------------------------------------------------------------------------------
+
+  validateCompleteRegisterationForm(BuildContext context) {
+    _completeRegisterationFormKey.currentState!.save();
+    if (_completeRegisterationFormKey.currentState!.validate()) {
+      if (_userDateOfBirth == null) {
+        showToast(context, "من فضلك إختر تاريخ ميلاد");
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  String getGenderCode() {
+    if (userGender == "male") {
+      return "M";
+    } else {
+      return "F";
+    }
+  }
+
+  Future<bool> postNewUser(BuildContext context) async {
+    emit(CompleteRegisterationLoading());
+    user!.refreshToken;
+    await user!.getIdTokenResult().then((idToken) async {
+      print(idToken.token);
+      print(firstNameController.text.toString());
+      print(lastNameController.text.toString());
+      print(emailController.text.toString());
+      print(phoneNumberController.text.toString());
+      print(userGender.toString());
+      print(_userDateOfBirth!.toIso8601String());
+      print(user!.uid.toString());
+
+      await UserRegisterationServices()
+          .postNewUser(
+              firebaseToken: idToken.token!,
+              user: {
+                "firstName": firstNameController.text.toString(),
+                "lastName": lastNameController.text.toString(),
+                "email": emailController.text.toString(),
+                "phoneNumber": "+9665" + phoneNumberController.text,
+                "genderCode": getGenderCode(),
+                "birthDate": _userDateOfBirth!.toIso8601String(),
+                "firebaseUID": user!.uid.toString(),
+              },
+              context: context)
+          .then((value) {
+        if (value == "true") {
+          emit(SuccessRegisteration());
+        } else {
+          emit(FailedRegisteration(errorMsg: value));
+        }
+        return value;
+      });
+    });
+    return false;
+  }
+
+  Future<bool> getUserDetails(BuildContext context) async {
+    emit(CompleteRegisterationLoading());
+    user!.refreshToken;
+    await user!.getIdTokenResult().then((idToken) async {
+      await UserRegisterationServices()
+          .getUserDetails(
+              firebaseToken: idToken.token!,
+              user: {
+                "phoneNumber": "+966544444444",
+                "firebaseUID": "nVBvtWNXgXc9sibn18u2vRdogf73"
+              },
+              context: context)
+          .then((value) {
+        if (value == "true") {
+          emit(SuccessRegisteration());
+        } else {
+          emit(FailedRegisteration(errorMsg: value));
+        }
+        return value;
+      });
+    });
+    return false;
   }
 }

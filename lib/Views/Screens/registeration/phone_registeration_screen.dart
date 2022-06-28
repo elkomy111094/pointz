@@ -23,7 +23,7 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
     RegisterationCubit inst = RegisterationCubit.get(context);
     if (inst.validatePhoneNumber(context) == true) {
       inst.submitPhoneNumber(
-          /*"+966"*/ "+201" + inst.phoneNumberController.text);
+          "+9665" /*"+201"*/ + inst.phoneNumberController.text);
     } else {
       return;
     }
@@ -49,8 +49,8 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
           pushToStack(
             context,
             OTPScreen(
-                phoneNumber: /*"+966"*/ "+201" +
-                    inst.phoneNumberController.text),
+                phoneNumber:
+                    "+9665" /*"+201"*/ + inst.phoneNumberController.text),
           );
         }
         if (state is Loading) {
@@ -159,14 +159,15 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
                                           child: Directionality(
                                             textDirection: TextDirection.ltr,
                                             child: SquareTextField(
-                                              prefixText: "+966 ",
-                                              maxLength: 9,
+                                              textLetterSpaceing: 2,
+                                              prefixText: "+9665 ",
+                                              maxLength: 8,
                                               hintText: "",
                                               validator: (phoneVal) {
                                                 if (phoneVal!.isEmpty) {
                                                   return "من فضلك أدخل رقم الجوال الخاص بك";
                                                 } else if (!RegExp(
-                                                        r'(^(?:[+0]9)?[0-9]{9,9}$)')
+                                                        r'(^(?:[+0]9)?[0-9]{8,8}$)')
                                                     .hasMatch(phoneVal)) {
                                                   return "من فضلك أدخل رقم جوال صحيح";
                                                 } else {

@@ -26,8 +26,11 @@ class SquareTextField extends StatelessWidget {
 
   String? prefixText;
 
+  double? textLetterSpaceing;
+
   SquareTextField(
       {required this.hintText,
+      this.textLetterSpaceing = 0.0,
       this.maxLength,
       this.prefixText,
       this.preFixWidget,
@@ -66,7 +69,7 @@ class SquareTextField extends StatelessWidget {
             style: TextStyle(
                 color: Colors.black,
                 /*fontFamily: "Taga",*/
-                letterSpacing: 2,
+                letterSpacing: textLetterSpaceing,
                 fontSize: 13.sp),
             decoration: InputDecoration(
               errorStyle: TextStyle(fontSize: 10.sp, fontFamily: "Taga"),
@@ -86,6 +89,7 @@ class SquareTextField extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                   /* borderSide: BorderSide(color: kYellow, width: 2)*/),
               hintText: hintText,
+              counterText: "",
               suffixIcon: suffixWidget,
               prefixIcon: preFixWidget,
               hintStyle: TextStyle(color: Colors.black26, fontSize: 15.sp),

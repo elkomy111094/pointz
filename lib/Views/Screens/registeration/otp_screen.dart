@@ -22,6 +22,8 @@ class OTPScreen extends StatelessWidget {
 
           if (state is PhoneOTPResent) {
             pop(ctx);
+            pop(ctx);
+            showToast(context, "تم إعاده إرسال الكود اليك");
             /*pushToStackAndReplacement(
                 context
                 ;  0
@@ -33,18 +35,25 @@ class OTPScreen extends StatelessWidget {
           }
           if (state is PhoneOTPVerified) {
             Navigator.pop(ctx);
+            pop(ctx);
             pushToStack(ctx, LocationRegisterationScreen());
           }
           if (state is Loading) {
             showProgressIndicator(ctx);
           }
           if (state is OTPErrorOccurred) {
+            pop(ctx);
+            pop(ctx);
             String errorMsg = (state).errorMsg;
             showToast(ctx, errorMsg);
           }
         },
         builder: (context, state) {
           RegisterationCubit inst = RegisterationCubit.get(context);
+
+          print(
+              "oooooooooooooooooooooooooooTTTTTTTTTTTTTTTTTTTTTTTTPPPPPPPPPPPPPPPPP");
+          print(inst.verificationId);
 
           return Scaffold(
             resizeToAvoidBottomInset: false,
