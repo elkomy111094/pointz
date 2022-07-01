@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:pointz/helper/components.dart';
-import 'package:pointz/models/userDetailsResponse.dart';
+import 'package:pointz/models/user_details_Response.dart';
 
 import '../../core/services/user_registeration_services.dart';
 
@@ -14,7 +14,6 @@ part 'registeration_state.dart';
 
 class RegisterationCubit extends Cubit<RegisterationState> {
   RegisterationCubit() : super(RegisterationInitial());
-  String from = "login";
   late String verificationId;
   String? userFirebaseId;
   bool termsAndConditionsAgreement = false;
@@ -23,7 +22,7 @@ class RegisterationCubit extends Cubit<RegisterationState> {
   DateTime? _userDateOfBirth;
   String userGender = "male";
   User? user;
-  late String refereshedFirebaseToken;
+  String? refereshedFirebaseToken;
   UserDeatailsResponse? userResponse;
 
   TextEditingController _phoneNumberController = TextEditingController();
@@ -99,7 +98,7 @@ class RegisterationCubit extends Cubit<RegisterationState> {
   }
 
   void codeReSent(String verificationId, int? resendToken) {
-    myResendToken = resendToken;
+    /*myResendToken = resendToken;*/
     print('codeSent');
     this.verificationId = verificationId;
     emit(PhoneOTPResent());
@@ -147,7 +146,7 @@ class RegisterationCubit extends Cubit<RegisterationState> {
   }
 
   void codeSent(String verificationId, int? resendToken) {
-    myResendToken = resendToken;
+    /*myResendToken = resendToken;*/
     print('codeSent');
     this.verificationId = verificationId;
     emit(PhoneNumberSubmited());
@@ -168,10 +167,11 @@ class RegisterationCubit extends Cubit<RegisterationState> {
     try {
       await FirebaseAuth.instance
           .signInWithCredential(credential)
-          .then((value) {
+          .then((value) async {
         user = value.user!;
+        await getUserDetails(
+            phoneNumber: phoneNumberController.text, UID: user!.uid.toString());
       });
-      emit(PhoneOTPVerified());
     } on FirebaseAuthException catch (error) {
       String errorMessage = "";
 
@@ -270,15 +270,6 @@ class RegisterationCubit extends Cubit<RegisterationState> {
     emit(CompleteRegisterationLoading());
     user!.refreshToken;
     await user!.getIdTokenResult().then((idToken) async {
-      print(idToken.token);
-      print(firstNameController.text.toString());
-      print(lastNameController.text.toString());
-      print(emailController.text.toString());
-      print(phoneNumberController.text.toString());
-      print(userGender.toString());
-      print(_userDateOfBirth!.toIso8601String());
-      print(user!.uid.toString());
-
       await UserRegisterationServices()
           .postNewUser(
               firebaseToken: idToken.token!,
@@ -292,9 +283,12 @@ class RegisterationCubit extends Cubit<RegisterationState> {
                 "firebaseUID": user!.uid.toString(),
               },
               context: context)
-          .then((value) {
+          .then((value) async {
         if (value == "true") {
-          emit(SuccessRegisteration());
+          await getUserDetails(
+                  phoneNumber: phoneNumberController.text,
+                  UID: user!.uid.toString())
+              .then((value) => emit(SuccessRegisteration()));
         } else {
           emit(FailedRegisteration(errorMsg: value));
         }
@@ -304,27 +298,33 @@ class RegisterationCubit extends Cubit<RegisterationState> {
     return false;
   }
 
-  Future<bool> getUserDetails(BuildContext context) async {
-    emit(CompleteRegisterationLoading());
+  Future<bool> getUserDetails(
+      {required String phoneNumber, required String UID}) async {
     user!.refreshToken;
     await user!.getIdTokenResult().then((idToken) async {
-      await UserRegisterationServices()
-          .getUserDetails(
-              firebaseToken: idToken.token!,
-              user: {
-                "phoneNumber": "+966544444444",
-                "firebaseUID": "nVBvtWNXgXc9sibn18u2vRdogf73"
-              },
-              context: context)
-          .then((value) {
-        if (value == "true") {
-          emit(SuccessRegisteration());
+      refereshedFirebaseToken = idToken.token!;
+
+      await UserRegisterationServices().getUserDetails(
+        firebaseToken: idToken.token!,
+        user: {
+          "phoneNumber": "+9665" + phoneNumber,
+          "firebaseUID": user!.uid,
+        },
+      ).then((value) {
+        if (value == false) {
+          emit(UserNotRegisteredBefore());
         } else {
-          emit(FailedRegisteration(errorMsg: value));
+          userResponse = value;
+          emit(UserRegisteredBefore());
         }
         return value;
       });
     });
     return false;
+  }
+
+  getRefereshedToken() {
+    user!.refreshToken;
+    return user!.getIdToken().then((value) => value);
   }
 }

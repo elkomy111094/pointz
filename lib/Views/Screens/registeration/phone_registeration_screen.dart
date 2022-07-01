@@ -10,8 +10,6 @@ import 'package:pointz/helper/components.dart';
 import 'package:pointz/views_models/registeration/registeration_cubit.dart';
 import 'package:sizer/sizer.dart';
 
-import '../login/login_screen.dart';
-
 class PhoneRegisterationScreen extends StatefulWidget {
   @override
   State<PhoneRegisterationScreen> createState() =>
@@ -22,6 +20,8 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
   Future<void> _register(BuildContext context) async {
     RegisterationCubit inst = RegisterationCubit.get(context);
     if (inst.validatePhoneNumber(context) == true) {
+      print("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+      print("+9665" /*"+201"*/ + inst.phoneNumberController.text);
       inst.submitPhoneNumber(
           "+9665" /*"+201"*/ + inst.phoneNumberController.text);
     } else {
@@ -249,54 +249,6 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
                               ),
                               SizedBox(
                                 height: 5.h,
-                              ),
-                              Center(
-                                child: InkWell(
-                                  onTap: () {
-                                    pushToStack(context, Login());
-                                  },
-                                  child: Container(
-                                    height: 7.h,
-                                    width: 75.w,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(1.h),
-                                        border: Border.all(
-                                            color: kMainColor, width: 1)),
-                                    child: Center(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          RichText(
-                                            text: TextSpan(
-                                                text: "لديك حساب بالفعل ؟",
-                                                style: TextStyle(
-                                                  color: Colors.black38,
-                                                  fontSize: 12.sp,
-                                                  fontFamily: "Taga",
-                                                )),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              pushToStack(context, Login());
-                                            },
-                                            child: RichText(
-                                              text: TextSpan(
-                                                  text: "تسجيل الدخول",
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontFamily: "Taga",
-                                                      fontSize: 12.sp,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
                               ),
                               SizedBox(height: 5.h),
                             ],

@@ -53,6 +53,7 @@ class _OffersScreenState extends State<OffersScreen> {
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return CategoryItems(
+                            name: "مطاعم",
                             navBarContext: widget.navBarScreenContext!,
                             onTapItem: () {},
                           );

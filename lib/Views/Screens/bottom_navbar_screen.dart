@@ -9,6 +9,8 @@ import 'package:pointz/Views/Screens/offers_screen.dart';
 import 'package:pointz/Views/Screens/orders_screen.dart';
 import 'package:pointz/constants/colors.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../views_models/registeration/registeration_cubit.dart';
 // ----------------------------------------- Provided Style ----------------------------------------- //
 
 class NavBarScreen extends StatefulWidget {
@@ -25,6 +27,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
   @override
   void initState() {
     super.initState();
+
     _controller = PersistentTabController(initialIndex: 0);
     _hideNavBar = false;
   }
@@ -145,6 +148,8 @@ class _NavBarScreenState extends State<NavBarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    RegisterationCubit inst = RegisterationCubit.get(context);
+    print(inst.refereshedFirebaseToken);
     return SafeArea(
       top: true,
       child: Directionality(

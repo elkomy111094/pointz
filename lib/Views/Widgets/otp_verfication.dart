@@ -206,10 +206,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
               buttonHorizontalPaddingval: 20.w,
               textSize: 12.sp,
               onPressed: () async {
-                if (inst.from == "login") {}
-                if (inst.from == "register") {
-                  await _login(context);
-                }
+                await _login(context);
               },
               text: "تحقق"),
         ),

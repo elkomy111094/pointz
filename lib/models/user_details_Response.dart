@@ -21,20 +21,21 @@ class UserDeatailsResponse {
 }
 
 class Result {
-  UserDetails? data;
+  UserDetails? responseResult;
   Null? paginatedData;
 
-  Result({this.data, this.paginatedData});
+  Result({this.responseResult, this.paginatedData});
 
   Result.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? new UserDetails.fromJson(json['data']) : null;
+    responseResult =
+        json['data'] != null ? new UserDetails.fromJson(json['data']) : null;
     paginatedData = json['paginatedData'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
+    if (this.responseResult != null) {
+      data['data'] = this.responseResult!.toJson();
     }
     data['paginatedData'] = this.paginatedData;
     return data;

@@ -7,6 +7,10 @@ class RegisterationInitial extends RegisterationState {}
 
 class Loading extends RegisterationState {}
 
+class UserNotRegisteredBefore extends RegisterationState {}
+
+class UserRegisteredBefore extends RegisterationState {}
+
 class CompleteRegisterationLoading extends RegisterationState {}
 
 class SuccessRegisteration extends RegisterationState {}

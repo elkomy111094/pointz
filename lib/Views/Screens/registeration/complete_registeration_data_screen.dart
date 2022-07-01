@@ -24,7 +24,7 @@ class CompleteRegisterationData extends StatelessWidget {
           }
           if (state is SuccessRegisteration) {
             pop(ctx);
-            showToast(context, "تم تسجيل حسابك بنجاح");
+            pushToStack(ctx, NavBarScreen());
           }
           if (state is FailedRegisteration) {
             pop(ctx);

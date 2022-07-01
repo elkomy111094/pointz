@@ -12,9 +12,18 @@ class CardItem extends StatelessWidget {
 
   bool isFavorite;
 
+  String? name;
+
+  String? desc;
+
+  String? image;
+
   CardItem(
       {required this.currentContext,
+      this.name = "ماكدونالدز",
+      this.image,
       this.tabNavigateToScreen,
+      this.desc = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       this.isFavorite = false});
 
   @override
@@ -36,17 +45,35 @@ class CardItem extends StatelessWidget {
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               Stack(
                 children: [
-                  Container(
-                    height: 17.h,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15.0),
-                            topRight: Radius.circular(15.0)),
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage("assets/images/image.jpg"))),
-                  ),
+                  image == null
+                      ? Container(
+                          height: 17.h,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15.0),
+                                  topRight: Radius.circular(15.0)),
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image:
+                                      AssetImage("assets/images/image.jpg"))),
+                        )
+                      : Container(
+                          height: 17.h,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(15.0),
+                                topRight: Radius.circular(15.0)),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(2.h),
+                            child: Image.memory(
+                              convertBase64Url(base64Url: image!),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
                   Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: 1.h, vertical: 1.h),
@@ -113,7 +140,7 @@ class CardItem extends StatelessWidget {
                       width: 2.w,
                     ),
                     Text(
-                      "آزور مطعم إسباني",
+                      name!,
                       style: TextStyle(
                           fontSize: 10.sp,
                           fontFamily: "Taga",
@@ -146,7 +173,8 @@ class CardItem extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 2.w, right: 5.w, left: 5.w),
                 child: Text(
-                  "أديداس تعتبر من أكبر الشركات عالمياً في تصنيع الأدوات الرياضية وتحديداً الأحذية ",
+                  desc!,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                       fontSize: 10.sp,
                       fontFamily: "Taga",

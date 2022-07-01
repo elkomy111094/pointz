@@ -4,7 +4,7 @@ import 'package:pointz/helper/components.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../constants/colors.dart';
-import '../login/login_screen.dart';
+import '../registeration/phone_registeration_screen.dart';
 
 class OnBoarding extends StatefulWidget {
   //write stf to Create fully stateful widget
@@ -131,7 +131,7 @@ class _OnBoardingState extends State<OnBoarding> {
             right: 2.h,
             child: TextButton(
               onPressed: () {
-                pushToStack(context, Login());
+                pushToStack(context, PhoneRegisterationScreen());
               },
               child: Text(
                 "تخطي",
@@ -218,7 +218,7 @@ class _OnBoardingState extends State<OnBoarding> {
                     currentIndex == 3
                         ? InkWell(
                             onTap: () {
-                              pushToStack(context, Login());
+                              pushToStack(context, PhoneRegisterationScreen());
                             },
                             child: Stack(
                               alignment: Alignment.center,

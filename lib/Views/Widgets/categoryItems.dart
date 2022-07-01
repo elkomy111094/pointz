@@ -5,8 +5,10 @@ import 'package:sizer/sizer.dart';
 class CategoryItems extends StatelessWidget {
   void Function()? onTapItem;
   BuildContext? navBarContext;
+  String name;
 
-  CategoryItems({required this.onTapItem, this.navBarContext});
+  CategoryItems(
+      {required this.name, required this.onTapItem, this.navBarContext});
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +28,12 @@ class CategoryItems extends StatelessWidget {
               ),
             ),
             Text(
-              "مطاعم",
+              name,
               style: TextStyle(
-                  color: Colors.black, fontSize: 10.sp, fontFamily: "Taga"),
+                  color: Colors.black,
+                  fontSize: 10.sp,
+                  fontFamily: "Taga",
+                  fontWeight: FontWeight.bold),
             )
           ],
         ),

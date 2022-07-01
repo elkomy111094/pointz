@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pointz/Views/Screens/registeration/phone_registeration_screen.dart';
 import 'package:pointz/Views/Widgets/more_item_card.dart';
 import 'package:pointz/constants/colors.dart';
+import 'package:pointz/views_models/registeration/registeration_cubit.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../helper/components.dart';
@@ -16,6 +18,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    RegisterationCubit inst = RegisterationCubit.get(context);
     return SafeArea(
       child: Directionality(
         textDirection: TextDirection.rtl,
@@ -99,7 +102,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               image: DecorationImage(
                                                   fit: BoxFit.fill,
                                                   image: AssetImage(
-                                                      "assets/images/eslam.jpg")),
+                                                    "assets/images/user_img.png",
+                                                  )),
                                             ),
                                           ),
                                         ),
@@ -125,7 +129,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     height: 2.h,
                                   ),
                                   Text(
-                                    "إسلام الكومي",
+                                    inst.userResponse!.result!.responseResult!
+                                        .fullName!,
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 15.sp,
@@ -176,13 +181,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       SizedBox(
                                         width: 5.w,
                                       ),
-                                      Text(
-                                        "01153942488",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            letterSpacing: 1,
-                                            fontFamily: "Taga",
-                                            fontSize: 12.sp),
+                                      Directionality(
+                                        textDirection: TextDirection.ltr,
+                                        child: Text(
+                                          inst.userResponse!.result!
+                                              .responseResult!.phoneNumber!,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              letterSpacing: 1,
+                                              fontFamily: "Taga",
+                                              fontSize: 12.sp),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -193,21 +202,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         MoreItemCard(
                             onTabButton: () {},
-                            title: "elkomy.dev@gmail.com",
+                            title: inst
+                                .userResponse!.result!.responseResult!.email!,
                             iconUrl: "assets/icons/message-cover.svg"),
                         MoreItemCard(
                             onTabButton: () {},
-                            title: " 1994 / 10 / 11 ",
+                            title: inst.userResponse!.result!.responseResult!
+                                .birthDate!,
                             iconUrl: "assets/icons/birthday.svg"),
                         MoreItemCard(
                             onTabButton: () {},
-                            title: "ذكر",
+                            title: inst.userResponse!.result!.responseResult!
+                                .gender!.nameAr!,
                             iconUrl: "assets/icons/male.svg"),
                         SizedBox(
                           height: 3.h,
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () async {
+                            await inst.logOut().then((value) {
+                              pushToStackAndRemoveUntil(
+                                  context, PhoneRegisterationScreen());
+                            });
+                          },
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,

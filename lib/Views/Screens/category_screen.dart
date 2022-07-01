@@ -8,8 +8,13 @@ import 'package:sizer/sizer.dart';
 
 import '../../constants/colors.dart';
 import '../Widgets/cardItem.dart';
+import '../Widgets/paginated_list.dart';
 
 class CategoryScreen extends StatefulWidget {
+  final String code;
+
+  CategoryScreen({required this.code});
+
   @override
   _CategoryScreenState createState() => _CategoryScreenState();
 }
@@ -240,8 +245,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               height: 1.h,
                             ),
                             Container(
-                              height: 75.h,
-                              child: ListView.separated(
+                              height: 60.h,
+                              color: Colors.red,
+                              child: InfiniteScroll(
+                                  code: widget
+                                      .code) /*ListView.separated(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 3.w),
                                   scrollDirection: Axis.vertical,
@@ -257,7 +265,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       height: 3.5.w,
                                     );
                                   },
-                                  itemCount: 5),
+                                  itemCount: 5)*/
+                              ,
                             ), // )
                           ],
                         ),

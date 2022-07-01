@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:pointz/models/user_details_Response.dart';
 
 import '../../constants/strings.dart';
 
@@ -15,8 +16,8 @@ class UserRegisterationServices {
         baseUrl: baseURL,
         //baseUrl for my api
         receiveDataWhenStatusError: true,
-        connectTimeout: 5000,
-        receiveTimeout: 3000,
+        connectTimeout: 60 * 1000,
+        receiveTimeout: 60 * 1000,
         /*contentType: "application/json",*/
 
         headers: {});
@@ -65,10 +66,10 @@ class UserRegisterationServices {
     }
   }
 
-  Future<String> getUserDetails(
-      {required String firebaseToken,
-      required Map<String, dynamic> user,
-      required BuildContext context}) async {
+  Future<dynamic> getUserDetails({
+    required String firebaseToken,
+    required Map<String, dynamic> user,
+  }) async {
     dio.options.headers = {
       'Authorization': 'Bearer $firebaseToken',
       "Content-Type": "application/json"
@@ -79,32 +80,14 @@ class UserRegisterationServices {
       Response response =
           await dio.post("customer/byPhoneAndTokenUpdate", data: user);
       if (response.statusCode == 200) {
-        return "true";
+        return UserDeatailsResponse.fromJson(response.data);
       } else {
         return "false";
       }
     } on DioError catch (e) {
-      if (e.response!.data["Error"] != null) {
-        String errorMessage = e.response!.data["Error"]["Description"];
-        if (errorMessage ==
-            json.encode(
-                ["A customer with the same phone number already exist"])) {
-          return "عفوا:لم يتم التسجيل،لان رقم الهاتف مسجل من قبل";
-        } else if (errorMessage ==
-            json.encode([
-              "A customer with the same email already exist",
-              "A customer with the same phone number already exist"
-            ])) {
-          return "عفوا:لم يتم التسجيل،لان هذا الحساب مسجل من قبل من فضلك توجه الي شاشه تسجيل الدخول";
-        } else if (errorMessage ==
-            json.encode(["A customer with the same email already exist"])) {
-          return "عفوا:لم يتم التسجيل،لان هذا البريد الالكتروني مسجل من قبل";
-        } else {
-          return errorMessage;
-        }
-      } else {
-        return e.message.toString();
-      }
+      print(e.response?.data.toString());
+      print(e.message);
+      return false;
     }
   }
 }

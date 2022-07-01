@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pointz/Views/Screens/bottom_navbar_screen.dart';
 import 'package:pointz/constants/colors.dart';
 import 'package:sizer/sizer.dart';
 
@@ -34,10 +35,65 @@ class OTPScreen extends StatelessWidget {
                         inst.phoneNumberController.text));*/
           }
           if (state is PhoneOTPVerified) {
-            Navigator.pop(ctx);
+            pop(ctx);
+            pop(ctx);
+          }
+
+          if (state is UserRegisteredBefore) {
+            pop(ctx);
+            pop(ctx);
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) {
+              return NavBarScreen();
+            }), (route) => false);
+            /*   showGeneralDialog(
+                context: context,
+                pageBuilder: (x, y, z) {
+                  return CustomAlertDialog(
+                    cardImgUrl: "assets/icons/info.svg",
+                    content: Padding(
+                      padding: EdgeInsets.only(
+                          top: 10.h, left: 5.w, right: 5.w, bottom: 2.h),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "أنت بالفعل تمتلك حساب علي التطبيق",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: "Taga",
+                                fontSize: 14.sp),
+                          ),
+                          SizedBox(
+                            height: 3.h,
+                          ),
+                          CustomTextButton(
+                              buttonColor: kMainColor,
+                              textColor: Colors.white,
+                              textSize: 12.sp,
+                              onPressed: () {
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(builder: (context) {
+                                  return NavBarScreen();
+                                }), (route) => false);
+                              },
+                              text: "الذهاب الي الشاشه الرئيسيه")
+                        ],
+                      ),
+                    ),
+                    onTapXButton: () {
+                      pop(context);
+                    },
+                  );
+                });*/
+          }
+          if (state is UserNotRegisteredBefore) {
+            pop(ctx);
             pop(ctx);
             pushToStack(ctx, LocationRegisterationScreen());
           }
+
           if (state is Loading) {
             showProgressIndicator(ctx);
           }
@@ -47,14 +103,15 @@ class OTPScreen extends StatelessWidget {
             String errorMsg = (state).errorMsg;
             showToast(ctx, errorMsg);
           }
+
+          if (state is PhoneNumberSubmitErrorOccurred) {
+            pop(ctx);
+            pop(ctx);
+            showToast(ctx, state.errorMsg);
+          }
         },
         builder: (context, state) {
           RegisterationCubit inst = RegisterationCubit.get(context);
-
-          print(
-              "oooooooooooooooooooooooooooTTTTTTTTTTTTTTTTTTTTTTTTPPPPPPPPPPPPPPPPP");
-          print(inst.verificationId);
-
           return Scaffold(
             resizeToAvoidBottomInset: false,
             body: Stack(
