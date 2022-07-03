@@ -100,6 +100,35 @@ class LogoUploadedFile {
   }
 }
 
+class BannerUploadedFile {
+  int? id;
+  String? name;
+  int? size;
+  String? fileType;
+  String? base64Format;
+
+  BannerUploadedFile(
+      {this.id, this.name, this.size, this.fileType, this.base64Format});
+
+  BannerUploadedFile.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    size = json['size'];
+    fileType = json['fileType'];
+    base64Format = json['base64_Format'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['size'] = this.size;
+    data['fileType'] = this.fileType;
+    data['base64_Format'] = this.base64Format;
+    return data;
+  }
+}
+
 class TopBusinessInCategory {
   int? id;
   int? displayOrder;

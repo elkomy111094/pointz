@@ -75,14 +75,6 @@ class _InfiniteScrollState extends State<InfiniteScroll> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: widget.code != null
-            ? AppBar(
-                elevation: 0,
-                backgroundColor: Colors.transparent,
-                foregroundColor: kMainColor,
-                toolbarHeight: 10.h,
-              )
-            : null,
         body: NotificationListener(
           onNotification: (note) {
             if (note is ScrollEndNotification) {
@@ -110,6 +102,9 @@ class _InfiniteScrollState extends State<InfiniteScroll> {
                       return Padding(
                         padding: EdgeInsets.all(1.h),
                         child: CardItem(
+                          desc: item.detailsAr,
+                          name: item.nameAr,
+                          image: item.bannerUploadedFile?.base64Format,
                           currentContext: context,
                           tabNavigateToScreen: ProductsProviderDetailsScreen(),
                         ),

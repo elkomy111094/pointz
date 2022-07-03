@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:pointz/helper/components.dart';
 import 'package:sizer/sizer.dart';
 
@@ -18,26 +21,10 @@ class _OnBoardingState extends State<OnBoarding> {
   int currentIndex = 0;
   //List of All Moved Items In OnBoarding Screen each Block(Map) Consider One Moved Item
   List<Map<String, dynamic>> onBoardingMovedItemsList = [
-    {
-      "imgUrl": "assets/icons/onboarding1.svg",
-      "desc":
-          "مش لازم تستنى طول السنة لما الخصومات تبدأ زي كل الناس ، نقاطي جابتلك الخصومات لحد عندك ، لأن عندنا أكتر من 400+ شريك واكتر من ٣٠٠٠+ فرع"
-    },
-    {
-      "imgUrl": "assets/icons/onboarding2.svg",
-      "desc":
-          "هتلاقي عروض و خصومات على كل ماركات و محلات الملابس و الالكترونيات بالإضافة لكل الكافيهات والمطاعم اللي بتحبها"
-    },
-    {
-      "imgUrl": "assets/icons/onboarding3.svg",
-      "desc":
-          "بوينتز بيوفرلك عروض وخصومات في أفضل صالونات التجميل والمنتجعات والنشاطات الترفيهية ليك ولأطفالك"
-    },
-    {
-      "imgUrl": "assets/icons/onboarding4.svg",
-      "desc":
-          "زور المحل أو الكافيه اللي عليه التخفيض ، صور ال QR كود اللي عند الكاشير ، استلم نقاطك ، احصل علي مكافآتك"
-    },
+    {"imgUrl": "assets/icons/onboarding1.svg", "desc": "onboardingdesc1".tr()},
+    {"imgUrl": "assets/icons/onboarding2.svg", "desc": "onboardingdesc2".tr()},
+    {"imgUrl": "assets/icons/onboarding3.svg", "desc": "onboardingdesc3".tr()},
+    {"imgUrl": "assets/icons/onboarding4.svg", "desc": "onboardingdesc4".tr()},
   ];
   @override
   initState() {}
@@ -112,7 +99,7 @@ class _OnBoardingState extends State<OnBoarding> {
                                         color: Colors.black,
                                         fontFamily: "Taga",
                                         fontWeight: FontWeight.w500,
-                                        fontSize: 13.sp)),
+                                        fontSize: 14.sp)),
                               ),
                             ),
                           ],
@@ -134,7 +121,7 @@ class _OnBoardingState extends State<OnBoarding> {
                 pushToStack(context, PhoneRegisterationScreen());
               },
               child: Text(
-                "تخطي",
+                "skip".tr(),
                 style: TextStyle(
                   color: Colors.black,
                   fontFamily: "Taga",
@@ -147,70 +134,78 @@ class _OnBoardingState extends State<OnBoarding> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-                height: 30.h,
+                height: 25.h,
                 width: double.infinity,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 500),
-                          height: 1.h,
-                          width: currentIndex == 0 ? 8.w : 5.w,
-                          decoration: BoxDecoration(
-                            color: currentIndex == 0 ? kMainColor : Colors.grey,
-                            borderRadius: const BorderRadius.horizontal(
-                                right: Radius.circular(50),
-                                left: Radius.circular(50)),
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 500),
+                            height: 1.h,
+                            width: currentIndex == 0 ? 8.w : 5.w,
+                            decoration: BoxDecoration(
+                              color:
+                                  currentIndex == 0 ? kMainColor : Colors.grey,
+                              borderRadius: const BorderRadius.horizontal(
+                                  right: Radius.circular(50),
+                                  left: Radius.circular(50)),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 2.w,
-                        ),
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 500),
-                          height: 1.h,
-                          width: currentIndex == 1 ? 8.w : 5.w,
-                          decoration: BoxDecoration(
-                            color: currentIndex == 1 ? kMainColor : Colors.grey,
-                            borderRadius: const BorderRadius.horizontal(
-                                right: Radius.circular(50),
-                                left: Radius.circular(50)),
+                          SizedBox(
+                            width: 2.w,
                           ),
-                        ),
-                        SizedBox(
-                          width: 2.w,
-                        ),
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 500),
-                          height: 1.h,
-                          width: currentIndex == 2 ? 8.w : 5.w,
-                          decoration: BoxDecoration(
-                            color: currentIndex == 2 ? kMainColor : Colors.grey,
-                            borderRadius: const BorderRadius.horizontal(
-                                right: Radius.circular(50),
-                                left: Radius.circular(50)),
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 500),
+                            height: 1.h,
+                            width: currentIndex == 1 ? 8.w : 5.w,
+                            decoration: BoxDecoration(
+                              color:
+                                  currentIndex == 1 ? kMainColor : Colors.grey,
+                              borderRadius: const BorderRadius.horizontal(
+                                  right: Radius.circular(50),
+                                  left: Radius.circular(50)),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 2.w,
-                        ),
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 500),
-                          height: 1.h,
-                          width: currentIndex == 3 ? 8.w : 5.w,
-                          decoration: BoxDecoration(
-                            color: currentIndex == 3 ? kMainColor : Colors.grey,
-                            borderRadius: const BorderRadius.horizontal(
-                                right: Radius.circular(50),
-                                left: Radius.circular(50)),
+                          SizedBox(
+                            width: 2.w,
                           ),
-                        ),
-                      ],
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 500),
+                            height: 1.h,
+                            width: currentIndex == 2 ? 8.w : 5.w,
+                            decoration: BoxDecoration(
+                              color:
+                                  currentIndex == 2 ? kMainColor : Colors.grey,
+                              borderRadius: const BorderRadius.horizontal(
+                                  right: Radius.circular(50),
+                                  left: Radius.circular(50)),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 2.w,
+                          ),
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 500),
+                            height: 1.h,
+                            width: currentIndex == 3 ? 8.w : 5.w,
+                            decoration: BoxDecoration(
+                              color:
+                                  currentIndex == 3 ? kMainColor : Colors.grey,
+                              borderRadius: const BorderRadius.horizontal(
+                                  right: Radius.circular(50),
+                                  left: Radius.circular(50)),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 5.h,
@@ -225,8 +220,8 @@ class _OnBoardingState extends State<OnBoarding> {
                               children: [
                                 SvgPicture.asset(
                                     "assets/icons/onboardingbu${currentIndex + 1}.svg",
-                                    width: 8.h,
-                                    height: 8.h),
+                                    width: 9.h,
+                                    height: 9.h),
                                 Padding(
                                   padding: EdgeInsets.all(2.h),
                                   child: RichText(
@@ -235,7 +230,7 @@ class _OnBoardingState extends State<OnBoarding> {
                                             color: Colors.white,
                                             fontFamily: "Taga",
                                             fontSize: 10.sp),
-                                        text: "أبداء"),
+                                        text: "start".tr()),
                                   ),
                                 )
                               ],
@@ -248,10 +243,13 @@ class _OnBoardingState extends State<OnBoarding> {
                               });
                             },
                             child: SizedBox(
-                              height: 8.h,
-                              width: 8.h,
-                              child: SvgPicture.asset(
-                                  "assets/icons/onboardingbu${currentIndex + 1}.svg"),
+                              height: 9.h,
+                              width: 9.h,
+                              child: Transform.rotate(
+                                angle: 180 * pi / 180,
+                                child: SvgPicture.asset(
+                                    "assets/icons/onboardingbu${currentIndex + 1}.svg"),
+                              ),
                             ),
                           ),
                   ],

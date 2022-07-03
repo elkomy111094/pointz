@@ -14,52 +14,53 @@ class MoreItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 12.h,
-      width: 95.w,
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.h)),
-        elevation: 20,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 3.w),
-          child: Center(
-              child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 6.h,
-                    height: 6.h,
-                    decoration: BoxDecoration(
-                      color: kMainColor.withOpacity(.2),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(1.h),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          iconUrl,
-                          color: Colors.black,
+    return InkWell(
+      onTap: onTabButton,
+      child: Container(
+        height: 12.h,
+        width: 95.w,
+        child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.h)),
+          elevation: 20,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 3.w),
+            child: Center(
+                child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 6.h,
+                      height: 6.h,
+                      decoration: BoxDecoration(
+                        color: kMainColor.withOpacity(.2),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(1.h),
+                        child: Center(
+                          child: SvgPicture.asset(
+                            iconUrl,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Text(
-                    title,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: "Taga",
-                        fontSize: 12.sp),
-                  ),
-                ],
-              ),
-              InkWell(
-                onTap: onTabButton,
-                child: Container(
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    Text(
+                      title,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "Taga",
+                          fontSize: 12.sp),
+                    ),
+                  ],
+                ),
+                Container(
                   height: 5.h,
                   width: 5.h,
                   decoration: BoxDecoration(
@@ -71,9 +72,9 @@ class MoreItemCard extends StatelessWidget {
                     size: 10.sp,
                   ),
                 ),
-              ),
-            ],
-          )),
+              ],
+            )),
+          ),
         ),
       ),
     );

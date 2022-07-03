@@ -4,6 +4,7 @@ import 'package:pointz/Views/Screens/registeration/phone_registeration_screen.da
 import 'package:pointz/Views/Widgets/more_item_card.dart';
 import 'package:pointz/constants/colors.dart';
 import 'package:pointz/views_models/registeration/registeration_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../helper/components.dart';
@@ -220,7 +221,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         InkWell(
                           onTap: () async {
+                            SharedPreferences pref =await SharedPreferences.getInstance();
                             await inst.logOut().then((value) {
+                              pref.setBool("loginState",false);
                               pushToStackAndRemoveUntil(
                                   context, PhoneRegisterationScreen());
                             });

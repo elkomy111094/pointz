@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:pointz/Views/Screens/registeration/otp_screen.dart';
 import 'package:pointz/Views/Widgets/customt_text_button.dart';
 import 'package:pointz/Views/Widgets/square_text_field.dart';
@@ -27,16 +28,6 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
     } else {
       return;
     }
-
-/*
-    if (!inst.validatePhoneNumber(context)) {
-      Navigator.pop(context);
-      return;
-    } else {
-      Navigator.pop(context);
-      inst.submitPhoneNumber(
-          */ /*"+966"*/ /* "+201" + inst.phoneNumberController.text);
-    }*/
   }
 
   @override
@@ -67,7 +58,7 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
 
         return SafeArea(
           child: Directionality(
-            textDirection: TextDirection.rtl,
+            textDirection: getDirection(context),
             child: Scaffold(
               body: Form(
                 key: inst.phoneRegisterationFormKey,
@@ -118,7 +109,7 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
                                         Center(
                                           child: RichText(
                                             text: TextSpan(
-                                                text: "تسجيل الدخول",
+                                                text: "login".tr(),
                                                 style: TextStyle(
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.bold,
@@ -130,56 +121,63 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
                                         SizedBox(
                                           height: 4.h,
                                         ),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.phone_enabled,
-                                              color: kMainColor,
-                                              size: 15.sp,
-                                            ),
-                                            SizedBox(
-                                              width: 2.w,
-                                            ),
-                                            RichText(
-                                              text: TextSpan(
-                                                  text: "رقم الهاتف",
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 12.sp,
-                                                    fontFamily: "Taga",
-                                                  )),
-                                            ),
-                                          ],
+                                        Directionality(
+                                          textDirection: getDirection(context),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                getDirection(context) ==
+                                                        TextDirection.rtl
+                                                    ? Icons.phone_enabled
+                                                    : Icons.phone,
+                                                color: kMainColor,
+                                                size: 15.sp,
+                                              ),
+                                              SizedBox(
+                                                width: 2.w,
+                                              ),
+                                              RichText(
+                                                text: TextSpan(
+                                                    text: "phoneNumber".tr(),
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 12.sp,
+                                                      fontFamily: "Taga",
+                                                    )),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                         SizedBox(
                                           height: .5.h,
                                         ),
                                         SizedBox(
                                           height: 10.h,
-                                          child: Directionality(
-                                            textDirection: TextDirection.ltr,
-                                            child: SquareTextField(
-                                              textLetterSpaceing: 2,
-                                              prefixText: "+9665 ",
-                                              maxLength: 8,
-                                              hintText: "",
-                                              validator: (phoneVal) {
-                                                if (phoneVal!.isEmpty) {
-                                                  return "من فضلك أدخل رقم الجوال الخاص بك";
-                                                } else if (!RegExp(
-                                                        r'(^(?:[+0]9)?[0-9]{8,8}$)')
-                                                    .hasMatch(phoneVal)) {
-                                                  return "من فضلك أدخل رقم جوال صحيح";
-                                                } else {
-                                                  return null;
-                                                }
-                                              },
-                                              controller:
-                                                  inst.phoneNumberController,
-                                              onChanged: (phone) {},
-                                              onSave: (phone) {},
-                                              keyBoardType: TextInputType.phone,
-                                            ),
+                                          child: SquareTextField(
+                                            textLetterSpaceing: 2,
+                                            prefixText: "+9665 ",
+                                            maxLength: 8,
+                                            hintText: "",
+                                            validator: (phoneVal) {
+                                              if (phoneVal!.isEmpty) {
+                                                return "pleaseEnterYourPhoneNumber"
+                                                    .tr();
+                                              } else if (!RegExp(
+                                                      r'(^(?:[+0]9)?[0-9]{8,8}$)')
+                                                  .hasMatch(phoneVal)) {
+                                                return "pleaseEnterCorrectPhoneNumber"
+                                                    .tr();
+                                              } else {
+                                                return null;
+                                              }
+                                            },
+                                            controller:
+                                                inst.phoneNumberController,
+                                            onChanged: (phone) {},
+                                            onSave: (phone) {},
+                                            keyBoardType: TextInputType.phone,
                                           ),
                                         ),
                                         SizedBox(
@@ -210,7 +208,7 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
                                                 RichText(
                                                   text: const TextSpan(
                                                       text:
-                                                          "الموافقه علي الشروط والاحكام",
+                                                          "AgreeTermsAndConditions",
                                                       style: TextStyle(
                                                         color: Colors.black38,
                                                         decoration:
@@ -241,7 +239,7 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
                                               );*/
                                             },
                                             roundedBorder: 1.h,
-                                            text: "تسجيل"),
+                                            text: "loginButton".tr()),
                                       ],
                                     ),
                                   ),

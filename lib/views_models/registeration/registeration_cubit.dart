@@ -300,15 +300,20 @@ class RegisterationCubit extends Cubit<RegisterationState> {
 
   Future<bool> getUserDetails(
       {required String phoneNumber, required String UID}) async {
-    user!.refreshToken;
-    await user!.getIdTokenResult().then((idToken) async {
-      refereshedFirebaseToken = idToken.token!;
+    if (phoneNumber.contains("+9665")) {
+      phoneNumber = phoneNumber.replaceAll("+9665", "");
+    }
+    FirebaseAuth.instance.currentUser?.refreshToken;
+    await FirebaseAuth.instance.currentUser
+        ?.getIdTokenResult()
+        .then((idToken) async {
+      refereshedFirebaseToken = idToken.token;
 
       await UserRegisterationServices().getUserDetails(
         firebaseToken: idToken.token!,
         user: {
           "phoneNumber": "+9665" + phoneNumber,
-          "firebaseUID": user!.uid,
+          "firebaseUID": user?.uid ?? UID,
         },
       ).then((value) {
         if (value == false) {

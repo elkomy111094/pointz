@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:sizer/sizer.dart';
 
 import '../Views/Widgets/custom_alert_dialog.dart';
@@ -102,4 +103,12 @@ Widget loader() {
       color: kMainColor,
     ),
   );
+}
+
+TextDirection getDirection(BuildContext context) {
+  if (translator.isDirectionRTL(context)) {
+    return TextDirection.rtl;
+  } else {
+    return TextDirection.ltr;
+  }
 }

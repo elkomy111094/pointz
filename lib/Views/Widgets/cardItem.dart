@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pointz/Views/Screens/product_screen.dart';
+import 'package:pointz/constants/colors.dart';
 import 'package:pointz/helper/components.dart';
 import 'package:sizer/sizer.dart';
 
@@ -50,13 +51,18 @@ class CardItem extends StatelessWidget {
                           height: 17.h,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(15.0),
-                                  topRight: Radius.circular(15.0)),
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image:
-                                      AssetImage("assets/images/image.jpg"))),
+                              color: kMainColor,
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(color: kMainColor, width: 1)),
+                          child: Center(
+                            child: Text(
+                              "صوره الغلاف غير متوفره",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: "Taga",
+                                  fontSize: 15.sp),
+                            ),
+                          ),
                         )
                       : Container(
                           height: 17.h,
@@ -170,15 +176,18 @@ class CardItem extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 2.w, right: 5.w, left: 5.w),
-                child: Text(
-                  desc!,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      fontSize: 10.sp,
-                      fontFamily: "Taga",
-                      color: Colors.grey.shade500),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 2.w, right: 5.w, left: 5.w),
+                  child: Text(
+                    desc!,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontSize: 10.sp,
+                        fontFamily: "Taga",
+                        color: Colors.grey.shade500),
+                  ),
                 ),
               )
             ]),

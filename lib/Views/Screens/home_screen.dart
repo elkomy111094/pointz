@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pointz/Views/Screens/allCategoryItems_screen.dart';
 import 'package:pointz/Views/Screens/gifts_screen.dart';
 import 'package:pointz/Views/Screens/notificationScreen.dart';
 import 'package:pointz/Views/Screens/profile_screen.dart';
@@ -55,13 +56,11 @@ class _HomeScreenState extends State<HomeScreen> {
         return SafeArea(
           child: Directionality(
             textDirection: TextDirection.rtl,
-            child: Scaffold(
-              body: Stack(
-                children: [
-                  buildHeader(inst),
-                  buildBody(homeCubitInst),
-                ],
-              ),
+            child: Stack(
+              children: [
+                buildHeader(inst),
+                buildBody(homeCubitInst),
+              ],
             ),
           ),
         );
@@ -384,7 +383,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Spacer(),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        pushToStack(
+                            widget.navBarScreenContext,
+                            AllCategoryItems(
+                              code: homeCubitInst.categoriesList?[index].code,
+                              type: homeCubitInst.categoriesList?[index].nameAr,
+                            ));
+                      },
                       splashColor: kMainColor.withOpacity(.1),
                       child: Padding(
                         padding: EdgeInsets.symmetric(
@@ -431,17 +437,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               currentContext: widget.navBarScreenContext!,
                               name: homeCubitInst
                                   .CategorieSomeServicesProviders[homeCubitInst
-                                      .categoriesList![index].code]![innerIndex]
+                                      .categoriesList?[index].code]?[innerIndex]
                                   .nameAr,
                               desc: homeCubitInst
                                   .CategorieSomeServicesProviders[homeCubitInst
-                                      .categoriesList![index].code]![innerIndex]
+                                      .categoriesList?[index].code]?[innerIndex]
                                   .detailsAr,
                               image: homeCubitInst
                                   .CategorieSomeServicesProviders[homeCubitInst
-                                      .categoriesList![index].code]![innerIndex]
-                                  .bannerUploadedFile!
-                                  .base64Format
+                                      .categoriesList?[index].code]?[innerIndex]
+                                  .bannerUploadedFile
+                                  ?.base64Format
                                   .toString(),
                             );
                           },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pointz/Views/Screens/choose_language_screen.dart';
 import 'package:pointz/Views/Screens/favorites_screen.dart';
 import 'package:pointz/Views/Screens/wallet_screen.dart';
 import 'package:pointz/Views/Widgets/more_item_card.dart';
@@ -52,7 +53,9 @@ class _MoreScreenState extends State<MoreScreen> {
                   MoreItemCard(
                       title: "تغيير اللغه",
                       iconUrl: "assets/icons/langs.svg",
-                      onTabButton: () {}),
+                      onTabButton: () {
+                        pushToStack(context, ChooseLanguageScreen());
+                      }),
 
                   MoreItemCard(
                       title: "المساعده والدعم",
