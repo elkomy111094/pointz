@@ -24,6 +24,7 @@ class _MoreScreenState extends State<MoreScreen> {
         children: [
           SimpleHeader(
             headerTitle: 'المزيد',
+            showPopIconButton: false,
           ),
           Padding(
             padding: EdgeInsets.only(top: 12.h),

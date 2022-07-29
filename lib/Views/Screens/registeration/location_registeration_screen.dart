@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:pointz/Views/Screens/registeration/complete_registeration_data_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -109,97 +110,100 @@ class _LocationRegisterationScreenState
 
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          alignment: Alignment.topCenter,
-          children: [
-            GoogleMap(
-              onTap: (position) async {
-                await ChangeCurrentLoc(position).then((value) {
-                  markers.clear();
-                  markers.add(
-                    Marker(
-                      markerId: MarkerId(markerLatestId.toString()),
-                      position: position,
-                      infoWindow: InfoWindow(
-                        title: "موقعك الحالي",
-                      ),
-                    ),
-                  );
-                });
-              },
-              onMapCreated: (mapController) {
-                setState(() {
-                  myMapController = mapController;
-                  getlocation().then((value) {
-                    myMapController?.animateCamera(
-                        CameraUpdate.newCameraPosition(CameraPosition(
-                                target: LatLng(lat!, long!), zoom: 17)
-                            //17 is new zoom level
-                            ));
+      child: Directionality(
+        textDirection: getDirection(context),
+        child: Scaffold(
+          body: Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              GoogleMap(
+                onTap: (position) async {
+                  await ChangeCurrentLoc(position).then((value) {
+                    markers.clear();
                     markers.add(
                       Marker(
-                        markerId: MarkerId("100"),
-                        position: LatLng(lat!, long!),
+                        markerId: MarkerId(markerLatestId.toString()),
+                        position: position,
                         infoWindow: InfoWindow(
-                          title: "موقعك الحالي",
+                          title: "Current Location".tr(),
                         ),
                       ),
                     );
                   });
-                });
-              },
-              markers: markers,
-              mapType: MapType.normal,
-              mapToolbarEnabled: false,
-              tiltGesturesEnabled: false,
-              myLocationButtonEnabled: true,
-              myLocationEnabled: true,
-              zoomControlsEnabled: false,
-              onCameraMove: (position) {
-                setState(() {
-                  zoomVal = 15;
-                });
-              },
-              initialCameraPosition: cameraPosition == null
-                  ? CameraPosition(
-                      target: lat == null && long == null
-                          ? LatLng(markers.first.position.latitude,
-                              markers.first.position.longitude)
-                          : LatLng(lat!, long!),
-                      zoom: 0,
-                    )
-                  : cameraPosition,
-            ),
-            Positioned(
-              left: 5.w,
-              right: 5.w,
-              bottom: 2.h,
-              child: CustomTextIconButton(
-                  icon: CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    radius: 2.h,
-                    child: Center(
-                      child: SvgPicture.asset(
-                        "assets/icons/mylocation.svg",
-                        color: Colors.white,
+                },
+                onMapCreated: (mapController) {
+                  setState(() {
+                    myMapController = mapController;
+                    getlocation().then((value) {
+                      myMapController?.animateCamera(
+                          CameraUpdate.newCameraPosition(CameraPosition(
+                                  target: LatLng(lat!, long!), zoom: 17)
+                              //17 is new zoom level
+                              ));
+                      markers.add(
+                        Marker(
+                          markerId: MarkerId("100"),
+                          position: LatLng(lat!, long!),
+                          infoWindow: InfoWindow(
+                            title: "Current Location".tr(),
+                          ),
+                        ),
+                      );
+                    });
+                  });
+                },
+                markers: markers,
+                mapType: MapType.normal,
+                mapToolbarEnabled: false,
+                tiltGesturesEnabled: false,
+                myLocationButtonEnabled: true,
+                myLocationEnabled: true,
+                zoomControlsEnabled: false,
+                onCameraMove: (position) {
+                  setState(() {
+                    zoomVal = 15;
+                  });
+                },
+                initialCameraPosition: cameraPosition == null
+                    ? CameraPosition(
+                        target: lat == null && long == null
+                            ? LatLng(markers.first.position.latitude,
+                                markers.first.position.longitude)
+                            : LatLng(lat!, long!),
+                        zoom: 0,
+                      )
+                    : cameraPosition,
+              ),
+              Positioned(
+                left: 5.w,
+                right: 5.w,
+                bottom: 2.h,
+                child: CustomTextIconButton(
+                    icon: CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      radius: 2.h,
+                      child: Center(
+                        child: SvgPicture.asset(
+                          "assets/icons/mylocation.svg",
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
-                  buttonColor: kMainColor.withOpacity(.85),
-                  textColor: Colors.white,
-                  textSize: 14.sp,
-                  onPressed: () async {
-                    saveMyLocationData().then((value) {
-                      pushToStack(context, CompleteRegisterationData());
-                    });
-                  },
-                  buttonVerticalPaddingVal: 0,
-                  buttonHorizontalPaddingval: 15.w,
-                  roundedBorder: 10,
-                  text: "سجل الموقع"),
-            ),
-          ],
+                    buttonColor: kMainColor.withOpacity(.85),
+                    textColor: Colors.white,
+                    textSize: 14.sp,
+                    onPressed: () async {
+                      saveMyLocationData().then((value) {
+                        pushToStack(context, CompleteRegisterationData());
+                      });
+                    },
+                    buttonVerticalPaddingVal: 0,
+                    buttonHorizontalPaddingval: 15.w,
+                    roundedBorder: 10,
+                    text: "Record Location".tr()),
+              ),
+            ],
+          ),
         ),
       ),
     );

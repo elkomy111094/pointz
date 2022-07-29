@@ -28,6 +28,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
           children: [
             SimpleHeader(
               headerTitle: 'طلباتي',
+              showPopIconButton: false,
             ),
             Padding(
               padding: EdgeInsets.only(top: 10.h),

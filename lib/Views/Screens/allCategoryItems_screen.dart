@@ -32,7 +32,7 @@ class AllCategoryItems extends StatelessWidget {
             foregroundColor: Colors.white,
           ),
           body: InfiniteScroll(
-            code: code,
+            code: code!,
           ),
         ),
       ),

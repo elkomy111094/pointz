@@ -1,14 +1,25 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pointz/Views/Screens/product_screen.dart';
 import 'package:pointz/constants/colors.dart';
 import 'package:pointz/helper/components.dart';
+import 'package:pointz/models/services_provider_response.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../views_models/home/home_cubit.dart';
+import '../../views_models/registeration/registeration_cubit.dart';
+import 'empty_screen.dart';
 
 class ProductsProviderDetailsScreen extends StatefulWidget {
+  ServicesProvider store;
+
+  ProductsProviderDetailsScreen({required this.store});
+
   @override
   _ProductsProviderDetailsScreenState createState() =>
       _ProductsProviderDetailsScreenState();
@@ -26,28 +37,47 @@ class _ProductsProviderDetailsScreenState
     "غداء",
     "عشاء",
   ];
+  bool idInFavList = false;
+  bool idInUnFavList = false;
 
   int productsCategorySelectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    idInFavList = checkInFavList(widget.store.id!);
+    idInUnFavList = checkInUnFavList(widget.store.id!);
+    print(
+        "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
+    print((widget.store.isFavoriteForCustomer!));
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SafeArea(
         child: Scaffold(
           body: Stack(
             children: [
-              Container(
-                height: 30.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage("assets/images/burger.jpg"),
-                  ),
-                ),
-              ),
+              widget.store.bannerUploadedFile?.base64Format.toString() != null
+                  ? Container(
+                      height: 30.h,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: MemoryImage(
+                            convertBase64Url(
+                                base64Url: widget
+                                    .store.bannerUploadedFile!.base64Format
+                                    .toString()),
+                          ),
+                        ),
+                      ),
+                    )
+                  : Container(
+                      height: 30.h,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: kMainColor,
+                          border: Border.all(color: kMainColor, width: 1)),
+                    ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -57,19 +87,68 @@ class _ProductsProviderDetailsScreenState
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          width: 5.h,
-                          height: 5.h,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                          ),
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.favorite_outline,
-                              color: Colors.red,
-                            ),
+                        InkWell(
+                          onTap: () async {
+                            setState(() {
+                              if (widget.store.isFavoriteForCustomer!) {
+                                if (idInFavList) {
+                                  addToUnFavList(widget.store.id!);
+                                } else if (idInUnFavList) {
+                                  addToFavList(widget.store.id!);
+                                } else {
+                                  addToUnFavList(widget.store.id!);
+                                }
+                              } else {
+                                if (idInFavList) {
+                                  addToUnFavList(widget.store.id!);
+                                } else if (idInUnFavList) {
+                                  addToFavList(widget.store.id!);
+                                } else {
+                                  addToFavList(widget.store.id!);
+                                }
+                              }
+                            });
+
+                            RegisterationCubit inst =
+                                RegisterationCubit.get(context);
+                            HomeCubit homeInst = HomeCubit.get(context);
+                            print(
+                                "*************************************************************************************************");
+                            print(widget.store.id!.toString());
+                            print(inst.userResponse!.result!.responseResult!.id!
+                                .toString());
+                            print(
+                                "*************************************************************************************************");
+                            await homeInst
+                                .addToMyFavorites(
+                                    businessID: widget.store.id!,
+                                    customerID: inst.userResponse!.result!
+                                        .responseResult!.id!)
+                                .then((value) {
+                              if (value == true) {
+                                showToastMessage(text: "Added Successfuly");
+                              } else {
+                                showToastMessage(text: "Added Failed");
+                              }
+                            });
+                          },
+                          child: CircleAvatar(
+                            radius: 2.5.h,
+                            backgroundColor: Colors.white,
+                            child: (widget.store.isFavoriteForCustomer! ||
+                                        idInFavList) &&
+                                    !(idInUnFavList)
+                                ? Padding(
+                                    padding: EdgeInsets.all(1.h),
+                                    child: SvgPicture.asset(
+                                        "assets/icons/favorites.svg"),
+                                  )
+                                : Center(
+                                    child: Icon(
+                                      Icons.favorite_border_outlined,
+                                      color: Colors.red,
+                                    ),
+                                  ),
                           ),
                         ),
                         Container(
@@ -107,14 +186,16 @@ class _ProductsProviderDetailsScreenState
                               textAlign: TextAlign.center,
                               text: TextSpan(children: [
                                 TextSpan(
-                                    text: "1000" + "\n",
+                                    text: widget.store.pointsSystem?.percentage
+                                            .toString() ??
+                                        "0" + "\n",
                                     style: TextStyle(
                                         fontSize: 20.sp,
                                         fontFamily: "Taga",
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 1.5)),
                                 TextSpan(
-                                    text: "نقطه",
+                                    text: " " + "نقطه",
                                     style: TextStyle(
                                         fontSize: 15.sp,
                                         fontFamily: "Taga",
@@ -134,7 +215,6 @@ class _ProductsProviderDetailsScreenState
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
-                        height: 30.h,
                         width: 95.w,
                         child: Card(
                           elevation: 5,
@@ -142,30 +222,63 @@ class _ProductsProviderDetailsScreenState
                             borderRadius: BorderRadius.circular(2.h),
                           ),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               //Products Provider details
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 1.h, horizontal: 3.w),
                                 child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Container(
-                                      height: 6.h,
-                                      width: 6.h,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        image: DecorationImage(
-                                          alignment: Alignment.center,
-                                          fit: BoxFit.contain,
-                                          image: AssetImage(
-                                              "assets/images/mac.jpg"),
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(1.h),
-                                      ),
-                                    ),
+                                    widget.store.logoUploadedFile?.base64Format
+                                                .toString() !=
+                                            null
+                                        ? Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                  color: kMainColor, width: 2),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(.5.h),
+                                              child: Container(
+                                                height: 6.h,
+                                                width: 6.h,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  image: DecorationImage(
+                                                    alignment: Alignment.center,
+                                                    fit: BoxFit.fill,
+                                                    image: MemoryImage(
+                                                      convertBase64Url(
+                                                          base64Url: widget
+                                                              .store
+                                                              .logoUploadedFile!
+                                                              .base64Format
+                                                              .toString()),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        : Container(
+                                            height: 6.h,
+                                            width: 6.h,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(1.h),
+                                            ),
+                                            child: SvgPicture.asset(
+                                                "assets/icons/store.svg",
+                                                fit: BoxFit.contain,
+                                                width: 4.h,
+                                                height: 4.h,
+                                                color: Colors.white),
+                                          ),
                                     SizedBox(
                                       width: 2.w,
                                     ),
@@ -182,7 +295,9 @@ class _ProductsProviderDetailsScreenState
                                             Expanded(
                                               child: RichText(
                                                 text: TextSpan(
-                                                    text: "ماكدونالدز",
+                                                    text: checkRTL(context)
+                                                        ? widget.store.nameAr
+                                                        : widget.store.nameEn,
                                                     style: TextStyle(
                                                       color: kMainColor,
                                                       fontFamily: "Taga",
@@ -192,7 +307,7 @@ class _ProductsProviderDetailsScreenState
                                                     )),
                                               ),
                                             ),
-                                            Row(
+                                            /*  Row(
                                               mainAxisSize: MainAxisSize.min,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
@@ -263,10 +378,10 @@ class _ProductsProviderDetailsScreenState
                                                   ],
                                                 ),
                                               ),
-                                            ),
+                                            ),*/
                                           ],
                                         ),
-                                        SizedBox(
+                                        /* SizedBox(
                                           height: 1.h,
                                         ),
                                         Row(
@@ -326,14 +441,14 @@ class _ProductsProviderDetailsScreenState
                                                       fontFamily: "Taga")),
                                             ]))
                                           ],
-                                        ),
+                                        ),*/
                                       ],
                                     ))
                                   ],
                                 ),
                               ),
                               Divider(
-                                height: 1,
+                                height: 1.h,
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 3.w),
@@ -344,14 +459,15 @@ class _ProductsProviderDetailsScreenState
                                       overflow: TextOverflow.fade,
                                       text: TextSpan(children: [
                                         TextSpan(
-                                            text: "عن المطعم \n",
+                                            text: "عن المطعم\n\n",
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontFamily: "Taga",
                                                 fontSize: 12.sp)),
                                         TextSpan(
-                                            text:
-                                                "ماك تعتبر من أكبر الشركات عالمياً في تصنيع المواد الغذائيه ماك تعتبر من أكبر الشركات عالمياً ",
+                                            text: checkRTL(context)
+                                                ? widget.store.detailsAr
+                                                : widget.store.detailsEn,
                                             style: TextStyle(
                                                 color: Colors.grey,
                                                 fontFamily: "Taga",
@@ -380,40 +496,238 @@ class _ProductsProviderDetailsScreenState
                                       ),
                                     ),
                                     Expanded(
-                                        flex: 3,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            buildSocialMediaIconButton(
-                                                color: Colors.green,
-                                                icon: FontAwesomeIcons.whatsapp,
-                                                onPressed: () {}),
-                                            SizedBox(
-                                              width: 3.w,
-                                            ),
-                                            buildSocialMediaIconButton(
-                                                onPressed: () {},
-                                                color: Colors.purple,
-                                                icon:
-                                                    FontAwesomeIcons.instagram),
-                                            SizedBox(
-                                              width: 3.w,
-                                            ),
-                                            buildSocialMediaIconButton(
-                                                onPressed: () {},
-                                                color: Colors.tealAccent,
-                                                icon: FontAwesomeIcons.twitter),
-                                            SizedBox(
-                                              width: 3.w,
-                                            ),
-                                            buildSocialMediaIconButton(
-                                                onPressed: () {},
-                                                color: Colors.orange,
-                                                icon:
-                                                    FontAwesomeIcons.snapchat),
-                                          ],
-                                        ))
+                                      flex: 3,
+                                      child: Container(
+                                        height: 6.h,
+                                        child: widget.store.socialMediaAccounts!
+                                                    .isEmpty ||
+                                                widget.store
+                                                        .socialMediaAccounts ==
+                                                    null
+                                            ? Center(
+                                                child: Text(
+                                                  "لايوجد أي وسائل للتواصل",
+                                                  style: TextStyle(
+                                                      color: kMainColor,
+                                                      fontSize: 15.sp,
+                                                      fontFamily: "Taga"),
+                                                ),
+                                              )
+                                            : ListView.separated(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                shrinkWrap: true,
+                                                itemBuilder: (context, index) {
+                                                  switch (widget
+                                                      .store
+                                                      .socialMediaAccounts![
+                                                          index]
+                                                      .type!
+                                                      .code) {
+                                                    case "SMWTAP":
+                                                      return buildSocialMediaIconButton(
+                                                          color: Colors.green,
+                                                          icon: FontAwesomeIcons
+                                                              .whatsapp,
+                                                          onPressed: () async {
+                                                            /*  int phone = int.parse(
+                                                   "201153942488")*/
+                                                            String? phone = widget
+                                                                .store
+                                                                .socialMediaAccounts![
+                                                                    index]
+                                                                .accountName;
+
+                                                            if (phone != null &&
+                                                                phone != "") {
+                                                              int phoneNum =
+                                                                  int.parse(
+                                                                      phone);
+                                                              var whatsappUrl = (Platform
+                                                                      .isIOS)
+                                                                  ? "https://wa.me/send?phone=+$phoneNum}"
+                                                                  : "whatsapp://send?phone=+$phoneNum";
+                                                              await launchInBrowser(
+                                                                  Uri.parse(
+                                                                      whatsappUrl));
+                                                            } else {
+                                                              showToastMessage(
+                                                                  text:
+                                                                      "ليس لدي المتجر حساب واتس أب");
+                                                            }
+                                                          });
+                                                    case "SMTWT":
+                                                      return buildSocialMediaIconButton(
+                                                          onPressed: () async {
+                                                            /*  int phone = int.parse(
+                                                   "201153942488")*/
+                                                            String?
+                                                                twitterProfile =
+                                                                widget
+                                                                    .store
+                                                                    .socialMediaAccounts![
+                                                                        index]
+                                                                    .accountName;
+
+                                                            if (twitterProfile !=
+                                                                    null &&
+                                                                twitterProfile !=
+                                                                    "") {
+                                                              var InstaUrl = (Platform
+                                                                      .isIOS)
+                                                                  ? "https://twitter.com/${twitterProfile}"
+                                                                  : "https://twitter.com/${twitterProfile}";
+                                                              await launchInBrowser(
+                                                                  Uri.parse(
+                                                                      InstaUrl));
+                                                            } else {
+                                                              showToastMessage(
+                                                                  text:
+                                                                      "ليس لدي المتجر حساب تويتر");
+                                                            }
+                                                          },
+                                                          color:
+                                                              Colors.tealAccent,
+                                                          icon: FontAwesomeIcons
+                                                              .twitter);
+
+                                                    case "SMSNP":
+                                                      return buildSocialMediaIconButton(
+                                                          onPressed: () async {
+                                                            /*  int phone = int.parse(
+                                                   "201153942488")*/
+                                                            String?
+                                                                snapChatProfile =
+                                                                widget
+                                                                    .store
+                                                                    .socialMediaAccounts![
+                                                                        index]
+                                                                    .accountName;
+
+                                                            if (snapChatProfile !=
+                                                                    null &&
+                                                                snapChatProfile !=
+                                                                    "") {
+                                                              var whatsappUrl = (Platform
+                                                                      .isIOS)
+                                                                  ? "https://www.snapChat.com/add/${snapChatProfile}}"
+                                                                  : "https://www.snapChat.com/add/${snapChatProfile}";
+                                                              await launchInBrowser(
+                                                                  Uri.parse(
+                                                                      whatsappUrl));
+                                                            } else {
+                                                              showToastMessage(
+                                                                  text:
+                                                                      "ليس لدي المتجر حساب واتساب");
+                                                            }
+                                                          },
+                                                          color: Colors.orange,
+                                                          icon: FontAwesomeIcons
+                                                              .snapchat);
+
+                                                    case "SMINSTA":
+                                                      return buildSocialMediaIconButton(
+                                                          onPressed: () async {
+                                                            /*  int phone = int.parse(
+                                                   "201153942488")*/
+                                                            String?
+                                                                InstaProfile =
+                                                                widget
+                                                                    .store
+                                                                    .socialMediaAccounts![
+                                                                        index]
+                                                                    .accountName;
+
+                                                            if (InstaProfile !=
+                                                                    null &&
+                                                                InstaProfile !=
+                                                                    "") {
+                                                              var InstaUrl = (Platform
+                                                                      .isIOS)
+                                                                  ? "https://www.instagram.com/${InstaProfile}/"
+                                                                  : "https://www.instagram.com/${InstaProfile}/";
+                                                              await launchInBrowser(
+                                                                  Uri.parse(
+                                                                      InstaUrl));
+                                                            } else {
+                                                              showToastMessage(
+                                                                  text:
+                                                                      "ليس لدي المتجر حساب إنستجرام");
+                                                            }
+                                                          },
+                                                          color: Colors.purple,
+                                                          icon: FontAwesomeIcons
+                                                              .instagram);
+
+                                                    default:
+                                                      return SizedBox();
+                                                  }
+                                                },
+                                                separatorBuilder:
+                                                    (context, index) {
+                                                  return SizedBox(
+                                                    width: 3.w,
+                                                  );
+                                                },
+                                                itemCount: widget
+                                                    .store
+                                                    .socialMediaAccounts!
+                                                    .length),
+                                      )
+
+                                      /*Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          buildSocialMediaIconButton(
+                                              color: Colors.green,
+                                              icon: FontAwesomeIcons.whatsapp,
+                                              onPressed: () async {
+                                                */ /*  int phone = int.parse(
+                                                          "201153942488")*/ /*
+                                                int phone = int.parse(widget
+                                                    .store.socialMediaAccounts!
+                                                    .elementAt(2)
+                                                    .accountName!);
+
+                                                if (phone != null) {
+                                                  var whatsappUrl = (Platform
+                                                          .isIOS)
+                                                      ? "https://wa.me/send?phone=+$phone}"
+                                                      : "whatsapp://send?phone=+$phone";
+                                                  await launchInBrowser(
+                                                      Uri.parse(whatsappUrl));
+                                                } else {
+                                                  showToastMessage(
+                                                      text:
+                                                          "ليس لدي المتجر حساب واتس أب");
+                                                }
+                                              }),
+                                          SizedBox(
+                                            width: 3.w,
+                                          ),
+                                          buildSocialMediaIconButton(
+                                              onPressed: () {},
+                                              color: Colors.purple,
+                                              icon: FontAwesomeIcons.instagram),
+                                          SizedBox(
+                                            width: 3.w,
+                                          ),
+                                          buildSocialMediaIconButton(
+                                              onPressed: () {},
+                                              color: Colors.tealAccent,
+                                              icon: FontAwesomeIcons.twitter),
+                                          SizedBox(
+                                            width: 3.w,
+                                          ),
+                                          buildSocialMediaIconButton(
+                                              onPressed: () {},
+                                              color: Colors.orange,
+                                              icon: FontAwesomeIcons.snapchat),
+                                        ],
+                                      )*/
+                                      ,
+                                    )
                                   ],
                                 ),
                               ),
@@ -422,9 +736,10 @@ class _ProductsProviderDetailsScreenState
                               ),
                               Center(
                                 child: Container(
-                                  height: 5.h,
+                                  height: 6.h,
                                   width: 89.w,
                                   decoration: BoxDecoration(
+                                      color: kMainColor,
                                       borderRadius: BorderRadius.circular(1.h),
                                       border: Border.all(
                                           color: Colors.grey.withOpacity(.2))),
@@ -432,7 +747,7 @@ class _ProductsProviderDetailsScreenState
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Expanded(
+                                      /* Expanded(
                                         child: InkWell(
                                           onTap: () {},
                                           child: Row(
@@ -461,16 +776,19 @@ class _ProductsProviderDetailsScreenState
                                       Container(
                                           height: 5.h,
                                           width: 1,
-                                          color: Colors.grey.withOpacity(.2)),
+                                          color: Colors.grey.withOpacity(.2)),*/
                                       Expanded(
                                         child: InkWell(
-                                          onTap: () {},
+                                          onTap: () {
+                                            launch(
+                                                "tel://${widget.store.contactNumber}");
+                                          },
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
                                               buildSocialMediaIconButton(
-                                                  color: Colors.green,
+                                                  color: Colors.white,
                                                   icon: Icons
                                                       .phone_in_talk_outlined),
                                               SizedBox(
@@ -480,9 +798,11 @@ class _ProductsProviderDetailsScreenState
                                                 text: TextSpan(
                                                     text: "اتصال",
                                                     style: TextStyle(
-                                                        color: Colors.black,
+                                                        color: Colors.white,
                                                         fontFamily: "Taga",
-                                                        fontSize: 10.sp)),
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12.sp)),
                                               ),
                                             ],
                                           ),
@@ -492,6 +812,10 @@ class _ProductsProviderDetailsScreenState
                                   ),
                                 ),
                               ),
+                              SizedBox(
+                                height: 1.h,
+                              ),
+
                               //Products Provider Description
                             ],
                           ),
@@ -501,7 +825,7 @@ class _ProductsProviderDetailsScreenState
                   ),
                   Expanded(
                     child: DefaultTabController(
-                      length: 2,
+                      length: 1 /*2*/,
                       child: Scaffold(
                         appBar: AppBar(
                           bottom: TabBar(
@@ -510,7 +834,7 @@ class _ProductsProviderDetailsScreenState
                             labelStyle: TextStyle(
                                 fontFamily: "Taga",
                                 color: Colors.black,
-                                fontSize: 10.sp,
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.bold),
                             unselectedLabelColor: Colors.black,
                             labelColor: kMainColor,
@@ -518,15 +842,15 @@ class _ProductsProviderDetailsScreenState
                                 TextStyle(fontSize: 10.sp, fontFamily: "Taga"),
                             onTap: (val) {},
                             tabs: const [
-                              Tab(
-                                /*    icon: Image.asset(
+                              /*  Tab(
+                                */ /*    icon: Image.asset(
                                   "assets/images/dues.png",
                                   height: 40,
                                   width: 40,
-                                  */ /*color: duesTaped == true ? Colors.white : Colors.white70,*/ /*
-                                ),*/
-                                text: "قائمه الطعام",
-                              ),
+                                  */ /* */ /*color: duesTaped == true ? Colors.white : Colors.white70,*/ /* */ /*
+                                ),*/ /*
+                                text: "قائمه المتجر",
+                              ),*/
                               Tab(
                                 /*icon: Image.asset(
                                   "assets/images/depts.png",
@@ -544,7 +868,30 @@ class _ProductsProviderDetailsScreenState
                         body: TabBarView(
                           physics: const NeverScrollableScrollPhysics(),
                           children: [
-                            Column(
+                            /*Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(
+                                    "assets/icons/empty.svg",
+                                    width: 20.h,
+                                    height: 20.h,
+                                  ),
+                                  SizedBox(
+                                    height: 3.h,
+                                  ),
+                                  Text(
+                                    "لاتوجد أي منتجات",
+                                    style: TextStyle(
+                                        color: kMainColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "Taga",
+                                        fontSize: 15.sp),
+                                  ),
+                                ],
+                              ),
+                            ),*/
+                            /* Column(
                               children: [
                                 SizedBox(
                                   height: 1.h,
@@ -780,75 +1127,107 @@ class _ProductsProviderDetailsScreenState
                                           providerProductsCategoroies.length),
                                 )
                               ],
-                            ),
-                            Container(
-                              color: Colors.white,
-                              child: ListView.separated(
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: EdgeInsets.all(1.h),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(1.h),
-                                          border: Border.all(
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(1.h),
-                                          child: Theme(
-                                            data: Theme.of(context).copyWith(
-                                                accentColor: Colors.transparent,
-                                                indicatorColor: kMainColor,
-                                                backgroundColor:
-                                                    Colors.transparent),
-                                            child: ExpansionTile(
-                                              collapsedBackgroundColor:
-                                                  Colors.transparent,
-                                              title: Text(
-                                                "جده",
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                    color: Colors.black,
+                            ),*/
+                            widget.store.addresses!.isEmpty
+                                ? Center(
+                                    child: EmptyScreen(
+                                      svgImageUrl: "assets/icons/empty.svg",
+                                      textUnderImage: "لاتوجد فروع لهذا المتجر",
+                                    ),
+                                  )
+                                : Container(
+                                    color: Colors.white,
+                                    child: ListView.separated(
+                                        itemBuilder: (context, index) {
+                                          return Padding(
+                                            padding: EdgeInsets.all(1.h),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(1.h),
+                                                border: Border.all(
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.all(1.h),
+                                                child: Theme(
+                                                  data: Theme.of(context)
+                                                      .copyWith(
+                                                          accentColor: Colors
+                                                              .transparent,
+                                                          indicatorColor:
+                                                              kMainColor,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent),
+                                                  child: ExpansionTile(
+                                                    collapsedBackgroundColor:
+                                                        Colors.transparent,
+                                                    title: Text(
+                                                      widget
+                                                          .store
+                                                          .addresses![index]
+                                                          .nameAr!,
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          fontSize: 12.sp,
+                                                          fontFamily: "Taga",
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
                                                     backgroundColor:
                                                         Colors.transparent,
-                                                    fontSize: 12.sp,
-                                                    fontFamily: "Taga",
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                    trailing: Icon(
+                                                      FontAwesomeIcons.eye,
+                                                      size: 12.sp,
+                                                    ),
+                                                    leading: SvgPicture.asset(
+                                                      "assets/icons/mylocation.svg",
+                                                      color: Colors.black,
+                                                      width: 3.h,
+                                                      height: 3.h,
+                                                    ),
+                                                    children: [
+                                                      RichText(
+                                                          text: TextSpan(
+                                                              text: widget
+                                                                      .store
+                                                                      .addresses![
+                                                                          index]
+                                                                      .country!
+                                                                      .nameAr! +
+                                                                  " ، " +
+                                                                  widget
+                                                                      .store
+                                                                      .addresses![
+                                                                          index]
+                                                                      .city!
+                                                                      .nameAr!,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontFamily:
+                                                                      "Taga",
+                                                                  fontSize:
+                                                                      10.sp)))
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              trailing: Icon(
-                                                FontAwesomeIcons.eye,
-                                                size: 12.sp,
-                                              ),
-                                              leading: SvgPicture.asset(
-                                                "assets/icons/mylocation.svg",
-                                                color: Colors.black,
-                                                width: 3.h,
-                                                height: 3.h,
-                                              ),
-                                              children: [
-                                                RichText(
-                                                    text: TextSpan(
-                                                        text:
-                                                            " حي 7251 مدائن الفهد جده 22347 الديه 2483",
-                                                        style: TextStyle(
-                                                            color: Colors.grey,
-                                                            fontFamily: "Taga",
-                                                            fontSize: 10.sp)))
-                                              ],
                                             ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  separatorBuilder: (context, _) => SizedBox(),
-                                  itemCount: 5),
-                            ),
+                                          );
+                                        },
+                                        separatorBuilder: (context, _) =>
+                                            SizedBox(),
+                                        itemCount:
+                                            widget.store.addresses!.length),
+                                  ),
                           ],
                         ),
                       ),
@@ -868,13 +1247,13 @@ class _ProductsProviderDetailsScreenState
       required IconData icon,
       void Function()? onPressed}) {
     return Container(
-      height: 4.h,
-      width: 4.h,
+      height: 5.h,
+      width: 5.h,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(color: color, width: 1),
       ),
-      child: GestureDetector(
+      child: InkWell(
         onTap: onPressed,
         child: Center(
           child: Icon(

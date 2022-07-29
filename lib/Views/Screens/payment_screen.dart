@@ -126,7 +126,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                               child: SquareTextField(
                                                 hintText: "",
                                                 onChanged: (phone) {},
-                                                onSave: (phone) {},
                                                 keyBoardType:
                                                     TextInputType.emailAddress,
                                               ),
@@ -170,7 +169,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                               child: SquareTextField(
                                                 hintText: "",
                                                 onChanged: (phone) {},
-                                                onSave: (phone) {},
                                                 keyBoardType:
                                                     TextInputType.name,
                                               ),
@@ -220,7 +218,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                               child: SquareTextField(
                                                 hintText: "",
                                                 onChanged: (phone) {},
-                                                onSave: (phone) {},
                                                 keyBoardType:
                                                     TextInputType.name,
                                               ),

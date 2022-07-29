@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:pointz/Views/Screens/bottom_navbar_screen.dart';
 import 'package:pointz/Views/Widgets/customt_text_button.dart';
 import 'package:pointz/Views/Widgets/square_text_field.dart';
@@ -16,7 +17,7 @@ class CompleteRegisterationData extends StatelessWidget {
   Widget build(BuildContext context) {
     RegisterationCubit inst = RegisterationCubit.get(context);
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: getDirection(context),
       child: BlocConsumer<RegisterationCubit, RegisterationState>(
         listener: (ctx, state) {
           if (state is CompleteRegisterationLoading) {
@@ -75,8 +76,6 @@ class CompleteRegisterationData extends StatelessWidget {
                                     child: Form(
                                       key: inst.completeRegisterationFormKey,
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
                                         children: [
                                           Column(
                                             children: [
@@ -87,7 +86,8 @@ class CompleteRegisterationData extends StatelessWidget {
                                                 child: RichText(
                                                   text: TextSpan(
                                                       text:
-                                                          "من فضلك أكمل تسجيل بياناتك للمتابعه",
+                                                          "complete your registration to continue"
+                                                              .tr(),
                                                       style: TextStyle(
                                                           color: Colors.black,
                                                           fontFamily: "Taga",
@@ -123,8 +123,8 @@ class CompleteRegisterationData extends StatelessWidget {
                                                               ),
                                                               RichText(
                                                                 text: TextSpan(
-                                                                    text:
-                                                                        "الاسم الاول",
+                                                                    text: "First Name"
+                                                                        .tr(),
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -148,19 +148,20 @@ class CompleteRegisterationData extends StatelessWidget {
                                                             child:
                                                                 SquareTextField(
                                                               maxLength: 15,
+                                                              fillColor:
+                                                                  kBackGroundColor,
                                                               validator:
                                                                   (fName) {
                                                                 if (fName!
                                                                     .isEmpty) {
-                                                                  return "من فضلك أدخل إسمك";
+                                                                  return "Empty Field"
+                                                                      .tr();
                                                                 }
                                                               },
                                                               controller: inst
                                                                   .firstNameController,
                                                               hintText: "",
                                                               onChanged:
-                                                                  (phone) {},
-                                                              onSave:
                                                                   (phone) {},
                                                               keyBoardType:
                                                                   TextInputType
@@ -183,8 +184,8 @@ class CompleteRegisterationData extends StatelessWidget {
                                                               ),
                                                               RichText(
                                                                 text: TextSpan(
-                                                                    text:
-                                                                        "الاسم الاخير",
+                                                                    text: "Last Name"
+                                                                        .tr(),
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -207,20 +208,21 @@ class CompleteRegisterationData extends StatelessWidget {
                                                             height: 8.h,
                                                             child:
                                                                 SquareTextField(
+                                                              fillColor:
+                                                                  kBackGroundColor,
                                                               hintText: "",
                                                               validator:
                                                                   (lName) {
                                                                 if (lName!
                                                                     .isEmpty) {
-                                                                  return "من فضلك أدخل إسم العائله";
+                                                                  return "Empty Field"
+                                                                      .tr();
                                                                 }
                                                               },
                                                               maxLength: 15,
                                                               controller: inst
                                                                   .lastNameController,
                                                               onChanged:
-                                                                  (phone) {},
-                                                              onSave:
                                                                   (phone) {},
                                                               keyBoardType:
                                                                   TextInputType
@@ -249,8 +251,8 @@ class CompleteRegisterationData extends StatelessWidget {
                                                               ),
                                                               RichText(
                                                                 text: TextSpan(
-                                                                    text:
-                                                                        "البريد الالكتروني",
+                                                                    text: "Email"
+                                                                        .tr(),
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -273,6 +275,8 @@ class CompleteRegisterationData extends StatelessWidget {
                                                             height: 8.h,
                                                             child:
                                                                 SquareTextField(
+                                                              fillColor:
+                                                                  kBackGroundColor,
                                                               hintText: "",
                                                               controller: inst
                                                                   .emailController,
@@ -280,18 +284,18 @@ class CompleteRegisterationData extends StatelessWidget {
                                                                   (email) {
                                                                 if (email!
                                                                     .isEmpty) {
-                                                                  return "من فضلك أدخل الإيميل الخاص بك";
+                                                                  return "Empty Field"
+                                                                      .tr();
                                                                 }
                                                                 if (!RegExp(
                                                                         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                                                                     .hasMatch(
                                                                         email)) {
-                                                                  return "من فضلك أدخل إيميل صحيح";
+                                                                  return "Enter An Correct Email"
+                                                                      .tr();
                                                                 }
                                                               },
                                                               onChanged:
-                                                                  (phone) {},
-                                                              onSave:
                                                                   (phone) {},
                                                               keyBoardType:
                                                                   TextInputType
@@ -309,8 +313,6 @@ class CompleteRegisterationData extends StatelessWidget {
                                           Container(
                                             height: 12.h,
                                             child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Expanded(
                                                   child: Column(
@@ -323,7 +325,8 @@ class CompleteRegisterationData extends StatelessWidget {
                                                           RichText(
                                                             text: TextSpan(
                                                                 text:
-                                                                    "تاريخ الميلاد",
+                                                                    "Birth Date"
+                                                                        .tr(),
                                                                 style:
                                                                     TextStyle(
                                                                   color: Colors
@@ -377,8 +380,8 @@ class CompleteRegisterationData extends StatelessWidget {
                                                           height: 6.h,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: Colors
-                                                                .transparent,
+                                                            color:
+                                                                kBackGroundColor,
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
@@ -445,14 +448,14 @@ class CompleteRegisterationData extends StatelessWidget {
                                                     CrossAxisAlignment.center,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
-                                                        .spaceAround,
+                                                        .spaceBetween,
                                                 children: [
                                                   Padding(
                                                     padding: EdgeInsets.only(
                                                         top: 1.h),
                                                     child: RichText(
                                                         text: TextSpan(
-                                                            text: "النوع",
+                                                            text: "Type".tr(),
                                                             style: TextStyle(
                                                                 fontFamily:
                                                                     "Taga",
@@ -462,9 +465,6 @@ class CompleteRegisterationData extends StatelessWidget {
                                                                 fontSize: 12.sp,
                                                                 color: Colors
                                                                     .black))),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 5.w,
                                                   ),
                                                   Expanded(
                                                     child: Center(
@@ -484,6 +484,9 @@ class CompleteRegisterationData extends StatelessWidget {
                                                                           .blue),
                                                               child:
                                                                   RadioListTile(
+                                                                      contentPadding:
+                                                                          EdgeInsets
+                                                                              .zero,
                                                                       value:
                                                                           "male",
                                                                       groupValue:
@@ -493,7 +496,8 @@ class CompleteRegisterationData extends StatelessWidget {
                                                                           kMainColor,
                                                                       title:
                                                                           Text(
-                                                                        "ذكر",
+                                                                        "Male"
+                                                                            .tr(),
                                                                         style: TextStyle(
                                                                             color: Colors
                                                                                 .black,
@@ -520,20 +524,24 @@ class CompleteRegisterationData extends StatelessWidget {
                                                                           .blue),
                                                               child:
                                                                   RadioListTile(
+                                                                      contentPadding:
+                                                                          EdgeInsets
+                                                                              .zero,
                                                                       value:
                                                                           "female",
                                                                       activeColor:
                                                                           kMainColor,
                                                                       title:
                                                                           Text(
-                                                                        "انثي",
+                                                                        "FeMale"
+                                                                            .tr(),
                                                                         style: TextStyle(
                                                                             color: Colors
                                                                                 .black,
                                                                             fontFamily:
                                                                                 "Taga",
                                                                             fontSize:
-                                                                                10.sp),
+                                                                                12.sp),
                                                                       ),
                                                                       groupValue:
                                                                           inst
@@ -581,7 +589,7 @@ class CompleteRegisterationData extends StatelessWidget {
                                                     LocationRegisterationScreen());*/
                                               },
                                               roundedBorder: 1.h,
-                                              text: "تسجيل"),
+                                              text: "Record".tr()),
                                           SizedBox(
                                             height: 2.h,
                                           ),

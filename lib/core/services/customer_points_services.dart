@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
 
 import '../../constants/strings.dart';
-import '../../models/services_provider_response.dart';
+import '../../models/customer_points_response.dart';
 
-class FavoritesServices {
+class CustomerPointsServices {
   late Dio dio;
 
   String latestErrorMessage = "";
 
-  FavoritesServices() {
+  CustomerPointsServices() {
     BaseOptions options = BaseOptions(
         baseUrl: baseURL,
         //baseUrl for my api
@@ -21,18 +21,18 @@ class FavoritesServices {
     dio = Dio(options);
   }
 
-  Future<dynamic> getFavoriteServicesProviders(
+  Future<dynamic> getAllCustomerPoints(
       {required int index, required int pageSize, required int userId}) async {
     try {
       Response response = await dio.get(
-        "Business/forCustomerFavorite/$userId/paginated?pageIndex=${index}&pageSize=${pageSize}",
+        "CustomerPoint/allForCustomer/$userId/paginated?pageIndex=${index}&pageSize=${pageSize}",
       );
       if (response.statusCode == 200) {
         print(
             "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
         print(response.data);
         List<dynamic> map = response.data["result"]["data"];
-        return map.map((e) => ServicesProvider.fromJson(e)).toList();
+        return map.map((e) => CustomerPointModel.fromJson(e)).toList();
       } else {
         return false;
       }

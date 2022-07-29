@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:pointz/Views/Screens/bottom_navbar_screen.dart';
 import 'package:pointz/constants/colors.dart';
 import 'package:sizer/sizer.dart';
@@ -24,7 +25,7 @@ class OTPScreen extends StatelessWidget {
           if (state is PhoneOTPResent) {
             pop(ctx);
             pop(ctx);
-            showToast(context, "تم إعاده إرسال الكود اليك");
+            showToast(context, "The code has been sent back to you.".tr());
             /*pushToStackAndReplacement(
                 context
                 ;  0
@@ -46,47 +47,6 @@ class OTPScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (context) {
               return NavBarScreen();
             }), (route) => false);
-            /*   showGeneralDialog(
-                context: context,
-                pageBuilder: (x, y, z) {
-                  return CustomAlertDialog(
-                    cardImgUrl: "assets/icons/info.svg",
-                    content: Padding(
-                      padding: EdgeInsets.only(
-                          top: 10.h, left: 5.w, right: 5.w, bottom: 2.h),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "أنت بالفعل تمتلك حساب علي التطبيق",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: "Taga",
-                                fontSize: 14.sp),
-                          ),
-                          SizedBox(
-                            height: 3.h,
-                          ),
-                          CustomTextButton(
-                              buttonColor: kMainColor,
-                              textColor: Colors.white,
-                              textSize: 12.sp,
-                              onPressed: () {
-                                Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(builder: (context) {
-                                  return NavBarScreen();
-                                }), (route) => false);
-                              },
-                              text: "الذهاب الي الشاشه الرئيسيه")
-                        ],
-                      ),
-                    ),
-                    onTapXButton: () {
-                      pop(context);
-                    },
-                  );
-                });*/
           }
           if (state is UserNotRegisteredBefore) {
             pop(ctx);
@@ -112,70 +72,82 @@ class OTPScreen extends StatelessWidget {
         },
         builder: (context, state) {
           RegisterationCubit inst = RegisterationCubit.get(context);
-          return Scaffold(
-            resizeToAvoidBottomInset: false,
-            body: Stack(
-              children: [
-                ListView(
-                  scrollDirection: Axis.vertical,
-                  children: [
-                    Container(
-                      height: 25.h,
-                      width: 100.w,
-                      child: Center(
-                        child: SvgPicture.asset("assets/icons/pincode.svg"),
+          return Directionality(
+            textDirection: getDirection(context),
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              body: Stack(
+                children: [
+                  ListView(
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      Container(
+                        height: 25.h,
+                        width: 100.w,
+                        child: Center(
+                          child: SvgPicture.asset("assets/icons/pincode.svg"),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 5.w, right: 5.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Center(
-                            child: RichText(
+                      Padding(
+                        padding: EdgeInsets.only(left: 5.w, right: 5.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            RichText(
                                 textAlign: TextAlign.center,
                                 text: TextSpan(children: [
                                   TextSpan(
-                                      text: "كود التحقق" + " \n\n ",
+                                      text: "OTP".tr() + " \n\n ",
                                       style: TextStyle(
                                           color: kMainColor,
                                           fontWeight: FontWeight.bold,
                                           fontFamily: "Taga",
                                           fontSize: 13.sp)),
                                   TextSpan(
-                                      text: "تم أرسال كود التفعيل الي رقم" +
-                                          " \n\n ",
+                                      text:
+                                          "The activation code has been sent to"
+                                                  .tr() +
+                                              " \n\n ",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontFamily: "Taga",
                                           fontSize: 12.sp)),
-                                  TextSpan(
-                                      text: phoneNumber,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: "Taga",
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13.sp)),
                                 ])),
-                          ),
-                        ],
+                            Directionality(
+                              textDirection: TextDirection.ltr,
+                              child: RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(children: [
+                                    TextSpan(
+                                        text: phoneNumber,
+                                        style: TextStyle(
+                                            color: kMainColor,
+                                            fontFamily: "Taga",
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14.sp)),
+                                  ])),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    Container(
-                      height: 40.h,
-                      width: 90.w,
-                      child:
-                          PinCodeVerificationScreen(phoneNumber: phoneNumber),
-                    ),
-                    SizedBox(
-                      height: 18.h,
-                    ),
-                  ],
-                ),
-              ],
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Container(
+                        height: 40.h,
+                        width: 90.w,
+                        child:
+                            PinCodeVerificationScreen(phoneNumber: phoneNumber),
+                      ),
+                      SizedBox(
+                        height: 18.h,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           );
         },

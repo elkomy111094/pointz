@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pointz/constants/colors.dart';
+import 'package:pointz/helper/components.dart';
 import 'package:pointz/views_models/registeration/registeration_cubit.dart';
 import 'package:sizer/sizer.dart';
 
@@ -76,141 +78,150 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Form(
-          key: formKey,
-          child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
-              child: PinCodeTextField(
-                enablePinAutofill: true,
-                appContext: context,
-                pastedTextStyle: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "Taga",
-                ),
-                length: 6,
-                obscureText: true,
-                obscuringCharacter: '*',
-                blinkWhenObscuring: true,
-                animationType: AnimationType.fade,
+    return Directionality(
+      textDirection: getDirection(context),
+      child: Column(
+        children: <Widget>[
+          Form(
+            key: formKey,
+            child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                child: Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: PinCodeTextField(
+                    enablePinAutofill: true,
+                    appContext: context,
+                    pastedTextStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Taga",
+                    ),
+                    length: 6,
+                    obscureText: true,
+                    obscuringCharacter: '*',
+                    blinkWhenObscuring: true,
+                    animationType: AnimationType.fade,
 
-                pinTheme: PinTheme(
-                  shape: PinCodeFieldShape.box,
-                  activeColor: kMainColor,
-                  inactiveColor: kMainColor,
-                  selectedColor: kMainColor.withOpacity(.5),
-                  inactiveFillColor: Colors.grey.withOpacity(.1),
-                  selectedFillColor: kMainColor.withOpacity(.5),
-                  borderWidth: 0,
-                  borderRadius: BorderRadius.circular(5),
-                  fieldHeight: 7.h,
-                  fieldWidth: 5.h,
-                  activeFillColor: kMainColor,
-                ),
+                    pinTheme: PinTheme(
+                      shape: PinCodeFieldShape.box,
+                      activeColor: kMainColor,
+                      inactiveColor: kMainColor,
+                      selectedColor: kMainColor.withOpacity(.5),
+                      inactiveFillColor: Colors.grey.withOpacity(.1),
+                      selectedFillColor: kMainColor.withOpacity(.5),
+                      borderWidth: 0,
+                      borderRadius: BorderRadius.circular(5),
+                      fieldHeight: 7.h,
+                      fieldWidth: 5.h,
+                      activeFillColor: kMainColor,
+                    ),
 
-                autoFocus: true,
-                cursorColor: Colors.black,
-                animationDuration: Duration(milliseconds: 300),
-                enableActiveFill: true,
+                    autoFocus: true,
+                    cursorColor: Colors.black,
+                    animationDuration: Duration(milliseconds: 300),
+                    enableActiveFill: true,
 
-                controller: textEditingController,
+                    controller: textEditingController,
 
-                validator: (v) {
-                  if (v!.length < 6) {
-                    return "يجب إدخال جميع الحقول";
-                  } else {
-                    return null;
-                  }
-                },
-                keyboardType: TextInputType.number,
-                onCompleted: (submitedCode) {
-                  otpCode = submitedCode;
-                  print("Completed");
-                },
-                // onTap: () {
-                //   print("Pressed");
-                // },
-                onChanged: (value) {
-                  print(value);
-                },
-                beforeTextPaste: (text) {
-                  print("Allowing to paste $text");
-                  //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                  //but you can show anything you want here, like your pop up saying wrong paste format or etc
-                  return true;
-                },
-              )),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5.w),
-          child: Text(
-            hasError ? " يرجى ملء جميع الخلايا بشكل صحيح*" : "",
-            style: TextStyle(
-                color: Colors.red,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w400),
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            RichText(
-                text: TextSpan(
-                    text: secondsRemaining.toString() + ":00",
-                    style: TextStyle(color: Colors.black, fontFamily: "Taga"))),
-            SizedBox(
-              width: 3.w,
-            ),
-            enableResend
-                ? TextButton(
-                    onPressed: () async {
-                      await _resendOTP(context);
-                      setState(() {
-                        secondsRemaining = 60;
-                        enableResend = false;
-                      });
-                      snackBar("OTP resend!!");
+                    validator: (v) {
+                      if (v!.length < 6) {
+                        return "يجب إدخال جميع الحقول";
+                      } else {
+                        return null;
+                      }
                     },
-                    child: Text(
-                      "اعاده ارسال الكود ؟",
-                      style: TextStyle(
-                          color: kMainColor,
-                          fontSize: 12.sp,
-                          fontFamily: "Taga"),
-                    ),
-                  )
-                : TextButton(
-                    onPressed: null,
-                    child: Text(
-                      "اعاده ارسال الكود ؟",
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 12.sp,
-                          fontFamily: "Taga"),
-                    ),
+                    keyboardType: TextInputType.number,
+                    onCompleted: (submitedCode) {
+                      otpCode = submitedCode;
+                      print("Completed");
+                    },
+                    // onTap: () {
+                    //   print("Pressed");
+                    // },
+                    onChanged: (value) {
+                      print(value);
+                    },
+                    beforeTextPaste: (text) {
+                      print("Allowing to paste $text");
+                      //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+                      //but you can show anything you want here, like your pop up saying wrong paste format or etc
+                      return true;
+                    },
                   ),
-          ],
-        ),
-        SizedBox(
-          height: 3.h,
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
-          child: CustomTextButton(
+                )),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
+            child: Text(
+              hasError ? "Please fill in all cells correctly.".tr() : "",
+              style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              enableResend
+                  ? TextButton(
+                      onPressed: () async {
+                        await _resendOTP(context);
+                        setState(() {
+                          secondsRemaining = 60;
+                          enableResend = false;
+                        });
+                      },
+                      child: Text(
+                        "Resend the code?".tr(),
+                        style: TextStyle(
+                            color: kMainColor,
+                            fontSize: 12.sp,
+                            fontFamily: "Taga"),
+                      ),
+                    )
+                  : TextButton(
+                      onPressed: null,
+                      child: Text(
+                        "Resend the code?".tr(),
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 12.sp,
+                            fontFamily: "Taga"),
+                      ),
+                    ),
+              SizedBox(
+                width: 1.w,
+              ),
+              RichText(
+                  text: TextSpan(
+                      text: secondsRemaining.toString() + ":00",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "Taga",
+                          fontSize: 12.sp))),
+            ],
+          ),
+          SizedBox(
+            height: 3.h,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            child: CustomTextButton(
+              text: "Verify".tr(),
               buttonColor: kMainColor,
               roundedBorder: 10,
               textColor: Colors.white,
               vPadding: 0,
               hPadding: 0,
               buttonHorizontalPaddingval: 20.w,
-              textSize: 12.sp,
+              textSize: 15.sp,
               onPressed: () async {
                 await _login(context);
               },
-              text: "تحقق"),
-        ),
-      ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

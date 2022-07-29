@@ -3,18 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:pointz/Views/Screens/splash_screen.dart';
 import 'package:pointz/constants/colors.dart';
+import 'package:pointz/views_models/category/category_cubit.dart';
+import 'package:pointz/views_models/gifts/gifts_cubit.dart';
 import 'package:pointz/views_models/home/home_cubit.dart';
+import 'package:pointz/views_models/offers/offers_cubit.dart';
 import 'package:pointz/views_models/registeration/registeration_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
-import 'Views/Screens/splash_screen.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemNavigationBarColor: kMainColor, // navigation bar color
+    statusBarColor: kMainColor, // status bar color
+    systemNavigationBarDividerColor: Colors.grey,
+  ));
   await translator.init(
     localeType: LocalizationDefaultType.device,
     languagesList: <String>['ar', 'en'],
@@ -24,14 +30,15 @@ void main() async {
       providers: [
         BlocProvider(create: (context) => RegisterationCubit()),
         BlocProvider(create: (context) => HomeCubit()),
+        BlocProvider(create: (context) => CategoryCubit()),
+        BlocProvider(create: (context) => GiftsCubit()),
+        BlocProvider(create: (context) => OffersCubit()),
       ],
       child: LocalizedApp(
           child: /*DevicePreview(builder: (_) => Pointz())*/ Pointz())));
 }
 
 class Pointz extends StatelessWidget {
-  Pointz();
-
   @override
   Widget build(BuildContext context) {
     // To Prevent LandScape Mode (Prevent App Rotation)

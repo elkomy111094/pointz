@@ -165,49 +165,51 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:pointz/Views/Screens/empty_screen.dart';
-import 'package:pointz/Views/Widgets/customerPoint.dart';
-import 'package:pointz/core/services/customer_points_services.dart';
+import 'package:pointz/Views/Widgets/gift_item_Card.dart';
+import 'package:pointz/core/services/gifts_Services.dart';
 import 'package:pointz/views_models/registeration/registeration_cubit.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants/colors.dart';
 import '../../helper/components.dart';
-import '../../models/customer_points_response.dart';
+import '../../models/customer_all_gifts_response.dart';
 import '../Widgets/customt_text_button.dart';
-import '../Widgets/simple_Header.dart';
 
-class MyPointsScreen extends StatefulWidget {
+class CustomerAvailableGifts extends StatefulWidget {
   BuildContext? navBarScreenContext;
-  MyPointsScreen({this.navBarScreenContext});
+  CustomerAvailableGifts({this.navBarScreenContext});
 
   @override
-  State<MyPointsScreen> createState() => _MyPointsScreenState();
+  State<CustomerAvailableGifts> createState() => _CustomerAvailableGiftsState();
 }
 
-class _MyPointsScreenState extends State<MyPointsScreen> {
+class _CustomerAvailableGiftsState extends State<CustomerAvailableGifts> {
   int pageKey = 1;
   int pageSize = 10;
   late bool isLastPage;
   ValueNotifier<bool> waitting = ValueNotifier(false);
-  List<CustomerPointModel> responseList = [];
+  List<ApiGiftModel> responseList = [];
 
-  final PagingController<int, CustomerPointModel> _pagingController =
+  final PagingController<int, ApiGiftModel> _pagingController =
       PagingController(firstPageKey: 1);
 
   final ScrollController _scrollController = ScrollController();
 
   Future<void> _fetchPage(pageKey, BuildContext context) async {
     RegisterationCubit inst = RegisterationCubit.get(context);
-    int? userId = inst.userResponse!.result!.responseResult!.id!;
+    String customerPhone =
+        inst.userResponse!.result!.responseResult!.phoneNumber!;
     print(
         "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-    print(userId);
+    print(customerPhone);
     try {
       waitting.value = true;
       waitting.notifyListeners();
-      responseList = await CustomerPointsServices()
-          .getAllCustomerPoints(
-              index: pageKey, userId: userId, pageSize: pageSize)
+      responseList = await GiftsServices()
+          .getAllCustomerAvailableGifts(
+              index: pageKey,
+              customerPhoneNumer: customerPhone,
+              pageSize: pageSize)
           .then((value) {
         waitting.value = false;
         waitting.notifyListeners();
@@ -263,7 +265,7 @@ class _MyPointsScreenState extends State<MyPointsScreen> {
             child: Stack(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 10.h, left: 5.w, right: 5.w),
+                  padding: EdgeInsets.only(left: 5.w, right: 5.w),
                   child: NotificationListener(
                     onNotification: (note) {
                       if (note is ScrollEndNotification) {
@@ -283,21 +285,24 @@ class _MyPointsScreenState extends State<MyPointsScreen> {
                     },
                     child: Stack(
                       children: [
-                        PagedListView<int, CustomerPointModel>(
+                        PagedListView<int, ApiGiftModel>(
                           shrinkWrap: false,
                           scrollController: _scrollController,
                           pagingController: _pagingController,
                           builderDelegate: PagedChildBuilderDelegate<
-                                  CustomerPointModel>(
+                                  ApiGiftModel>(
                               itemBuilder: (context, item, index) {
-                                return CustomerPoint(
-                                    logoImage: item.business!.logoUploadedFile!
-                                        .base64Format
-                                        .toString(),
-                                    storeName: checkRTL(context)
-                                        ? (item.business!.nameAr!)
-                                        : (item.business!.nameEn!),
-                                    pointsValue: item.available!);
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    GiftItemCard(
+                                      gift: item,
+                                    ),
+                                    SizedBox(
+                                      height: 2.h,
+                                    ),
+                                  ],
+                                );
                               },
 
                               /*animateTransitions: true,*/
@@ -309,7 +314,7 @@ class _MyPointsScreenState extends State<MyPointsScreen> {
                                 return EmptyScreen(
                                     svgImageUrl: "assets/icons/empty.svg",
                                     textUnderImage:
-                                        "قائمه نقاطك فارغه حاليا".tr());
+                                        "قائمه هداياك فارغه حاليا".tr());
                               },
                               firstPageErrorIndicatorBuilder: (context) {
                                 return Column(
@@ -352,10 +357,6 @@ class _MyPointsScreenState extends State<MyPointsScreen> {
                       ],
                     ),
                   ),
-                ),
-                SimpleHeader(
-                  headerTitle: "MyPoints".tr(),
-                  showPopIconButton: false,
                 ),
               ],
             ),

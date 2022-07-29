@@ -10,13 +10,19 @@ import 'package:pointz/Views/Screens/mypoints_screen.dart';
 import 'package:pointz/Views/Screens/offers_screen.dart';
 import 'package:pointz/Views/Screens/orders_screen.dart';
 import 'package:pointz/constants/colors.dart';
+import 'package:pointz/helper/components.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../views_models/home/home_cubit.dart';
 import '../../views_models/registeration/registeration_cubit.dart';
 // ----------------------------------------- Provided Style ----------------------------------------- //
 
 class NavBarScreen extends StatefulWidget {
+  int? defaultScreenId;
+
+  NavBarScreen({this.defaultScreenId});
+
   @override
   _NavBarScreenState createState() => _NavBarScreenState();
 }
@@ -25,7 +31,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
   late PersistentTabController _controller;
   late bool _hideNavBar = true;
 
-  int selectedItemId = 0;
+  late int selectedItemId;
 
   setLoggedIn() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -34,11 +40,13 @@ class _NavBarScreenState extends State<NavBarScreen> {
 
   @override
   void initState() {
+    selectedItemId = widget.defaultScreenId ?? 0;
     setLoggedIn();
 
     super.initState();
 
-    _controller = PersistentTabController(initialIndex: 0);
+    _controller =
+        PersistentTabController(initialIndex: widget.defaultScreenId ?? 0);
     _hideNavBar = false;
   }
 
@@ -66,7 +74,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
             ),
           ),
         ),
-        title: "الرئيسيه",
+        title: "Home".tr(),
         activeColorPrimary: Colors.blue,
         textStyle: TextStyle(
             fontFamily: "Taga",
@@ -86,7 +94,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
             ),
           ),
         ),
-        title: "الطلبات",
+        title: "Orders".tr(),
         activeColorPrimary: Colors.blue,
         textStyle: TextStyle(
             fontFamily: "Taga",
@@ -106,7 +114,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
             ),
           ),
         ),
-        title: "نقاطي",
+        title: "Points".tr(),
         activeColorPrimary: kMainColor,
         textStyle: TextStyle(
             fontFamily: "Taga",
@@ -125,7 +133,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
             ),
           ),
         ),
-        title: "العروض",
+        title: "Offers".tr(),
         activeColorPrimary: Colors.blue,
         textStyle: TextStyle(
             fontFamily: "Taga",
@@ -145,7 +153,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
             ),
           ),
         ),
-        title: "المزيد",
+        title: "More".tr(),
         activeColorPrimary: Colors.blue,
         textStyle: TextStyle(
             fontFamily: "Taga",
@@ -158,6 +166,8 @@ class _NavBarScreenState extends State<NavBarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    HomeCubit homeCubitInst = HomeCubit.get(context);
+    homeCubitInst.setMainContext(context);
     RegisterationCubit inst = RegisterationCubit.get(context);
     if (inst.userResponse == null) {
       inst
@@ -170,11 +180,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
     } else {}
     print(inst.refereshedFirebaseToken);
     return inst.userResponse == null
-        ? Scaffold(
-            body: Center(
-                child: CircularProgressIndicator(
-            color: kMainColor,
-          )))
+        ? Scaffold(body: Center(child: loader()))
         : Directionality(
             textDirection: translator.isDirectionRTL(context)
                 ? TextDirection.rtl

@@ -93,6 +93,7 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
                                 height: 45.h,
                                 width: 90.w,
                                 child: Card(
+                                  elevation: 20,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(2.h)),
                                   color: Colors.white,
@@ -121,75 +122,76 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
                                         SizedBox(
                                           height: 4.h,
                                         ),
-                                        Directionality(
-                                          textDirection: getDirection(context),
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                getDirection(context) ==
-                                                        TextDirection.rtl
-                                                    ? Icons.phone_enabled
-                                                    : Icons.phone,
-                                                color: kMainColor,
-                                                size: 15.sp,
-                                              ),
-                                              SizedBox(
-                                                width: 2.w,
-                                              ),
-                                              RichText(
-                                                text: TextSpan(
-                                                    text: "phoneNumber".tr(),
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 12.sp,
-                                                      fontFamily: "Taga",
-                                                    )),
-                                              ),
-                                            ],
-                                          ),
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              getDirection(context) ==
+                                                      TextDirection.rtl
+                                                  ? Icons.phone_enabled
+                                                  : Icons.phone,
+                                              color: kMainColor,
+                                              size: 15.sp,
+                                            ),
+                                            SizedBox(
+                                              width: 2.w,
+                                            ),
+                                            RichText(
+                                              text: TextSpan(
+                                                  text: "phoneNumber".tr(),
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12.sp,
+                                                    fontFamily: "Taga",
+                                                  )),
+                                            ),
+                                          ],
                                         ),
                                         SizedBox(
                                           height: .5.h,
                                         ),
                                         SizedBox(
                                           height: 10.h,
-                                          child: SquareTextField(
-                                            textLetterSpaceing: 2,
-                                            prefixText: "+9665 ",
-                                            maxLength: 8,
-                                            hintText: "",
-                                            validator: (phoneVal) {
-                                              if (phoneVal!.isEmpty) {
-                                                return "pleaseEnterYourPhoneNumber"
-                                                    .tr();
-                                              } else if (!RegExp(
-                                                      r'(^(?:[+0]9)?[0-9]{8,8}$)')
-                                                  .hasMatch(phoneVal)) {
-                                                return "pleaseEnterCorrectPhoneNumber"
-                                                    .tr();
-                                              } else {
-                                                return null;
-                                              }
-                                            },
-                                            controller:
-                                                inst.phoneNumberController,
-                                            onChanged: (phone) {},
-                                            onSave: (phone) {},
-                                            keyBoardType: TextInputType.phone,
+                                          child: Directionality(
+                                            textDirection: TextDirection.ltr,
+                                            child: SquareTextField(
+                                              fillColor: kBackGroundColor,
+                                              textLetterSpaceing: 2,
+                                              prefixText: "+9665 ",
+                                              maxLength: 8,
+                                              hintText: "",
+                                              validator: (phoneVal) {
+                                                if (phoneVal!.isEmpty) {
+                                                  return "pleaseEnterYourPhoneNumber"
+                                                      .tr();
+                                                } else if (!RegExp(
+                                                        r'(^(?:[+0]9)?[0-9]{8,8}$)')
+                                                    .hasMatch(phoneVal)) {
+                                                  return "pleaseEnterCorrectPhoneNumber"
+                                                      .tr();
+                                                } else {
+                                                  return null;
+                                                }
+                                              },
+                                              controller:
+                                                  inst.phoneNumberController,
+                                              onChanged: (phone) {},
+                                              keyBoardType: TextInputType.phone,
+                                            ),
                                           ),
                                         ),
                                         SizedBox(
-                                          height: .5.h,
+                                          height: 3.h,
                                         ),
                                         SizedBox(
                                           height: 5.h,
                                           child: Center(
                                             child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Transform.scale(
-                                                  scale: 1.1,
+                                                  scale: .75.sp,
                                                   child: Checkbox(
                                                       activeColor: kMainColor,
                                                       shape:
@@ -206,11 +208,13 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
                                                       }),
                                                 ),
                                                 RichText(
-                                                  text: const TextSpan(
+                                                  text: TextSpan(
                                                       text:
-                                                          "AgreeTermsAndConditions",
+                                                          "agreeTermsAndConditions"
+                                                              .tr(),
                                                       style: TextStyle(
                                                         color: Colors.black38,
+                                                        fontSize: 12.sp,
                                                         decoration:
                                                             TextDecoration
                                                                 .underline,
@@ -222,12 +226,12 @@ class _PhoneRegisterationScreenState extends State<PhoneRegisterationScreen> {
                                           ),
                                         ),
                                         SizedBox(
-                                          height: 5.h,
+                                          height: 3.h,
                                         ),
                                         CustomTextButton(
                                             buttonColor: kMainColor,
                                             textColor: Colors.white,
-                                            textSize: 12.sp,
+                                            textSize: 15.sp,
                                             onPressed: () {
                                               _register(context);
                                               /*    pushToStack(

@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:meta/meta.dart';
 import 'package:pointz/helper/components.dart';
 import 'package:pointz/models/user_details_Response.dart';
@@ -14,6 +15,16 @@ part 'registeration_state.dart';
 
 class RegisterationCubit extends Cubit<RegisterationState> {
   RegisterationCubit() : super(RegisterationInitial());
+
+  //.
+  //.
+  //.
+  //.
+  //.
+  //.
+  //TODO:-----------------------------------------------------------------------
+  //TODO-----------------------------------Fields-------------------------------
+  //TODO:-----------------------------------------------------------------------
   late String verificationId;
   String? userFirebaseId;
   bool termsAndConditionsAgreement = false;
@@ -24,20 +35,27 @@ class RegisterationCubit extends Cubit<RegisterationState> {
   User? user;
   String? refereshedFirebaseToken;
   UserDeatailsResponse? userResponse;
-
   TextEditingController _phoneNumberController = TextEditingController();
+  TextEditingController searchController = TextEditingController(text: "");
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   final _phoneRegisterationFormKey = GlobalKey<FormState>();
   final _completeRegisterationFormKey = GlobalKey<FormState>();
-
   static RegisterationCubit get(context) => BlocProvider.of(context);
   TextEditingController get phoneNumberController => _phoneNumberController;
   GlobalKey get phoneRegisterationFormKey => _phoneRegisterationFormKey;
   GlobalKey get completeRegisterationFormKey => _completeRegisterationFormKey;
   DateTime? get designerDateOfBirth => _userDateOfBirth;
-
+  //.
+  //.
+  //.
+  //.
+  //.
+  //.
+  //TODO:-----------------------------------------------------------------------
+  //TODO--------------------------------Setters---------------------------------
+  //TODO:-----------------------------------------------------------------------
   setUserGender(String userGenderStatus) {
     userGender = userGenderStatus;
     emit(UserGenderSelected());
@@ -48,22 +66,28 @@ class RegisterationCubit extends Cubit<RegisterationState> {
     emit(UserBirthOfDateIsSelected(_userDateOfBirth));
   }
 
-  //Todo:----------------------Phone Number Registeration And Otp Resend Methods------------------------------------
-  //Todo:-----------------------------------------------------------------------------------------------------------
-  //Todo:-----------------------------------------------------------------------------------------------------------
-  //Todo:-----------------------------------------------------------------------------------------------------------
   changeTermsAndConditionsAgreemetState(bool state) {
     termsAndConditionsAgreement = state;
     emit(AgreementState());
   }
 
+  //.
+  //.
+  //.
+  //.
+  //.
+  //.
+  //TODO:-----------------------------------------------------------------------
+  //TODO------------------------Phone Number Form Validator---------------------
+  //TODO:-----------------------------------------------------------------------
   bool validatePhoneNumber(BuildContext context) {
     _phoneRegisterationFormKey.currentState!.save();
     if (_phoneRegisterationFormKey.currentState!.validate()) {
       if (termsAndConditionsAgreement == true) {
         return true;
       } else {
-        showToast(context, "من فضلك يجب الموافقه علي شروط وأحكام التطبيق");
+        showToast(context,
+            "Please agree to the terms and conditions of the application".tr());
         return false;
       }
     } else {
@@ -71,6 +95,15 @@ class RegisterationCubit extends Cubit<RegisterationState> {
     }
   }
 
+  //.
+  //.
+  //.
+  //.
+  //.
+  //.
+  //TODO:-----------------------------------------------------------------------
+  //TODO------------------Submit Phone And Recieve OTP -----------------------
+  //TODO:-----------------------------------------------------------------------
   Future<void> submitPhoneNumber(String phoneNumber) async {
     emit(Loading());
     await FirebaseAuth.instance.verifyPhoneNumber(
@@ -84,6 +117,15 @@ class RegisterationCubit extends Cubit<RegisterationState> {
     );
   }
 
+  //.
+  //.
+  //.
+  //.
+  //.
+  //.
+  //TODO:-----------------------------------------------------------------------
+  //TODO------------------------Resend OTP Method -----------------------
+  //TODO:-----------------------------------------------------------------------
   Future<void> resendOTP(String phoneNumber) async {
     emit(Loading());
     await FirebaseAuth.instance.verifyPhoneNumber(
@@ -130,10 +172,10 @@ class RegisterationCubit extends Cubit<RegisterationState> {
         break;
       case "TOO-MANY-REQUESTS":
         errorMessage =
-            "عفوا : لقد أجريت العديد من المحاولات ، يرجي المحاوله لاحقا";
+            "Sorry, you made too many attempts, please try again later".tr();
         break;
       case "NETWORK-REQUEST-FAILED":
-        errorMessage = "تأكد من إتصالك بالأنترنت";
+        errorMessage = "Make sure you connect to the Internet".tr();
         break;
       case "OPERATION-NOT-ALLOWED":
         errorMessage = "Signing in with Email and Password is not enabled.";
@@ -156,6 +198,15 @@ class RegisterationCubit extends Cubit<RegisterationState> {
     print('codeAutoRetrievalTimeout');
   }
 
+  //.
+  //.
+  //.
+  //.
+  //.
+  //.
+  //TODO:-----------------------------------------------------------------------
+  //TODO----------------------For Submitting Recieved OTP-----------------------
+  //TODO:-----------------------------------------------------------------------
   Future<void> submitOTP(String otpCode) async {
     emit(Loading());
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
@@ -163,6 +214,15 @@ class RegisterationCubit extends Cubit<RegisterationState> {
     await signIn(credential);
   }
 
+  //.
+  //.
+  //.
+  //.
+  //.
+  //.
+  //TODO:-----------------------------------------------------------------------
+  //TODO--Firebase Sign In With Phone Number And Getting Firebase Current User--
+  //TODO:-----------------------------------------------------------------------
   Future<void> signIn(PhoneAuthCredential credential) async {
     try {
       await FirebaseAuth.instance
@@ -180,58 +240,22 @@ class RegisterationCubit extends Cubit<RegisterationState> {
 
       switch (error.code.toString()) {
         case "invalid-verification-code":
-          errorMessage = "كود تحقق غير صحيح";
+          errorMessage = "Incorrect verification code".tr();
           break;
         case "session-expired":
           errorMessage =
-              "لقد إنتهت صلاحيه الكود الذي تم إرساله اليك ، من فضلك إضغط إعاده إرسال الكود";
+              "The code that was sent to you has ended, please click Re -send the code."
+                  .tr();
           break;
         case "network-request-failed":
-          errorMessage = "تأكد من إتصالك بالأنترنت";
+          errorMessage = "Make sure you connect to the Internet".tr();
           break;
         default:
-          errorMessage = "خطأ غير معروف";
+          errorMessage = "Unknown Error".tr();
       }
 
       emit(OTPErrorOccurred(errorMsg: errorMessage));
     }
-  }
-
-  /*Future<void> signInWithPhoneNumber(String phoneNumber) async {
-    try {
-      await FirebaseAuth.instance
-          .signInWithPhoneNumber(phoneNumber)
-          .then((value) {
-        value.verificationId;
-      });
-      emit(PhoneOTPVerified());
-    } on FirebaseAuthException catch (error) {
-      String errorMessage = "";
-
-      log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-      log("${error.code}");
-
-      switch (error.code.toString()) {
-        case "invalid-verification-code":
-          errorMessage = "كود تحقق غير صحيح";
-          break;
-        case "session-expired":
-          errorMessage =
-              "لقد إنتهت صلاحيه الكود الذي تم إرساله اليك ، من فضلك إضغط إعاده إرسال الكود";
-          break;
-        case "network-request-failed":
-          errorMessage = "تأكد من إتصالك بالأنترنت";
-          break;
-        default:
-          errorMessage = "خطأ غير معروف";
-      }
-
-      emit(OTPErrorOccurred(errorMsg: errorMessage));
-    }
-  }*/
-
-  Future<void> logOut() async {
-    await FirebaseAuth.instance.signOut();
   }
 
   User getLoggedInUser() {
@@ -239,16 +263,33 @@ class RegisterationCubit extends Cubit<RegisterationState> {
     return firebaseUser;
   }
 
-  //Todo:----------------------------------Complete Registeration---------------------------------------------------
-//Todo:-----------------------------------------------------------------------------------------------------------
-//Todo:-----------------------------------------------------------------------------------------------------------
-//Todo:-----------------------------------------------------------------------------------------------------------
+  //.
+  //.
+  //.
+  //.
+  //.
+  //.
+  //TODO:-----------------------------------------------------------------------
+  //TODO--------------------Logout Firebase Current User------------------------
+  //TODO:-----------------------------------------------------------------------
+  Future<void> logOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 
+  //.
+  //.
+  //.
+  //.
+  //.
+  //.
+  //TODO:-----------------------------------------------------------------------
+  //TODO-------------Validate Complete Registeration Form ----------------------
+  //TODO:-----------------------------------------------------------------------
   validateCompleteRegisterationForm(BuildContext context) {
     _completeRegisterationFormKey.currentState!.save();
     if (_completeRegisterationFormKey.currentState!.validate()) {
       if (_userDateOfBirth == null) {
-        showToast(context, "من فضلك إختر تاريخ ميلاد");
+        showToast(context, "Please choose the date of birth".tr());
         return false;
       } else {
         return true;
@@ -258,6 +299,15 @@ class RegisterationCubit extends Cubit<RegisterationState> {
     }
   }
 
+  //.
+  //.
+  //.
+  //.
+  //.
+  //.
+  //TODO:-----------------------------------------------------------------------
+  //TODO------------Getting Gender Code(M or F)From Gender Type ---------------
+  //TODO:-----------------------------------------------------------------------
   String getGenderCode() {
     if (userGender == "male") {
       return "M";
@@ -266,6 +316,15 @@ class RegisterationCubit extends Cubit<RegisterationState> {
     }
   }
 
+  //.
+  //.
+  //.
+  //.
+  //.
+  //.
+  //TODO:-----------------------------------------------------------------------
+  //TODO--------------------Add New User To The Backend  -----------------------
+  //TODO:-----------------------------------------------------------------------
   Future<bool> postNewUser(BuildContext context) async {
     emit(CompleteRegisterationLoading());
     user!.refreshToken;
@@ -298,6 +357,15 @@ class RegisterationCubit extends Cubit<RegisterationState> {
     return false;
   }
 
+  //.
+  //.
+  //.
+  //.
+  //.
+  //.
+  //TODO:-----------------------------------------------------------------------
+  //TODO------------ To Check If Your Registered Before Or Not  ---------------
+  //TODO:-----------------------------------------------------------------------
   Future<bool> getUserDetails(
       {required String phoneNumber, required String UID}) async {
     if (phoneNumber.contains("+9665")) {

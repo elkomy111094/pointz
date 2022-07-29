@@ -26,10 +26,8 @@ class HomeServices {
   Future<dynamic> getAllActiveAdvertisements() async {
     try {
       Response response = await dio.get(
-          "BusinessAdvertisment/allActive/paginated?pageIndex=1&pageSize=1000000");
+          "BusinessAdvertisment/allActiveForCustomer/paginated?pageIndex=1&pageSize=1000000");
       if (response.statusCode == 200) {
-        print(
-            "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
         print(response.data);
         List<dynamic> map = response.data["result"]["data"];
         return map.map((e) => Advertisment.fromJson(e)).toList();
@@ -37,8 +35,6 @@ class HomeServices {
         return false;
       }
     } on DioError catch (e) {
-      print(
-          "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
       print(e.response?.data.toString());
       print(e.message);
       return false;
@@ -49,10 +45,34 @@ class HomeServices {
     try {
       Response response = await dio.get("BusinessTypeLookup");
       if (response.statusCode == 200) {
-        print(
-            "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
         List<dynamic> map = response.data["result"]["data"];
         return map.map((e) => Category.fromJson(e)).toList();
+      } else {
+        return false;
+      }
+    } on DioError catch (e) {
+      print(e.response?.data.toString());
+      print(e.message);
+      return false;
+    }
+  }
+
+  Future<dynamic> getSomeServicesProviders(int customerID) async {
+    try {
+      Response response = await dio.post(
+        "Business/allTopsForEachTypeForCustomer",
+        data: {
+          "customerId": customerID,
+        },
+      );
+      if (response.statusCode == 200) {
+        print(
+            "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+        print(
+            "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
+        print(response.data);
+        List<dynamic> map = response.data["result"]["data"];
+        return map.map((e) => CategoriesTopsRespons.fromJson(e)).toList();
       } else {
         return false;
       }
@@ -65,12 +85,70 @@ class HomeServices {
     }
   }
 
-  Future<dynamic> getSomeServicesProviders(String code) async {
+  Future addToMyFavorites(
+      {required int customerID, required int businessID}) async {
     try {
       Response response = await dio.post(
-        "Business/allActive/paginated?pageIndex=1&pageSize=5",
-        data: {"typeCode": code, "tagCodeList": []},
+        "CustomerFavoriteBusiness/toggle",
+        data: {"customerId": customerID, "businessID": businessID},
       );
+      if (response.statusCode == 200) {
+        print(
+            "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+        print(
+            "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
+        print(response.data);
+        return true;
+      } else {
+        return false;
+      }
+    } on DioError catch (e) {
+      print(
+          "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+      print(e.response?.data.toString());
+      print(e.message);
+      return false;
+    }
+  }
+
+  Future<dynamic> pgetSomeServicesProviders(
+      {required String code,
+      required int index,
+      required List<String> tagCodeList,
+      required int pageSize,
+      required int customerID}) async {
+    try {
+      Response response = await dio.post(
+        "Business/allForTypeForCustomerPaginated?pageIndex=${index}&pageSize=${pageSize}",
+        data: {
+          "businessTypeCode": code,
+          "tagCodeList": tagCodeList,
+          "customerID": customerID
+        },
+      );
+      if (response.statusCode == 200) {
+        print(response.data);
+        List<dynamic> map = response.data["result"]["data"];
+        return (map.map((e) => ServicesProvider.fromJson(e))).toList();
+      } else {
+        return false;
+      }
+    } on DioError catch (e) {
+      print(e.response?.data.toString());
+      print(e.message);
+      return false;
+    }
+  }
+
+  Future<dynamic> getSearchResultInAll(
+      {required int index,
+      required int pageSize,
+      required int userId,
+      required String searchValue}) async {
+    try {
+      Response response = await dio.post(
+          "Business/allBySearchForCustomerPaginated?pageIndex=${index}&pageSize=${pageSize}",
+          data: {"customerID": userId, "businessName": searchValue});
       if (response.statusCode == 200) {
         print(
             "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
@@ -89,13 +167,20 @@ class HomeServices {
     }
   }
 
-  Future<dynamic> pgetSomeServicesProviders(
-      String code, int index, int pageSize) async {
+  Future<dynamic> getSearchResultInCategory(
+      {required int index,
+      required int pageSize,
+      required int userId,
+      required String categoryCode,
+      required String searchValue}) async {
     try {
       Response response = await dio.post(
-        "Business/allActive/paginated?pageIndex=${index}&pageSize=${pageSize}",
-        data: {"typeCode": code, "tagCodeList": []},
-      );
+          "Business/allInTypeBySearchForCustomerPaginated?pageIndex=${index}&pageSize=${pageSize}",
+          data: {
+            "customerID": userId,
+            "businessName": searchValue,
+            "businessTypeCode": categoryCode,
+          });
       if (response.statusCode == 200) {
         print(
             "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");

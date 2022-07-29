@@ -52,64 +52,68 @@ class _OnBoardingState extends State<OnBoarding> {
             ),
           ),
           //Moved Widget
-          SizedBox(
-            height: 75.h,
-            child: PageView.builder(
-              scrollDirection: Axis.horizontal,
-              onPageChanged: (index) {
-                setState(() {
-                  currentIndex = index;
-                });
-              },
-              itemBuilder: (context,
-                      index) //itemBuilder will call with all items with number of index times
-                  {
-                return Column(
-                  children: [
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Center(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              child: SvgPicture.asset(
-                                onBoardingMovedItemsList[currentIndex]
-                                    ["imgUrl"],
-                                width: 50.w,
+          Directionality(
+            textDirection: TextDirection.ltr,
+            child: SizedBox(
+              height: 75.h,
+              child: PageView.builder(
+                scrollDirection: Axis.horizontal,
+                onPageChanged: (index) {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
+                itemBuilder: (context,
+                        index) //itemBuilder will call with all items with number of index times
+                    {
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      Center(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                child: SvgPicture.asset(
+                                  onBoardingMovedItemsList[currentIndex]
+                                      ["imgUrl"],
+                                  width: 50.w,
+                                  height: 30.h,
+                                ),
                                 height: 30.h,
                               ),
-                              height: 30.h,
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            SizedBox(
-                              width: 80.w,
-                              height: 20.h,
-                              child: RichText(
-                                textAlign: TextAlign.center,
-                                text: TextSpan(
-                                    text: onBoardingMovedItemsList[currentIndex]
-                                        ["desc"],
-                                    style: TextStyle(
-                                        wordSpacing: 1,
-                                        color: Colors.black,
-                                        fontFamily: "Taga",
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 14.sp)),
+                              SizedBox(
+                                height: 10.h,
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                width: 80.w,
+                                height: 20.h,
+                                child: RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(
+                                      text:
+                                          onBoardingMovedItemsList[currentIndex]
+                                              ["desc"],
+                                      style: TextStyle(
+                                          wordSpacing: 1,
+                                          color: Colors.black,
+                                          fontFamily: "Taga",
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14.sp)),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                );
-              },
-              itemCount: onBoardingMovedItemsList.length,
+                    ],
+                  );
+                },
+                itemCount: onBoardingMovedItemsList.length,
+              ),
             ),
           ),
           //Skip Button

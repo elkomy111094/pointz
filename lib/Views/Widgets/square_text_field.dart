@@ -8,10 +8,11 @@ class SquareTextField extends StatelessWidget {
   int? maxLines;
   Widget? preFixWidget;
   String? Function(String?)? validator;
+  String? Function(String?)? onSubmit;
   final TextEditingController? phoneController;
 
   void Function(String)? onChanged;
-  void Function(String?)? onSave;
+
   TextEditingController? controller;
 
   bool obsecureance;
@@ -32,25 +33,26 @@ class SquareTextField extends StatelessWidget {
 
   TextStyle? hintStyle;
 
-  SquareTextField(
-      {required this.hintText,
-      this.textLetterSpaceing = 0.0,
-      this.hintStyle,
-      this.textStyle,
-      this.maxLength,
-      this.prefixText,
-      this.preFixWidget,
-      this.fillColor = Colors.white60,
-      this.maxLines = 1,
-      this.phoneController,
-      this.keyBoardType,
-      this.controller,
-      this.validator,
-      this.keyBoardAppearance,
-      this.obsecureance = false,
-      this.suffixWidget,
-      required this.onChanged,
-      required this.onSave});
+  SquareTextField({
+    required this.hintText,
+    this.textLetterSpaceing = 0.0,
+    this.hintStyle,
+    this.textStyle,
+    this.maxLength,
+    this.onSubmit,
+    this.prefixText,
+    this.preFixWidget,
+    this.fillColor = Colors.white60,
+    this.maxLines = 1,
+    this.phoneController,
+    this.keyBoardType,
+    this.controller,
+    this.validator,
+    this.keyBoardAppearance,
+    this.obsecureance = false,
+    this.suffixWidget,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +65,7 @@ class SquareTextField extends StatelessWidget {
             textAlign: TextAlign.start,
             cursorColor: kMainColor,
             onChanged: onChanged,
-            onSaved: onSave,
             validator: validator,
-            textAlignVertical: TextAlignVertical.center,
             keyboardType: keyBoardType,
             keyboardAppearance: keyBoardAppearance,
             controller: controller,
@@ -73,11 +73,13 @@ class SquareTextField extends StatelessWidget {
             maxLength: maxLength,
             obscuringCharacter: "•",
             obscureText: obsecureance,
+            onFieldSubmitted: onSubmit,
             style: textStyle ??
                 TextStyle(
                     color: Colors.black,
                     /*fontFamily: "Taga",*/
                     letterSpacing: textLetterSpaceing,
+                    fontWeight: FontWeight.bold,
                     fontSize: 13.sp),
             decoration: InputDecoration(
               errorStyle: TextStyle(fontSize: 10.sp, fontFamily: "Taga"),
@@ -87,7 +89,8 @@ class SquareTextField extends StatelessWidget {
                   EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 3.w),
               prefixText: prefixText,
               prefixStyle: TextStyle(
-                  color: Colors.black,
+                  color: kMainColor,
+                  fontWeight: FontWeight.bold,
                   /*fontFamily: "Taga",*/
                   fontSize: 13.sp),
               enabledBorder: OutlineInputBorder(
@@ -95,7 +98,7 @@ class SquareTextField extends StatelessWidget {
                 color: kBackGroundColor,
               )),
               focusedBorder: OutlineInputBorder(
-                  /* borderSide: BorderSide(color: kYellow, width: 2)*/),
+                  borderSide: BorderSide(color: kMainColor, width: 1)),
               hintText: hintText,
               counterText: "",
               suffixIcon: suffixWidget,

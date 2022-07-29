@@ -3,7 +3,6 @@ import 'package:pointz/Views/Widgets/customt_text_button.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants/colors.dart';
-import '../../helper/components.dart';
 import '../Widgets/square_text_field.dart';
 
 class GiftPaymentScreen extends StatefulWidget {
@@ -86,7 +85,6 @@ class _GiftPaymentScreenState extends State<GiftPaymentScreen> {
                                                 child: SquareTextField(
                                                   hintText: "",
                                                   onChanged: (phone) {},
-                                                  onSave: (phone) {},
                                                   keyBoardType: TextInputType
                                                       .emailAddress,
                                                 ),
@@ -129,7 +127,6 @@ class _GiftPaymentScreenState extends State<GiftPaymentScreen> {
                                                 child: SquareTextField(
                                                   hintText: "",
                                                   onChanged: (phone) {},
-                                                  onSave: (phone) {},
                                                   keyBoardType:
                                                       TextInputType.name,
                                                 ),
@@ -177,7 +174,6 @@ class _GiftPaymentScreenState extends State<GiftPaymentScreen> {
                                                 child: SquareTextField(
                                                   hintText: "",
                                                   onChanged: (phone) {},
-                                                  onSave: (phone) {},
                                                   keyBoardType:
                                                       TextInputType.name,
                                                 ),
@@ -210,28 +206,6 @@ class _GiftPaymentScreenState extends State<GiftPaymentScreen> {
                           height: .5.h,
                         ),
                       ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 2.5.h, horizontal: 4.w),
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: GestureDetector(
-                      onTap: () {
-                        pop(context);
-                      },
-                      child: CircleAvatar(
-                        backgroundColor: Colors.white,
-                        child: Padding(
-                          padding: EdgeInsets.all(1.h),
-                          child: Icon(
-                            Icons.arrow_back,
-                            color: kMainColor,
-                          ),
-                        ),
-                      ),
                     ),
                   ),
                 ),

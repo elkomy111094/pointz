@@ -3,6 +3,8 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pointz/Views/Widgets/customt_text_button.dart';
 import 'package:pointz/core/services/home_services.dart';
 import 'package:pointz/helper/components.dart';
+import 'package:pointz/views_models/home/home_cubit.dart';
+import 'package:pointz/views_models/registeration/registeration_cubit.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants/colors.dart';
@@ -11,9 +13,10 @@ import '../Screens/products_provider_details_screen.dart';
 import 'cardItem.dart';
 
 class InfiniteScroll extends StatefulWidget {
-  String? code;
+  String code;
 
-  InfiniteScroll({this.code = ""});
+  BuildContext? currentContext;
+  InfiniteScroll({required this.code, currentContext});
 
   @override
   _InfiniteScrollState createState() => _InfiniteScrollState();
@@ -31,15 +34,25 @@ class _InfiniteScrollState extends State<InfiniteScroll> {
 
   ScrollController _scrollController = ScrollController();
 
-  Future<void> _fetchPage(pageKey) async {
+  Future<void> _fetchPage(pageKey, BuildContext context) async {
+    RegisterationCubit inst = RegisterationCubit.get(context);
+
     try {
       wait.value = true;
       wait.notifyListeners();
-      responseList = await HomeServices()
-          .pgetSomeServicesProviders(widget.code!, pageKey, pageSize)
-          .then((value) {
+      responseList = await HomeServices().pgetSomeServicesProviders(
+          tagCodeList: [],
+          index: pageKey,
+          code: widget.code,
+          pageSize: pageSize,
+          customerID:
+              inst.userResponse!.result!.responseResult!.id!).then((value) {
         wait.value = false;
         wait.notifyListeners();
+
+        print(
+            "///////////////////////////////////////////////////////////////////////////////////");
+        print(value);
 
         return value;
       });
@@ -58,10 +71,9 @@ class _InfiniteScrollState extends State<InfiniteScroll> {
 
   @override
   void initState() {
-    /*  _pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey);
-    });*/
-    _fetchPage(pageKey);
+    print(
+        "ooooooooooooooooooooooooooo${widget.code}oooooooooooooooooooooooooooooooooo");
+    _fetchPage(pageKey, context);
     super.initState();
   }
 
@@ -73,178 +85,101 @@ class _InfiniteScrollState extends State<InfiniteScroll> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: NotificationListener(
-          onNotification: (note) {
-            if (note is ScrollEndNotification) {
-              setState(() {
-                if (isLastPage) {
-                  if (_scrollController.position.atEdge) {
-                    showToastMessage(text: "لا يوجد عناصر أخري لعرضها");
+    print(checkRTL(context));
+    return Directionality(
+      textDirection: getDirection(context),
+      child: SafeArea(
+        child: Scaffold(
+          body: NotificationListener(
+            onNotification: (note) {
+              if (note is ScrollEndNotification) {
+                setState(() {
+                  if (isLastPage) {
+                    if (_scrollController.position.atEdge) {}
+                  } else {
+                    setState(() {
+                      ++pageKey;
+                      _fetchPage(pageKey, context);
+                    });
                   }
-                } else {
-                  ++pageKey;
-                  _fetchPage(pageKey);
-                }
-              });
-            }
-            return false;
-          },
-          child: Stack(
-            children: [
-              PagedListView<int, ServicesProvider>(
-                shrinkWrap: true,
-                scrollController: _scrollController,
-                pagingController: _pagingController,
-                builderDelegate: PagedChildBuilderDelegate<ServicesProvider>(
-                    itemBuilder: (context, item, index) {
-                      return Padding(
-                        padding: EdgeInsets.all(1.h),
-                        child: CardItem(
-                          desc: item.detailsAr,
-                          name: item.nameAr,
-                          image: item.bannerUploadedFile?.base64Format,
-                          currentContext: context,
-                          tabNavigateToScreen: ProductsProviderDetailsScreen(),
+                });
+              }
+              return false;
+            },
+            child: Stack(
+              children: [
+                PagedListView<int, ServicesProvider>(
+                  scrollController: _scrollController,
+                  pagingController: _pagingController,
+                  builderDelegate: PagedChildBuilderDelegate<ServicesProvider>(
+                      itemBuilder: (context, item, index) {
+                    HomeCubit inst = HomeCubit.get(context);
+
+                    return Padding(
+                      padding: EdgeInsets.all(1.h),
+                      child: CardItem(
+                        busineesID: item.id!,
+                        isFavorite: item.isFavoriteForCustomer!,
+                        desc:
+                            checkRTL(context) ? item.detailsAr : item.detailsEn,
+                        name: checkRTL(context) ? item.nameAr : item.nameEn,
+                        coverImage: item.bannerUploadedFile?.base64Format,
+                        currentContext: inst.mainContext!,
+                        logoImage: item.logoUploadedFile?.base64Format,
+                        tabNavigateToScreen: ProductsProviderDetailsScreen(
+                          store: item,
                         ),
-                      );
-                    },
-                    /*animateTransitions: true,*/
-                    newPageProgressIndicatorBuilder: null,
-                    firstPageProgressIndicatorBuilder: (context) {
-                      return SizedBox();
-                    },
-                    firstPageErrorIndicatorBuilder: (context) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 25.h,
-                          ),
-                          Center(
-                            child: Text(
-                              "تعذر تحميل العناصر",
-                              style: TextStyle(
-                                color: kMainColor,
-                                fontFamily: "Taga",
-                                fontSize: 15.sp,
-                              ),
+                      ),
+                    );
+                  },
+                      /*animateTransitions: true,*/
+                      newPageProgressIndicatorBuilder: (context) {
+                    return loader();
+                  }, firstPageProgressIndicatorBuilder: (context) {
+                    return SizedBox();
+                  }, firstPageErrorIndicatorBuilder: (context) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 25.h,
+                        ),
+                        Center(
+                          child: Text(
+                            "تعذر تحميل العناصر",
+                            style: TextStyle(
+                              color: kMainColor,
+                              fontFamily: "Taga",
+                              fontSize: 15.sp,
                             ),
                           ),
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          CustomTextButton(
-                              buttonColor: kMainColor,
-                              buttonHorizontalPaddingval: 25.w,
-                              buttonVerticalPaddingVal: 2.h,
-                              textColor: Colors.white,
-                              textSize: 12.sp,
-                              onPressed: () async {
-                                await _fetchPage(pageKey);
-                              },
-                              text: "حاول مره أخري")
-                        ],
-                      );
-                    }),
-              ),
-              ValueListenableBuilder(
-                  valueListenable: wait,
-                  builder: (context, val, child) => val == true
-                      ? Align(
-                          alignment: Alignment.bottomCenter,
-                          child: CircularProgressIndicator(
-                            color: kMainColor,
-                          ),
-                        )
-                      : SizedBox()),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/*
-import 'package:flutter/material.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:pointz/core/services/home_services.dart';
-import 'package:sizer/sizer.dart';
-
-import '../../models/services_provider_response.dart';
-
-class InfiniteScroll extends StatefulWidget {
-  @override
-  _InfiniteScrollState createState() => _InfiniteScrollState();
-}
-
-class _InfiniteScrollState extends State<InfiniteScroll> {
-  final _numberOfServicesProvidersPerRequest = 10;
-
-  int pageKey = 1;
-  late bool isLastPage;
-
-  final PagingController<int, ServicesProvider> _pagingController =
-      PagingController(firstPageKey: 1);
-
-  Future<void> _fetchPage(pageKey) async {
-    try {
-      List<ServicesProvider> responseList =
-          await HomeServices().pgetSomeServicesProviders("", pageKey);
-      isLastPage = responseList.length < _numberOfServicesProvidersPerRequest;
-      if (isLastPage) {
-        _pagingController.appendLastPage(responseList);
-      } else {
-        final nextPageKey = pageKey + 1;
-        _pagingController.appendPage(responseList, nextPageKey);
-      }
-    } catch (e) {
-      print("error --> $e");
-      _pagingController.error = e;
-    }
-  }
-
-  @override
-  void initState() {
-    _pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey);
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _pagingController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: NotificationListener(
-        onNotification: (note) {
-          if (note is ScrollEndNotification) {
-            setState(() {
-              ++pageKey;
-              _fetchPage(pageKey);
-            });
-          }
-          return false;
-        },
-        child: RefreshIndicator(
-          onRefresh: () => Future.sync(() => _pagingController.refresh()),
-          child: PagedListView<int, ServicesProvider>(
-            pagingController: _pagingController,
-            builderDelegate: PagedChildBuilderDelegate<ServicesProvider>(
-              itemBuilder: (context, item, index) => Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Container(
-                  height: 10.h,
-                  child: Center(child: Text(item.nameAr.toString())),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        CustomTextButton(
+                            buttonColor: kMainColor,
+                            buttonHorizontalPaddingval: 25.w,
+                            buttonVerticalPaddingVal: 2.h,
+                            textColor: Colors.white,
+                            textSize: 12.sp,
+                            onPressed: () async {
+                              await _fetchPage(pageKey, context);
+                            },
+                            text: "حاول مره أخري")
+                      ],
+                    );
+                  }),
                 ),
-              ),
+                ValueListenableBuilder(
+                    valueListenable: wait,
+                    builder: (context, val, child) => val == true
+                        ? Align(
+                            alignment: Alignment.bottomCenter,
+                            child: loader(),
+                          )
+                        : SizedBox()),
+              ],
             ),
           ),
         ),
@@ -252,4 +187,3 @@ class _InfiniteScrollState extends State<InfiniteScroll> {
     );
   }
 }
-*/

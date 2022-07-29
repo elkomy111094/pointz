@@ -3,28 +3,29 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:localize_and_translate/localize_and_translate.dart';
-import 'package:pointz/Views/Screens/empty_screen.dart';
 import 'package:pointz/Views/Screens/products_provider_details_screen.dart';
 import 'package:pointz/views_models/registeration/registeration_cubit.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants/colors.dart';
-import '../../core/services/favorite_services.dart';
+import '../../core/services/home_services.dart';
 import '../../helper/components.dart';
 import '../../models/services_provider_response.dart';
 import '../Widgets/cardItem.dart';
 import '../Widgets/customt_text_button.dart';
 import '../Widgets/simple_Header.dart';
 
-class FavoritesScreen extends StatefulWidget {
-  const FavoritesScreen({Key? key}) : super(key: key);
+class SearchResultScreen extends StatefulWidget {
+  String searchValue;
+  String? catName;
+
+  SearchResultScreen({required this.searchValue, this.catName});
 
   @override
-  State<FavoritesScreen> createState() => _FavoritesScreenState();
+  State<SearchResultScreen> createState() => _SearchResultScreenState();
 }
 
-class _FavoritesScreenState extends State<FavoritesScreen> {
+class _SearchResultScreenState extends State<SearchResultScreen> {
   int pageKey = 1;
   int pageSize = 10;
   late bool isLastPage;
@@ -39,24 +40,44 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   Future<void> _fetchPage(pageKey, BuildContext context) async {
     RegisterationCubit inst = RegisterationCubit.get(context);
     int? userId = inst.userResponse!.result!.responseResult!.id!;
-    print(
-        "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-    print(userId);
     try {
       waitting.value = true;
       waitting.notifyListeners();
-      responseList = await FavoritesServices()
-          .getFavoriteServicesProviders(
-              index: pageKey, userId: userId, pageSize: pageSize)
-          .then((value) {
-        waitting.value = false;
-        waitting.notifyListeners();
-        log("8888888888888888888888888888888888888888888888888888888888888888888888888888");
-        if (kDebugMode) {
-          print(responseList.length);
-        }
-        return value;
-      });
+
+      if (widget.catName == null) {
+        responseList = await HomeServices()
+            .getSearchResultInAll(
+                index: pageKey,
+                userId: userId,
+                pageSize: pageSize,
+                searchValue: widget.searchValue)
+            .then((value) {
+          waitting.value = false;
+          waitting.notifyListeners();
+          log("8888888888888888888888888888888888888888888888888888888888888888888888888888");
+          if (kDebugMode) {
+            print(responseList.length);
+          }
+          return value;
+        });
+      } else {
+        responseList = await HomeServices()
+            .getSearchResultInCategory(
+                categoryCode: widget.catName!,
+                index: pageKey,
+                userId: userId,
+                pageSize: pageSize,
+                searchValue: widget.searchValue)
+            .then((value) {
+          waitting.value = false;
+          waitting.notifyListeners();
+          log("8888888888888888888888888888888888888888888888888888888888888888888888888888");
+          if (kDebugMode) {
+            print(responseList.length);
+          }
+          return value;
+        });
+      }
       log("8888888888888888888888888888888888888888888888888888888888888888888888888888");
       if (kDebugMode) {
         print(responseList.length);
@@ -95,7 +116,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Directionality(
-        textDirection: getDirection(context),
+        textDirection: TextDirection.rtl,
         child: Scaffold(
           body: SizedBox(
             width: double.infinity,
@@ -110,8 +131,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         setState(() {
                           if (isLastPage) {
                             if (_scrollController.position.atEdge) {
-                              /* showToastMessage(
-                                  text: "لا يوجد عناصر أخري لعرضها");*/
+                              showToastMessage(
+                                  text: "لا يوجد عناصر أخري لعرضها");
                             }
                           } else {
                             ++pageKey;
@@ -134,22 +155,17 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                   padding: EdgeInsets.all(1.h),
                                   child: CardItem(
                                     busineesID: item.id!,
-                                    isFavorite: true,
-                                    desc: checkRTL(context)
-                                        ? item.detailsAr
-                                        : item.detailsEn,
+                                    isFavorite: item.isFavoriteForCustomer!,
+                                    desc: item.detailsAr,
                                     coverImage:
                                         item.bannerUploadedFile?.base64Format,
                                     logoImage:
                                         item.logoUploadedFile?.base64Format,
-                                    name: checkRTL(context)
-                                        ? item.nameAr
-                                        : item.nameEn,
+                                    name: item.nameAr,
                                     currentContext: context,
                                     tabNavigateToScreen:
                                         ProductsProviderDetailsScreen(
-                                      store: item,
-                                    ),
+                                            store: item),
                                   ),
                                 );
                               },
@@ -160,10 +176,17 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                 return const SizedBox();
                               },
                               noItemsFoundIndicatorBuilder: (context) {
-                                return EmptyScreen(
-                                    svgImageUrl: "assets/icons/empty.svg",
-                                    textUnderImage:
-                                        "No Favorites items Founded".tr());
+                                return Center(
+                                  child: Text(
+                                    "لا يوجد عناصر لعرضها",
+                                    style: TextStyle(
+                                      color: kMainColor,
+                                      fontFamily: "Taga",
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                );
                               },
                               firstPageErrorIndicatorBuilder: (context) {
                                 return Column(
@@ -208,7 +231,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   ),
                 ),
                 SimpleHeader(
-                  headerTitle: "Favorites".tr(),
+                  headerTitle: widget.searchValue,
                 ),
               ],
             ),

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:pointz/models/user_details_Response.dart';
 
 import '../../constants/strings.dart';
@@ -45,18 +46,9 @@ class UserRegisterationServices {
       if (e.response!.data["Error"] != null) {
         String errorMessage = e.response!.data["Error"]["Description"];
         if (errorMessage ==
-            json.encode(
-                ["A customer with the same phone number already exist"])) {
-          return "عفوا:لم يتم التسجيل،لان رقم الهاتف مسجل من قبل";
-        } else if (errorMessage ==
-            json.encode([
-              "A customer with the same email already exist",
-              "A customer with the same phone number already exist"
-            ])) {
-          return "عفوا:لم يتم التسجيل،لان هذا الحساب مسجل من قبل من فضلك توجه الي شاشه تسجيل الدخول";
-        } else if (errorMessage ==
             json.encode(["A customer with the same email already exist"])) {
-          return "عفوا:لم يتم التسجيل،لان هذا البريد الالكتروني مسجل من قبل";
+          return "Sorry: No registration has been done, because this email has already been registered"
+              .tr();
         } else {
           return errorMessage;
         }

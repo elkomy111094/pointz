@@ -239,7 +239,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       child: SquareTextField(
                         hintText: "هل تود أخبارنا بشئ",
                         onChanged: (val) {},
-                        onSave: (val) {},
+                        onSubmit: (val) {},
                         preFixWidget: Padding(
                           padding: EdgeInsets.symmetric(vertical: 1.h),
                           child: SvgPicture.asset(
